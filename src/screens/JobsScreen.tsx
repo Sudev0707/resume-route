@@ -8,6 +8,7 @@ import {
   FlatList,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { JobsStyles, getStatusBadgeStyle } from './styles/JobsStyles';
@@ -204,6 +205,7 @@ const JOBS: Job[] = [
 ];
 
 export const JobsScreen: React.FC = () => {
+  const navigation = useNavigation();
   const [viewMode, setViewMode] = useState<'list' | 'board'>('list');
   const [filter, setFilter] = useState<JobStatus | 'All'>('All');
 
@@ -230,7 +232,10 @@ export const JobsScreen: React.FC = () => {
           <Text style={JobsStyles.title}>{job.title}</Text>
           <Text style={JobsStyles.company}>{job.company}</Text>
           <Text style={JobsStyles.meta}>
-            <Feather name="map-pin" size={15} color={Colors.red}  /> {job.location} <Feather name="dollar-sign" size={14} color={Colors.green} /> {job.salary}
+            <Feather name="map-pin" size={15} color={Colors.red} />{' '}
+            {job.location}{' '}
+            <Feather name="dollar-sign" size={14} color={Colors.green} />{' '}
+            {job.salary}
           </Text>
         </View>
         <View style={getStatusBadgeStyle(job.status)}>
@@ -252,26 +257,24 @@ export const JobsScreen: React.FC = () => {
           barStyle="dark-content"
           translucent
         />
+
         <SafeAreaView
           style={JobsStyles.container}
           edges={['top', 'right', 'bottom', 'left']}
         >
+          <View style={JobsStyles.header}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              activeOpacity={0.8}
+              style={JobsStyles.backButton}
+            >
+              <Feather name="chevron-left" size={24} />
+            </TouchableOpacity>
+            <Text style={JobsStyles.headerTitle}>Applications</Text>
+          </View>
           {/* content */}
           <View style={JobsStyles.contentContainer}>
-            <View style={JobsStyles.header}>
-              <View>
-                <Text style={JobsStyles.heading}>Job Tracker</Text>
-                <Text style={JobsStyles.subHeading}>
-                  {JOBS.length} applications
-                </Text>
-              </View>
-
-              <TouchableOpacity style={JobsStyles.addButton}>
-                <Text style={{ color: '#fff', fontWeight: '600' }}>
-                  + Add Job
-                </Text>
-              </TouchableOpacity>
-            </View>
+            {/* Header */}
 
             <View style={JobsStyles.toggleContainer}>
               <TouchableOpacity
@@ -282,7 +285,9 @@ export const JobsScreen: React.FC = () => {
                 onPress={() => setViewMode('list')}
               >
                 <Feather name="list" size={16} color={Colors.textSecondary} />
-                <Text style={{ marginLeft: 8, color: Colors.textSecondary }}>List</Text>
+                <Text style={{ marginLeft: 8, color: Colors.textSecondary }}>
+                  List
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -293,7 +298,9 @@ export const JobsScreen: React.FC = () => {
                 onPress={() => setViewMode('board')}
               >
                 <Feather name="grid" size={15} color={Colors.textSecondary} />
-                <Text style={{ marginLeft: 8, color: Colors.textSecondary }}>Board</Text>
+                <Text style={{ marginLeft: 8, color: Colors.textSecondary }}>
+                  Board
+                </Text>
               </TouchableOpacity>
             </View>
 
@@ -385,17 +392,30 @@ export const JobsScreen: React.FC = () => {
                       data={groupedJobs[column]}
                       keyExtractor={job => job.id}
                       renderItem={({ item: job }) => (
-                        <TouchableOpacity style={JobsStyles.boardCard} activeOpacity={0.6}>
+                        <TouchableOpacity
+                          style={JobsStyles.boardCard}
+                          activeOpacity={0.6}
+                        >
                           <Text style={JobsStyles.title}>{job.title}</Text>
                           <Text style={JobsStyles.company}>{job.company}</Text>
-                          <Text style={JobsStyles.meta} numberOfLines={1}  >
-                              <Feather name="map-pin" size={15} color={Colors.red}  /> {job.location} <Feather name="dollar-sign" size={14} color={Colors.green} /> {job.salary}
+                          <Text style={JobsStyles.meta} numberOfLines={1}>
+                            <Feather
+                              name="map-pin"
+                              size={15}
+                              color={Colors.red}
+                            />{' '}
+                            {job.location}{' '}
+                            <Feather
+                              name="dollar-sign"
+                              size={14}
+                              color={Colors.green}
+                            />{' '}
+                            {job.salary}
                           </Text>
                         </TouchableOpacity>
                       )}
                       showsVerticalScrollIndicator={false}
                     />
-                  
                   </View>
                 ))}
               </ScrollView>

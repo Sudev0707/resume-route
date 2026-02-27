@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../constants';
+import { Colors, FONTS } from '../../constants';
 
 export const ResumeStyles = StyleSheet.create({
   container: {
@@ -17,14 +17,22 @@ export const ResumeStyles = StyleSheet.create({
 
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    paddingVertical: 10,
+    // borderWidth: 0.5
+    paddingHorizontal: 16,
+    // backgroundColor: Colors.offWhite,
   },
-
+  backButton: {
+    padding: 6,
+    borderRadius: 8,
+    backgroundColor: Colors.offWhite,
+    // borderWidth: 0.5,
+  },
   headerTitle: {
-    fontSize: 22,
-    fontWeight: '700',
+    fontSize: FONTS.sizes.lg,
+    fontFamily: FONTS.fontFamily.semibold,
+    marginLeft: 10,
   },
 
   headerSubtitle: {

@@ -83,7 +83,7 @@ export const ProfileScreen: React.FC = () => {
 
             {/* ===== ACCOUNT SECTION ===== */}
             <Text style={styles.sectionTitle}>ACCOUNT</Text>
-            <View style={styles.menuCard}>
+            <MenuCard>
               <MenuItem
                 icon="edit-2"
                 title="Edit Profile"
@@ -95,13 +95,36 @@ export const ProfileScreen: React.FC = () => {
                 title="Target Role"
                 subtitle="Senior Frontend Engineer"
               />
-            </View>
+            </MenuCard>
 
             {/*  */}
+             <Text style={styles.sectionTitle}>PREFERENCES</Text>
+            <MenuCard>
+              <MenuItem
+                icon="moon"
+                title="Dark Mode"
+                subtitle="Switch to dark"
+                rightComponent={<Switch />}
+              />
 
-            
+              <MenuItem
+                icon="bell"
+                title="Notifications"
+                subtitle="Application reminders"
+              />
+
+              <MenuItem
+                icon="lock"
+                title="Privacy"
+                subtitle="Manage your data"
+                isLast
+              />
+            </MenuCard>
 
             {/*  */}
+            <MenuCard>
+              <MenuItem icon="log-out" title="Log Out" danger isLast />
+            </MenuCard>
           </ScrollView>
         </SafeAreaView>
       </View>
@@ -115,18 +138,43 @@ const StatBox = ({ number, label }: any) => (
     <Text style={styles.statLabel}>{label}</Text>
   </View>
 );
+const MenuCard = ({ children }: any) => (
+  <View style={styles.menuCard}>{children}</View>
+);
 
-const MenuItem = ({ icon, title, subtitle }: any) => (
-  <TouchableOpacity style={styles.menuItem}>
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <Feather name={icon} size={20} />
+const MenuItem = ({
+  icon,
+  title,
+  subtitle,
+  rightComponent,
+  isLast,
+  danger,
+  onPress,
+}: any) => (
+  <TouchableOpacity
+    style={[styles.menuItem, isLast && { borderBottomWidth: 0 }]}
+    activeOpacity={0.7}
+    onPress={onPress}
+  >
+    <View style={styles.menuLeft}>
+      <View style={styles.iconContainer}>
+        <Feather name={icon} size={18} color="#333" />
+      </View>
+
       <View style={{ marginLeft: 14 }}>
-        <Text style={styles.menuTitle}>{title}</Text>
-        <Text style={styles.menuSubtitle}>{subtitle}</Text>
+        <Text style={[styles.menuTitle, danger && { color: '#FF3B30' }]}>
+          {title}
+        </Text>
+
+        {subtitle && <Text style={styles.menuSubtitle}>{subtitle}</Text>}
       </View>
     </View>
 
-    <Feather name="chevron-right" size={20} color="#888" />
+    {rightComponent ? (
+      rightComponent
+    ) : (
+      <Feather name="chevron-right" size={18} color="#C7C7CC" />
+    )}
   </TouchableOpacity>
 );
 
@@ -268,7 +316,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
     color: '#6E6E73',
-    marginBottom: 10,
+    marginTop: 15,
     textTransform: 'uppercase',
   },
 
@@ -277,6 +325,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     overflow: 'hidden',
     elevation: 2,
+    marginTop: 16,
   },
 
   menuItem: {
@@ -298,5 +347,18 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#6E6E73',
     marginTop: 2,
+  },
+  menuLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  iconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: '#F4F4F8',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

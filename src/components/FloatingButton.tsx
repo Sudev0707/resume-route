@@ -53,6 +53,7 @@ export const FloatingButton: React.FC<FloatingButtonProps> = ({
       onUploadPress();
     }
     navigation.navigate('ResumeUpload' as never);
+     toggleMenu();
   };
 
   const handleAddJobPress = () => {
@@ -60,6 +61,7 @@ export const FloatingButton: React.FC<FloatingButtonProps> = ({
       onAddJobPress();
     }
     navigation.navigate('AddJob' as never);
+     toggleMenu();
   };
 
   const uploadTranslate = animation.interpolate({
