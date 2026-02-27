@@ -2,6 +2,8 @@ export * from './Onboard';
 export * from './LoginScreen';
 export * from './HomeScreen';
 export * from './ResumeScreen';
+export * from './ResumeUploadScreen';
+export * from './AddJobScreen';
 export * from './JobsScreen';
 export * from './AnalyticsScreen';
 export * from './ProfileScreen';

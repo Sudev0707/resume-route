@@ -1,7 +1,8 @@
 export type RootStackParamList = {
   Onboard: undefined;
   LoginScreen: undefined;
-  
+  ResumeUpload: undefined;
+  AddJob: undefined;
   Tabs: undefined;
 };
 

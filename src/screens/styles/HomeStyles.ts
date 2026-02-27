@@ -91,4 +91,22 @@ export const HomeStyles = StyleSheet.create({
   },
   insightTitle: { fontSize: 15, fontWeight: '700' },
   insightSubtitle: { fontSize: 13, color: Colors.textSecondary },
+
+  // Floating Button Styles
+  floatingButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: Colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
 });

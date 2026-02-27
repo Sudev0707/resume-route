@@ -9,6 +9,8 @@ import {
   Onboard,
   LoginScreen,
   ResumeScreen,
+  ResumeUploadScreen,
+  AddJobScreen,
   JobsScreen,
   AnalyticsScreen,
 } from '../screens';
@@ -27,7 +29,7 @@ const TabNavigator: React.FC = () => {
           let iconName: string;
 
           if (route.name === 'Home') {
-            iconName = 'home'; 
+            iconName = 'home';
           } else if (route.name === 'Resumes') {
             iconName = 'file-text';
           } else if (route.name === 'Jobs') {
@@ -61,7 +63,7 @@ const TabNavigator: React.FC = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Resumes" component={ResumeScreen} />
       <Tab.Screen name="Jobs" component={JobsScreen} />
-      <Tab.Screen name="Analytics" component={AnalyticsScreen} />
+      {/* <Tab.Screen name="Analytics" component={AnalyticsScreen} /> */}
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
@@ -78,6 +80,8 @@ export const AppNavigator: React.FC = () => {
       >
         <Stack.Screen name="Onboard" component={Onboard} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="ResumeUpload" component={ResumeUploadScreen} />
+        <Stack.Screen name="AddJob" component={AddJobScreen} />
         <Stack.Screen name="Tabs" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

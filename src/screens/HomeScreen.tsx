@@ -1,14 +1,10 @@
 import React from 'react';
 import { View, Text, ScrollView, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Feather from 'react-native-vector-icons/Feather';
 import { Colors } from '../constants';
-import { ScreenContainer } from '../components/ScreenContainer';
+import { FloatingButton } from '../components/FloatingButton';
 import { HomeStyles } from './styles/HomeStyles';
-
-// You can replace these icons with actual icon components
-const Icon = ({ emoji }: { emoji: string }) => (
-  <Text style={{ fontSize: 26 }}>{emoji}</Text>
-);
 
 export const HomeScreen: React.FC = () => {
   return (
@@ -33,12 +29,12 @@ export const HomeScreen: React.FC = () => {
             {/* ========= OVERVIEW SECTION ========= */}
             <Text style={HomeStyles.sectionTitle}>Overview</Text>
             <View style={HomeStyles.overviewGrid}>
-              <OverviewView emoji="📄" title="Resumes" value="4" />
-              <OverviewView emoji="🎯" title="Applications" value="8" />
-              <OverviewView emoji="🤝" title="Interview Rate" value="63%" />
-              <OverviewView emoji="🏆" title="Offers" value="2" />
-              <OverviewView emoji="👁️" title="Resume Views" value="583" />
-              <OverviewView emoji="⬇️" title="Downloads" value="74" />
+              <OverviewView icon="document-text" title="Resumes" value="4" />
+              <OverviewView icon="briefcase" title="Applications" value="8" />
+              <OverviewView icon="people" title="Interview Rate" value="63%" />
+              <OverviewView icon="trophy" title="Offers" value="2" />
+              <OverviewView icon="eye" title="Resume Views" value="583" />
+              <OverviewView icon="download" title="Downloads" value="74" />
             </View>
 
             {/* <View style={HomeStyles.trendView}>
@@ -70,13 +66,16 @@ export const HomeScreen: React.FC = () => {
             <Text style={HomeStyles.sectionTitle}>Career Insights</Text>
 
             <InsightView
-              emoji="🚀"
+              icon="rocket"
               title="Tech Resume is your best performer"
               subtitle="It gets 30% more views than your other resumes."
             />  */}
 
           </ScrollView>
         </SafeAreaView>
+
+        {/* ========= FLOATING BUTTON ========= */}
+        <FloatingButton  />
       </View>
     </>
   );
@@ -85,28 +84,28 @@ export const HomeScreen: React.FC = () => {
 /* ========================= COMPONENTS ========================= */
 
 const OverviewView = ({
-  emoji,
+  icon,
   title,
   value,
 }: {
-  emoji: string;
+  icon: string;
   title: string;
   value: string;
 }) => (
   <View style={HomeStyles.overviewView}>
-    <Icon emoji={emoji} />
+    <Feather name={icon} size={26} color={Colors.primary} />
     <Text style={HomeStyles.overviewValue}>{value}</Text>
     <Text style={HomeStyles.overviewLabel}>{title}</Text>
   </View>
 );
 
 const InsightView = ({
-  emoji,
+  icon,
   title,
   subtitle,
   highlight = false,
 }: {
-  emoji: string;
+  icon: string;
   title: string;
   subtitle: string;
   highlight?: boolean;
@@ -114,7 +113,7 @@ const InsightView = ({
   <View
     style={[HomeStyles.insightView, highlight && HomeStyles.insightHighlight]}
   >
-    <Icon emoji={emoji} />
+    <Feather name={icon} size={26} color={Colors.primary} />
     <View style={{ marginLeft: 10 }}>
       <Text style={HomeStyles.insightTitle}>{title}</Text>
       <Text style={HomeStyles.insightSubtitle}>{subtitle}</Text>
