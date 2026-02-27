@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Feather";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { LoginStyles } from "./styles/LoginStyles";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -73,6 +74,11 @@ const LoginScreen = () => {
     navigation.navigate("Home");
   };
 
+  const handleGoogleLogin = () => {
+    // Placeholder for Google login logic
+    console.log('Google login pressed');
+  };
+
   return (
     <>
       <StatusBar
@@ -98,7 +104,7 @@ const LoginScreen = () => {
 
       <SafeAreaView style={LoginStyles.safe}>
         {/* CONTAINER WITH FIXED HEIGHT + OVERFLOW HIDDEN (IMPORTANT) */}
-        <View style={{ height: 500, overflow: "hidden", position: 'relative' }}>
+        <View style={{ height: 700, overflow: "hidden", position: 'relative', }}>
           {/* LOGIN FORM */}
           <Animated.View  style={[LoginStyles.form, loginStyle, { position: 'absolute', top: 0, left: 0, right: 0, zIndex: showLogin ? 1 : 0 }]}>
             <Text style={LoginStyles.label}>Email</Text>
@@ -137,6 +143,11 @@ const LoginScreen = () => {
               <Text style={LoginStyles.orText}>or</Text>
               <View style={LoginStyles.line} />
             </View>
+
+            <TouchableOpacity style={LoginStyles.googleBtn} onPress={handleGoogleLogin}>
+              <MaterialIcons name="google" size={20} color="#DB4437" />
+              <Text style={LoginStyles.googleText}>Continue with Google</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity style={LoginStyles.guestBtn}>
               <Text style={LoginStyles.guestText}>Continue as Guest</Text>

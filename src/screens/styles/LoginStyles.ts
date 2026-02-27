@@ -53,7 +53,7 @@ export const LoginStyles = StyleSheet.create({
 
   signInBtn: {
     backgroundColor: '#1A73E8',
-    paddingVertical: 14,
+     paddingVertical: 9,
     borderRadius: 12,
     marginTop: 28,
     alignItems: 'center',
@@ -102,7 +102,7 @@ export const LoginStyles = StyleSheet.create({
 
   guestBtn: {
     backgroundColor: '#fff',
-    paddingVertical: 14,
+    paddingVertical: 9,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#D6DFEA',
@@ -112,6 +112,24 @@ export const LoginStyles = StyleSheet.create({
   guestText: {
     fontSize: 16,
     color: '#1A1A1A',
+  },
+
+  googleBtn: {
+    backgroundColor: '#fff',
+    paddingVertical: 9,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#D6DFEA',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
+
+  googleText: {
+    fontSize: 16,
+    color: '#1A1A1A',
+    marginLeft: 8,
   },
 
   footer:{
