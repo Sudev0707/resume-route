@@ -1,0 +1,95 @@
+import React, { useRef, useState } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  Dimensions,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { OnboardStyles } from './styles/OnboardStyles';
+
+const { width, height } = Dimensions.get('window');
+
+const slides = [
+  {
+    id: 1,
+    title: 'Manage Your Resumes',
+    desc: 'Upload, track, and share multiple resumes.\nSee who views your resume in real-time.',
+    // icon: require("../assets/resume.png"),
+  },
+  {
+    id: 2,
+    title: 'Track Job Applications',
+    desc: 'Never lose track of a job application. Manage your pipeline from applied to offer.',
+    // icon: require("../assets/job.png"),
+  },
+  {
+    id: 3,
+    title: 'Get Hired Faster',
+    desc: 'Smart suggestions & resume score.\nBoost your chances with insights.',
+    // icon: require("../assets/hire.png"),
+  },
+];
+
+const Onboard = () => {
+  const flatRef = useRef<FlatList>(null);
+  const [index, setIndex] = useState(0);
+
+  const handleNext = () => {
+    if (index < slides.length - 1) {
+      flatRef.current?.scrollToIndex({ index: index + 1 });
+      setIndex(index + 1);
+    } else {
+      console.log('Done → Navigate to login');
+    }
+  };
+
+  return (
+    <SafeAreaView style={OnboardStyles.container}>
+      <TouchableOpacity style={OnboardStyles.skipBtn}>
+        <Text style={OnboardStyles.skipText}>Skip</Text>
+      </TouchableOpacity>
+
+      <View style={OnboardStyles.flatListWrapper}>
+        <FlatList
+          data={slides}
+          ref={flatRef}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={e => {
+            const x = e.nativeEvent.contentOffset.x;
+            setIndex(Math.round(x / width));
+          }}
+          renderItem={({ item }) => (
+            <View style={OnboardStyles.slide}>
+              <Text style={OnboardStyles.title}>{item.title}</Text>
+              <Text style={OnboardStyles.desc}>{item.desc}</Text>
+            </View>
+          )}
+          keyExtractor={item => item.id.toString()}
+          contentContainerStyle={OnboardStyles.flatListContent}
+        />
+      </View>
+
+      <View style={OnboardStyles.dotsWrapper}>
+        {slides.map((_, i) => (
+          <View
+            key={i}
+            style={[OnboardStyles.dot, index === i && OnboardStyles.activeDot]}
+          />
+        ))}
+      </View>
+
+      <TouchableOpacity onPress={handleNext} style={OnboardStyles.nextBtn}>
+        <Text style={OnboardStyles.nextText}>
+          {index === slides.length - 1 ? 'Get Started →' : 'Next →'}
+        </Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+};
+
+export { Onboard };
