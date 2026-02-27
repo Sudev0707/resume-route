@@ -71,7 +71,7 @@ const LoginScreen = () => {
   // ====================
   const handleLogin = () => {
     // Placeholder for login logic
-    navigation.navigate("Home");
+    navigation.navigate("Tabs");
   };
 
   const handleGoogleLogin = () => {
@@ -149,9 +149,9 @@ const LoginScreen = () => {
               <Text style={LoginStyles.googleText}>Continue with Google</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={LoginStyles.guestBtn}>
+            {/* <TouchableOpacity style={LoginStyles.guestBtn}>
               <Text style={LoginStyles.guestText}>Continue as Guest</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <View style={LoginStyles.footer}>
               <Text style={LoginStyles.footerText}>No account?</Text>
