@@ -12,4 +12,7 @@ export const Colors = {
   success: '#34C759',
   error: '#FF3B30',
   warning: '#FF9500',
+  red: '#FF3B30',
+  green: '#34C759',
+  blue: '#007AFF',
 };

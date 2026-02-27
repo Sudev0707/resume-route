@@ -13,7 +13,7 @@ import {
   AnalyticsScreen,
 } from '../screens';
 import { RootStackParamList, RootTabParamList } from '../types';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -27,16 +27,22 @@ const TabNavigator: React.FC = () => {
           let iconName: string;
 
           if (route.name === 'Home') {
-            iconName = focused ? 'home' : 'home-outline';
+            iconName = 'home'; 
+          } else if (route.name === 'Resumes') {
+            iconName = 'file-text';
+          } else if (route.name === 'Jobs') {
+            iconName = 'briefcase';
+          } else if (route.name === 'Analytics') {
+            iconName = 'activity';
           } else if (route.name === 'Profile') {
-            iconName = focused ? 'person' : 'person-outline';
+            iconName = 'user';
           } else if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
+            iconName = 'settings';
           } else {
-            iconName = 'help-circle-outline';
+            iconName = 'help-circle';
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Feather name={iconName} size={19} color={color} />;
         },
         tabBarActiveTintColor: '#007AFF',
         tabBarInactiveTintColor: 'gray',

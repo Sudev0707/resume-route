@@ -38,12 +38,16 @@ export const JobsStyles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#eee',
     borderRadius: 12,
-    padding: 4,
+    padding: 6,
     marginTop: 20,
+    alignSelf: 'flex-start', 
+    // borderWidth: 1,
+
   },
 
   toggleButton: {
-    flex: 1,
+    // flex: 1,
+    flexDirection: 'row',
     padding: 10,
     alignItems: 'center',
     borderRadius: 10,
@@ -66,8 +70,8 @@ export const JobsStyles = StyleSheet.create({
   },
 
   card: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  flexDirection: 'column',
+    alignItems: 'flex-start',
     backgroundColor: '#fff',
     padding: 16,
     borderRadius: 16,
@@ -99,12 +103,12 @@ export const JobsStyles = StyleSheet.create({
   },
 
   boardColumn: {
-    width: 290,
+    width: 300,
     marginRight: 16,
     backgroundColor: '#f0f0f0',
     borderRadius: 14,
     padding: 12,
-    maxHeight: 450,
+    // maxHeight: 450,
     // borderWidth: 1,
     borderColor: Colors.border,
   },
