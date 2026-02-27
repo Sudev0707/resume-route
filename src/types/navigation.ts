@@ -1,5 +1,6 @@
 export type RootStackParamList = {
   Onboard: undefined;
+  LoginScreen: undefined;
   Home: undefined;
   Profile: undefined;
   Settings: undefined;

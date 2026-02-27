@@ -6,9 +6,17 @@ import {
   Image,
   FlatList,
   Dimensions,
+  Animated,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../types/navigation';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { OnboardStyles } from './styles/OnboardStyles';
+
+// 
+type navProp = NativeStackNavigationProp<RootStackParamList, 'LoginScreen'>;
 
 const { width, height } = Dimensions.get('window');
 
@@ -36,13 +44,15 @@ const slides = [
 const Onboard = () => {
   const flatRef = useRef<FlatList>(null);
   const [index, setIndex] = useState(0);
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation<navProp>();
 
   const handleNext = () => {
     if (index < slides.length - 1) {
       flatRef.current?.scrollToIndex({ index: index + 1 });
       setIndex(index + 1);
     } else {
-      console.log('Done → Navigate to login');
+      navigation.navigate('LoginScreen');
     }
   };
 
@@ -59,10 +69,17 @@ const Onboard = () => {
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          onScroll={e => {
-            const x = e.nativeEvent.contentOffset.x;
-            setIndex(Math.round(x / width));
-          }}
+          scrollEventThrottle={16}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            {
+              useNativeDriver: false,
+              listener: (event: any) => {
+                const x = event.nativeEvent.contentOffset.x;
+                setIndex(Math.round(x / width));
+              },
+            }
+          )}
           renderItem={({ item }) => (
             <View style={OnboardStyles.slide}>
               <Text style={OnboardStyles.title}>{item.title}</Text>
@@ -75,12 +92,21 @@ const Onboard = () => {
       </View>
 
       <View style={OnboardStyles.dotsWrapper}>
-        {slides.map((_, i) => (
-          <View
-            key={i}
-            style={[OnboardStyles.dot, index === i && OnboardStyles.activeDot]}
-          />
-        ))}
+        {slides.map((_, i) => {
+          const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
+          const outputRange = [8, 22, 8];
+          const widthAnim = scrollX.interpolate({
+            inputRange,
+            outputRange,
+            extrapolate: 'clamp',
+          });
+          return (
+            <Animated.View
+              key={i}
+              style={[OnboardStyles.dot, { width: widthAnim }]}
+            />
+          );
+        })}
       </View>
 
       <TouchableOpacity onPress={handleNext} style={OnboardStyles.nextBtn}>

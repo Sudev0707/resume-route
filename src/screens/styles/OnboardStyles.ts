@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Colors } from '../../constants';
+import { Colors, FONTS } from '../../constants';
 
 const { width } = Dimensions.get('window');
 
@@ -15,7 +15,7 @@ export const OnboardStyles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginTop: 20,
     marginHorizontal: 20,
-    borderWidth: 0.5,
+    // borderWidth: 0.5,
     padding: 10,
     borderRadius: 8,
     // position: "absolute",
@@ -25,7 +25,9 @@ export const OnboardStyles = StyleSheet.create({
   },
   skipText: {
     color: '#64748b',
-    fontSize: 16,
+    fontSize: FONTS.sizes.md,
+    // fontFamily: FONTS.primary.family,
+    fontWeight: 500
   },
   flatListWrapper: {
     width: width,
