@@ -11,10 +11,19 @@ import {
   Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/Feather";
 import { LoginStyles } from "./styles/LoginStyles";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../types/navigation';
+
+type LoginNavProp = NativeStackNavigationProp<RootStackParamList>;
 
 const LoginScreen = () => {
+  const navigation = useNavigation<LoginNavProp>();
   const [showLogin, setShowLogin] = useState(true);
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [showCreatePassword, setShowCreatePassword] = useState(false);
 
   const slideAnim = useRef(new Animated.Value(0)).current;
 
@@ -58,6 +67,12 @@ const LoginScreen = () => {
     ],
   };
 
+  // ====================
+  const handleLogin = () => {
+    // Placeholder for login logic
+    navigation.navigate("Home");
+  };
+
   return (
     <>
       <StatusBar
@@ -85,7 +100,7 @@ const LoginScreen = () => {
         {/* CONTAINER WITH FIXED HEIGHT + OVERFLOW HIDDEN (IMPORTANT) */}
         <View style={{ height: 500, overflow: "hidden", position: 'relative' }}>
           {/* LOGIN FORM */}
-          <Animated.View style={[LoginStyles.form, loginStyle, { position: 'absolute', top: 0, left: 0, right: 0, zIndex: showLogin ? 1 : 0 }]}>
+          <Animated.View  style={[LoginStyles.form, loginStyle, { position: 'absolute', top: 0, left: 0, right: 0, zIndex: showLogin ? 1 : 0 }]}>
             <Text style={LoginStyles.label}>Email</Text>
             <TextInput
               placeholder="alex@example.com"
@@ -94,14 +109,26 @@ const LoginScreen = () => {
             />
 
             <Text style={LoginStyles.label}>Password</Text>
-            <TextInput
-              placeholder="••••••••"
-              placeholderTextColor="#9BA4B5"
-              secureTextEntry
-              style={LoginStyles.input}
-            />
+            <View style={LoginStyles.passwordContainer}>
+              <TextInput
+                placeholder="••••••••"
+                placeholderTextColor="#9BA4B5"
+                secureTextEntry={!showLoginPassword}
+                style={LoginStyles.input}
+              />
+              <TouchableOpacity
+                style={LoginStyles.eyeIcon}
+                onPress={() => setShowLoginPassword(!showLoginPassword)}
+              >
+                <Icon 
+                  name={showLoginPassword ? "eye-off" : "eye"} 
+                  size={22} 
+                  color="#6A7483" 
+                />
+              </TouchableOpacity>
+            </View>
 
-            <TouchableOpacity style={LoginStyles.signInBtn}>
+            <TouchableOpacity style={LoginStyles.signInBtn} onPress={handleLogin}>
               <Text style={LoginStyles.signInText}>Sign In</Text>
             </TouchableOpacity>
 

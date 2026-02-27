@@ -27,7 +27,7 @@ export const OnboardStyles = StyleSheet.create({
     color: '#64748b',
     fontSize: FONTS.sizes.md,
     // fontFamily: FONTS.primary.family,
-    fontWeight: 500
+    fontWeight: 800
   },
   flatListWrapper: {
     width: width,

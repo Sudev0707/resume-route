@@ -7,15 +7,17 @@ import {
   FlatList,
   Dimensions,
   Animated,
+  Platform,
+  StatusBar,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-// 
+//
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { OnboardStyles } from './styles/OnboardStyles';
 
-// 
+//
 type navProp = NativeStackNavigationProp<RootStackParamList, 'LoginScreen'>;
 
 const { width, height } = Dimensions.get('window');
@@ -57,64 +59,74 @@ const Onboard = () => {
   };
 
   return (
-    <SafeAreaView style={OnboardStyles.container}>
-      <TouchableOpacity style={OnboardStyles.skipBtn}>
-        <Text style={OnboardStyles.skipText}>Skip</Text>
-      </TouchableOpacity>
+    <>
+      <StatusBar
+        backgroundColor={Platform.OS === 'android' ? '#f8fafc' : 'transparent'}
+        barStyle="dark-content"
+        translucent={Platform.OS === 'ios'}
+      />
+      <SafeAreaView style={OnboardStyles.container}>
+        <TouchableOpacity
+          style={OnboardStyles.skipBtn}
+          onPress={() => navigation.navigate('LoginScreen')}
+        >
+          <Text style={OnboardStyles.skipText}>Skip</Text>
+        </TouchableOpacity>
 
-      <View style={OnboardStyles.flatListWrapper}>
-        <FlatList
-          data={slides}
-          ref={flatRef}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={16}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            {
-              useNativeDriver: false,
-              listener: (event: any) => {
-                const x = event.nativeEvent.contentOffset.x;
-                setIndex(Math.round(x / width));
+        <View style={OnboardStyles.flatListWrapper}>
+          <FlatList
+            data={slides}
+            ref={flatRef}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            scrollEventThrottle={16}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              {
+                useNativeDriver: false,
+                listener: (event: any) => {
+                  const x = event.nativeEvent.contentOffset.x;
+                  setIndex(Math.round(x / width));
+                },
               },
-            }
-          )}
-          renderItem={({ item }) => (
-            <View style={OnboardStyles.slide}>
-              <Text style={OnboardStyles.title}>{item.title}</Text>
-              <Text style={OnboardStyles.desc}>{item.desc}</Text>
-            </View>
-          )}
-          keyExtractor={item => item.id.toString()}
-          contentContainerStyle={OnboardStyles.flatListContent}
-        />
-      </View>
+            )}
+            renderItem={({ item }) => (
+              <View style={OnboardStyles.slide}>
+                <Text style={OnboardStyles.title}>{item.title}</Text>
+                <Text style={OnboardStyles.desc}>{item.desc}</Text>
+              </View>
+            )}
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={OnboardStyles.flatListContent}
+          />
+        </View>
 
-      <View style={OnboardStyles.dotsWrapper}>
-        {slides.map((_, i) => {
-          const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
-          const outputRange = [8, 22, 8];
-          const widthAnim = scrollX.interpolate({
-            inputRange,
-            outputRange,
-            extrapolate: 'clamp',
-          });
-          return (
-            <Animated.View
-              key={i}
-              style={[OnboardStyles.dot, { width: widthAnim }]}
-            />
-          );
-        })}
-      </View>
+        <View style={OnboardStyles.dotsWrapper}>
+          {slides.map((_, i) => {
+            const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
+            const outputRange = [8, 22, 8];
+            const widthAnim = scrollX.interpolate({
+              inputRange,
+              outputRange,
+              extrapolate: 'clamp',
+            });
+            return (
+              <Animated.View
+                key={i}
+                style={[OnboardStyles.dot, { width: widthAnim }]}
+              />
+            );
+          })}
+        </View>
 
-      <TouchableOpacity onPress={handleNext} style={OnboardStyles.nextBtn}>
-        <Text style={OnboardStyles.nextText}>
-          {index === slides.length - 1 ? 'Get Started →' : 'Next →'}
-        </Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+        <TouchableOpacity onPress={handleNext} style={OnboardStyles.nextBtn}>
+          <Text style={OnboardStyles.nextText}>
+            {index === slides.length - 1 ? 'Get Started →' : 'Next →'}
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </>
   );
 };
 

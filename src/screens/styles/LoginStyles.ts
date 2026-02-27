@@ -44,9 +44,11 @@ export const LoginStyles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 12,
     paddingHorizontal: 15,
+    paddingRight: 45,
     fontSize: 16,
     borderWidth: 1,
     borderColor: '#E1E8EF',
+    color: '#1A1A1A',
   },
 
   signInBtn: {
@@ -143,5 +145,21 @@ export const LoginStyles = StyleSheet.create({
     textAlign: 'center',
     color: '#1A73E8',
     fontSize: 13,
+  },
+
+  passwordContainer: {
+    position: 'relative',
+  },
+
+  eyeIcon: {
+    position: 'absolute',
+    right: 15,
+    top: '50%',
+    transform: [{ translateY: -12 }],
+    padding: 5,
+  },
+
+  eyeIconText: {
+    fontSize: 20,
   },
 });
