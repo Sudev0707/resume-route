@@ -87,7 +87,7 @@ const ProgressCircle = ({ score, color }: { score: number; color: string }) => {
 
 const ResumeCard = ({ item }: any) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} activeOpacity={0.8}>
       <View style={styles.cardHeader}>
         <View style={{ flex: 1 }}>
           <Text style={styles.title}>{item.title}</Text>
@@ -124,7 +124,7 @@ const ResumeCard = ({ item }: any) => {
           <Text style={styles.secondaryButtonText}>Analytics</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

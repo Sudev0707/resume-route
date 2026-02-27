@@ -53,10 +53,11 @@ export const ResumeStyles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.background,
     borderRadius: 18,
     padding: 18,
     marginBottom: 18,
+      elevation: 1,
   },
 
   cardHeader: {
