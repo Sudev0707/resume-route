@@ -51,7 +51,7 @@ export const JobsStyles = StyleSheet.create({
   toggleContainer: {
     flexDirection: 'row',
     backgroundColor: Colors.primarySoft,
-    borderRadius: 12,
+    borderRadius: 15,
     padding: 6,
     marginTop: 20,
     alignSelf: 'flex-start',

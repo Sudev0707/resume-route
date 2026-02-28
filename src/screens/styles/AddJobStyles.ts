@@ -137,7 +137,7 @@ export const AddJobStyles = StyleSheet.create({
   uploadButton: {
     backgroundColor: Colors.primary,
     borderRadius: 14,
-    paddingVertical: 16,
+    paddingVertical: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -145,7 +145,7 @@ export const AddJobStyles = StyleSheet.create({
   },
   uploadButtonText: {
     color: Colors.background,
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
   },
 });
