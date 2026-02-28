@@ -1,5 +1,0 @@
-- [ ] Add passwordContainer and eyeIcon styles to LoginStyles.ts
-- [ ] Update input style to include paddingRight for icon space
-- [ ] Add showLoginPassword and showCreatePassword states to LoginScreen.tsx
-- [ ] Modify login password input to include eye icon toggle
-- [ ] Modify create password input to include eye icon toggle

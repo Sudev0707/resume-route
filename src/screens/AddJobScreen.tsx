@@ -7,10 +7,13 @@ import {
   StatusBar,
   TextInput,
   Switch,
+  Modal,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { Colors, FONTS } from '../constants';
 import { AddJobStyles } from './styles/AddJobStyles';
 
@@ -19,6 +22,28 @@ export const AddJobScreen: React.FC = () => {
 
   const [status, setStatus] = useState('Applied');
   const [remote, setRemote] = useState(false);
+  const [appliedDate, setAppliedDate] = useState<Date | undefined>(undefined);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const formatDate = (date: Date): string => {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    if (Platform.OS === 'android') {
+      setShowDatePicker(false);
+    }
+    if (selectedDate) {
+      setAppliedDate(selectedDate);
+    }
+  };
+
+  const handleDonePress = () => {
+    setShowDatePicker(false);
+  };
 
   const handleAddJob = () => {
     // TODO: Implement job addition logic
@@ -91,19 +116,64 @@ export const AddJobScreen: React.FC = () => {
 
           {/* Applied Date */}
           <Text style={AddJobStyles.label}>Applied Date</Text>
-          <View style={AddJobStyles.dobInputWrapper}>
-            <TextInput
-              placeholder="27-02-2026"
+          <TouchableOpacity
+            style={AddJobStyles.dobInputWrapper}
+            onPress={() => setShowDatePicker(true)}
+            activeOpacity={0.8}
+          >
+            <Text
               style={{
                 flex: 1,
-                color: Colors.textPrimary,
+                color: appliedDate ? Colors.textPrimary : '#8E8E93',
                 fontSize: FONTS.sizes.sm,
                 fontFamily: FONTS.fontFamily.regular,
               }}
-              placeholderTextColor="#8E8E93"
-            />
+            >
+              {appliedDate ? formatDate(appliedDate) : '27-02-2026'}
+            </Text>
             <Feather name="calendar" size={16} color="#8E8E93" />
-          </View>
+          </TouchableOpacity>
+
+          {/* Date Picker Modal for iOS */}
+          {showDatePicker && Platform.OS === 'ios' && (
+            <Modal
+              transparent
+              animationType="slide"
+              visible={showDatePicker}
+              onRequestClose={() => setShowDatePicker(false)}
+            >
+              <View style={AddJobStyles.modalOverlay}>
+                <View style={AddJobStyles.modalContent}>
+                  <View style={AddJobStyles.modalHeader}>
+                    <TouchableOpacity onPress={() => setShowDatePicker(false)}>
+                      <Text style={AddJobStyles.modalCancel}>Cancel</Text>
+                    </TouchableOpacity>
+                    <Text style={AddJobStyles.modalTitle}>Select Date</Text>
+                    <TouchableOpacity onPress={handleDonePress}>
+                      <Text style={AddJobStyles.modalDone}>Done</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <DateTimePicker
+                    value={appliedDate || new Date()}
+                    mode="date"
+                    display="spinner"
+                    onChange={handleDateChange}
+                    style={AddJobStyles.datePicker}
+                  />
+                </View>
+              </View>
+            </Modal>
+          )}
+
+          {/* Date Picker for Android */}
+          {showDatePicker && Platform.OS === 'android' && (
+            <DateTimePicker
+              value={appliedDate || new Date()}
+              mode="date"
+              display="default"
+              onChange={handleDateChange}
+            />
+          )}
 
           {/* Resume Used */}
           <Text style={AddJobStyles.label}>Resume Used</Text>

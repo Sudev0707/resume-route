@@ -57,6 +57,7 @@ export const AddJobStyles = StyleSheet.create({
     backgroundColor: Colors.offWhite,
     borderRadius: 12,
     paddingHorizontal: 14,
+     paddingVertical: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -147,5 +148,44 @@ export const AddJobStyles = StyleSheet.create({
     color: Colors.background,
     fontSize: FONTS.sizes.sm,
     fontFamily: FONTS.fontFamily.regular,
+  },
+  // Modal styles for date picker
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: Colors.background,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingBottom: 20,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border,
+  },
+  modalCancel: {
+    color: '#8E8E93',
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.regular,
+  },
+  modalTitle: {
+    color: Colors.textPrimary,
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.semibold,
+  },
+  modalDone: {
+    color: Colors.primary,
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.semibold,
+  },
+  datePicker: {
+    height: 200,
   },
 });
