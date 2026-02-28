@@ -93,7 +93,7 @@ const OverviewView = ({
   value: string;
 }) => (
   <View style={HomeStyles.overviewView}>
-    <Feather name={icon} size={26} color={Colors.primary} />
+    <Feather name={icon} size={20} color={Colors.primary} />
     <Text style={HomeStyles.overviewValue}>{value}</Text>
     <Text style={HomeStyles.overviewLabel}>{title}</Text>
   </View>

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../constants';
+import { Colors, FONTS } from '../../constants';
 
 export const LoginStyles = StyleSheet.create({
   safe: {
@@ -16,15 +16,16 @@ export const LoginStyles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontSize: FONTS.sizes.xxl,
+    fontFamily: FONTS.fontFamily.medium,
+    color: Colors.offWhite,
     marginBottom: 4,
   },
 
   subtitle: {
-    fontSize: 16,
-    color: '#E9F1FF',
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.regular,
+    color: Colors.offWhite,
   },
 
   form: {
@@ -33,27 +34,29 @@ export const LoginStyles = StyleSheet.create({
   },
 
   label: {
-    fontSize: 15,
-    color: '#2B3A4A',
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.medium,
+    color: Colors.textPrimary,
     marginBottom: 6,
     marginTop: 14,
   },
 
   input: {
-    height: 50,
+    height: 46,
     backgroundColor: '#fff',
     borderRadius: 12,
     paddingHorizontal: 15,
     paddingRight: 45,
-    fontSize: 16,
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
     borderWidth: 1,
-    borderColor: '#E1E8EF',
-    color: '#1A1A1A',
+    borderColor: Colors.border,
+    color: Colors.textPrimary,
   },
 
   signInBtn: {
     backgroundColor: '#1A73E8',
-     paddingVertical: 9,
+    paddingVertical: 9,
     borderRadius: 12,
     marginTop: 28,
     alignItems: 'center',
@@ -61,26 +64,27 @@ export const LoginStyles = StyleSheet.create({
 
   createBtn: {
     backgroundColor: '#1A73E8',
-    paddingVertical: 14,
+    paddingVertical: 10,
     borderRadius: 12,
     marginTop: 28,
     alignItems: 'center',
+    marginBottom: 12,
   },
 
   signInText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
+    color: Colors.offWhite,
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.medium,
   },
   createBtnText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
+    color: Colors.offWhite,
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.medium,
   },
   signInLinkWrapper: {},
   signInLink: {
-    color: '#1A73E8',
-    fontWeight: '600',
+    color: Colors.primary,
+    fontFamily: FONTS.fontFamily.medium,
   },
   orWrapper: {
     flexDirection: 'row',
@@ -97,7 +101,8 @@ export const LoginStyles = StyleSheet.create({
   orText: {
     marginHorizontal: 8,
     color: '#6A7483',
-    fontSize: 14,
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
   },
 
   guestBtn: {
@@ -119,7 +124,7 @@ export const LoginStyles = StyleSheet.create({
     paddingVertical: 9,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#D6DFEA',
+    borderColor: Colors.border,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -127,29 +132,33 @@ export const LoginStyles = StyleSheet.create({
   },
 
   googleText: {
-    fontSize: 16,
-    color: '#1A1A1A',
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
+    color: Colors.textPrimary,
     marginLeft: 8,
   },
 
-  footer:{
-    flexDirection:'row',
-    justifyContent:'center',
-     marginTop: 20,
-     gap:6,
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+    gap: 6,
   },
   footerText: {
     textAlign: 'center',
-    color: '#707A88',
-    alignItems:'center',
+    color: Colors.textSecondary,
+    alignItems: 'center',
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
   },
-  createLinkWrapper:{
-    alignSelf:'center',
+  createLinkWrapper: {
+    alignSelf: 'center',
   },
 
   create: {
-    color: '#1A73E8',
-    fontWeight: '600',
+    color: Colors.primary,
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.medium,
   },
 
   demoBox: {

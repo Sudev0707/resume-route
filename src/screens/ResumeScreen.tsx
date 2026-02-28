@@ -106,8 +106,8 @@ const ResumeCard = ({ item }: any) => {
       </View>
 
       <View style={styles.statsRow}>
-        <Text style={styles.statText}>👁 {item.views} views</Text>
-        <Text style={styles.statText}>⬇ {item.downloads} downloads</Text>
+        <Text style={styles.statText}>{item.views} views</Text>
+        <Text style={styles.statText}>{item.downloads} downloads</Text>
         <Text style={styles.expiry}>{item.expiry}</Text>
       </View>
 

@@ -120,9 +120,9 @@ const Onboard = () => {
           })}
         </View>
 
-        <TouchableOpacity onPress={handleNext} style={OnboardStyles.nextBtn}>
+        <TouchableOpacity onPress={handleNext} style={OnboardStyles.nextBtn} activeOpacity={0.7} >
           <Text style={OnboardStyles.nextText}>
-            {index === slides.length - 1 ? 'Get Started →' : 'Next →'}
+            {index === slides.length - 1 ? 'Get Started' : 'Next'}
           </Text>
         </TouchableOpacity>
       </SafeAreaView>

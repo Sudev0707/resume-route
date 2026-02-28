@@ -24,10 +24,10 @@ export const OnboardStyles = StyleSheet.create({
     // zIndex: 10,
   },
   skipText: {
-    color: '#64748b',
+    color: Colors.primary,
     fontSize: FONTS.sizes.md,
-    // fontFamily: FONTS.primary.family,
-    fontWeight: 800
+    fontFamily: FONTS.fontFamily.medium,
+
   },
   flatListWrapper: {
     width: width,
@@ -62,16 +62,17 @@ export const OnboardStyles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 26,
-    fontWeight: '700',
+    fontSize: FONTS.sizes.xxl,
+    fontFamily: FONTS.fontFamily.semibold,
     color: '#0f172a',
     marginBottom: 10,
     textAlign: 'center',
   },
 
   desc: {
-    fontSize: 16,
-    color: '#475569',
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.regular,
+    color: Colors.textSecondary,
     textAlign: 'center',
     lineHeight: 22,
   },
@@ -98,7 +99,7 @@ export const OnboardStyles = StyleSheet.create({
 
   nextBtn: {
     width: width * 0.8,
-    paddingVertical: 15,
+    paddingVertical: 10,
     borderRadius: 16,
     marginTop: 30,
     // marginBottom: 20,
@@ -109,7 +110,7 @@ export const OnboardStyles = StyleSheet.create({
   nextText: {
     textAlign: 'center',
     color: 'white',
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.medium,
   },
 });

@@ -18,15 +18,19 @@ export const HomeStyles = StyleSheet.create({
     borderBottomRightRadius: 20,
   },
   greeting: { color: '#fff', fontSize: 14 },
-  userName: { color: '#fff', fontSize: FONTS.sizes.xl , fontWeight: '700', marginTop: 4 },
-  userRole: { color: '#e6f5ff', marginTop: 2 },
+  userName: {
+    color: Colors.offWhite,
+    fontSize: FONTS.sizes.xl,
+    fontFamily: FONTS.fontFamily.medium,
+    marginTop: 4,
+  },
+  userRole: { color: Colors.offWhite, marginTop: 2 },
 
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.medium,
     marginTop: 22,
     marginBottom: 10,
-    marginLeft: 18,
   },
 
   overviewGrid: {
@@ -48,11 +52,11 @@ export const HomeStyles = StyleSheet.create({
     elevation: 2,
     borderRadius: 10,
   },
-  overviewValue: { fontSize: 24, fontWeight: 'bold', marginTop: 10 },
-  overviewLabel: { fontSize: 14, color: Colors.textSecondary },
+  overviewValue: { fontSize: FONTS.sizes.lg, fontFamily:FONTS.fontFamily.medium, marginTop: 10 },
+  overviewLabel: { fontSize: FONTS.sizes.sm, color: Colors.textSecondary , fontFamily: FONTS.fontFamily.regular },
 
-  trendView: { marginTop: 10, },
-  ViewTitle: { fontSize: 16, fontWeight: '700', marginBottom: 10 },
+  trendView: { marginTop: 10 },
+  ViewTitle: { fontSize: FONTS.sizes.md, fontFamily:FONTS.fontFamily.regular, marginBottom: 10 },
   trendValue: { fontSize: 32, fontWeight: '700' },
   trendPercent: { color: 'green', marginBottom: 10 },
   fakeGraph: {

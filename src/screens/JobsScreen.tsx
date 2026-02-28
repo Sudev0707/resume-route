@@ -221,13 +221,7 @@ export const JobsScreen: React.FC = () => {
 
   const renderJobCard = (job: Job) => (
     <TouchableOpacity style={JobsStyles.card} activeOpacity={0.9}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          width: '100%',
-        }}
-      >
+      <View style={JobsStyles.jobCardRow}>
         <View style={{ flex: 1 }}>
           <Text style={JobsStyles.title}>{job.title}</Text>
           <Text style={JobsStyles.company}>{job.company}</Text>
@@ -243,7 +237,7 @@ export const JobsScreen: React.FC = () => {
         </View>
       </View>
 
-      <Text style={{ color: Colors.textSecondary, marginTop: 8 }}>
+      <Text style={JobsStyles.appliedDate}>
         Applied on {job.appliedOn}
       </Text>
     </TouchableOpacity>
@@ -285,7 +279,7 @@ export const JobsScreen: React.FC = () => {
                 onPress={() => setViewMode('list')}
               >
                 <Feather name="list" size={16} color={Colors.textSecondary} />
-                <Text style={{ marginLeft: 8, color: Colors.textSecondary }}>
+                <Text style={JobsStyles.toggleLabel}>
                   List
                 </Text>
               </TouchableOpacity>
@@ -298,7 +292,7 @@ export const JobsScreen: React.FC = () => {
                 onPress={() => setViewMode('board')}
               >
                 <Feather name="grid" size={15} color={Colors.textSecondary} />
-                <Text style={{ marginLeft: 8, color: Colors.textSecondary }}>
+                <Text style={JobsStyles.toggleLabel}>
                   Board
                 </Text>
               </TouchableOpacity>
@@ -313,7 +307,7 @@ export const JobsScreen: React.FC = () => {
                     data={['All', 'Applied', 'Interview', 'Offer', 'Rejected']}
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ marginVertical: 10 }}
+                    contentContainerStyle={JobsStyles.filterListContent}
                     keyExtractor={item => item}
                     renderItem={({ item }) => (
                       <TouchableOpacity
@@ -324,10 +318,11 @@ export const JobsScreen: React.FC = () => {
                         onPress={() => setFilter(item as any)}
                       >
                         <Text
-                          style={{
-                            color:
-                              filter === item ? '#fff' : Colors.textSecondary,
-                          }}
+                          style={
+                            filter === item
+                              ? JobsStyles.activeFilterTabText
+                              : JobsStyles.filterTabText
+                          }
                         >
                           {item}
                         </Text>
@@ -340,7 +335,7 @@ export const JobsScreen: React.FC = () => {
                   data={filteredJobs}
                   keyExtractor={item => item.id}
                   renderItem={({ item }) => renderJobCard(item)}
-                  contentContainerStyle={{ paddingBottom: 100 }}
+                  contentContainerStyle={JobsStyles.jobsListContent}
                 />
               </>
             )}
@@ -350,39 +345,17 @@ export const JobsScreen: React.FC = () => {
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ paddingVertical: 20 }}
+                contentContainerStyle={JobsStyles.boardScrollContent}
               >
                 {(
                   ['Applied', 'Interview', 'Offer', 'Rejected'] as JobStatus[]
                 ).map(column => (
                   <View key={column} style={JobsStyles.boardColumn}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        marginBottom: 15,
-                      }}
-                    >
+                    <View style={JobsStyles.boardHeader}>
                       <Text style={JobsStyles.boardTitle}>{column}</Text>
 
-                      <View
-                        style={{
-                          backgroundColor: Colors.background,
-                          padding: 2,
-                          borderRadius: 15,
-                          width: 25,
-                          height: 25,
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <Text
-                          style={{
-                            color: Colors.textSecondary,
-                            fontSize: 15,
-                          }}
-                        >
+                      <View style={JobsStyles.boardCountBadge}>
+                        <Text style={JobsStyles.boardCountText}>
                           {groupedJobs[column].length}
                         </Text>
                       </View>

@@ -57,7 +57,15 @@ export const ResumeStyles = StyleSheet.create({
     borderRadius: 18,
     padding: 18,
     marginBottom: 18,
-      elevation: 1,
+
+    // iOS shadow
+    shadowColor: '#0000005e',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+
+    // Android shadow
+    elevation: 4,
   },
 
   cardHeader: {
@@ -65,13 +73,15 @@ export const ResumeStyles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.regular,
   },
 
   subtitle: {
     color: '#6b7280',
     marginTop: 4,
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
   },
 
   tagRow: {
@@ -83,16 +93,16 @@ export const ResumeStyles = StyleSheet.create({
   tag: {
     backgroundColor: '#e0edff',
     paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 4,
     borderRadius: 20,
     marginRight: 8,
     marginBottom: 6,
   },
 
   tagText: {
-    fontSize: 12,
-    color: '#2563eb',
-    fontWeight: '500',
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.regular,
+    color: Colors.primary,
   },
 
   progressContainer: {
@@ -102,7 +112,9 @@ export const ResumeStyles = StyleSheet.create({
 
   scoreText: {
     position: 'absolute',
-    fontWeight: '700',
+    color: '#374151',
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
   },
 
   statsRow: {
@@ -113,12 +125,14 @@ export const ResumeStyles = StyleSheet.create({
 
   statText: {
     color: '#374151',
-    fontSize: 13,
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.regular,
   },
 
   expiry: {
-    fontSize: 13,
-    fontWeight: '600',
+    color: '#374151',
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.regular,
   },
 
   buttonRow: {
@@ -130,14 +144,15 @@ export const ResumeStyles = StyleSheet.create({
   secondaryButton: {
     flex: 1,
     backgroundColor: '#f3f4f6',
-    paddingVertical: 10,
+    paddingVertical: 7,
     borderRadius: 12,
     alignItems: 'center',
     marginHorizontal: 4,
   },
 
   secondaryButtonText: {
-    fontWeight: '600',
     color: '#374151',
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.regular,
   },
 });

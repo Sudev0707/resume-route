@@ -1,11 +1,13 @@
 export const Colors = {
   primary: '#007AFF',
+  primarySoft: '#f4f9ff',
   secondary: '#5856D6',
   background: '#FFFFFF',
   offWhite: '#F8F8F8',
   backgroundDark: '#1C1C1E',
   text: '#000000',
   textDark: '#FFFFFF',
+  textPrimary: '#1A1A1A',
   textSecondary: '#8E8E93',
   border: '#C6C6C8',
   borderDark: '#38383A',
