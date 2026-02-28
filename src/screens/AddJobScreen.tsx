@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import { Colors } from '../constants';
+import { Colors, FONTS } from '../constants';
 import { AddJobStyles } from './styles/AddJobStyles';
 
 export const AddJobScreen: React.FC = () => {
@@ -36,7 +36,11 @@ export const AddJobScreen: React.FC = () => {
       <SafeAreaView style={AddJobStyles.container}>
         {/* Header */}
         <View style={AddJobStyles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={AddJobStyles.backButton}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            activeOpacity={0.8}
+            style={AddJobStyles.backButton}
+          >
             <Feather name="chevron-left" size={24} />
           </TouchableOpacity>
           <Text style={AddJobStyles.headerTitle}>Add Job</Text>
@@ -87,13 +91,18 @@ export const AddJobScreen: React.FC = () => {
 
           {/* Applied Date */}
           <Text style={AddJobStyles.label}>Applied Date</Text>
-          <View style={AddJobStyles.inputWithIcon}>
+          <View style={AddJobStyles.dobInputWrapper}>
             <TextInput
               placeholder="27-02-2026"
-              style={{ flex: 1 }}
+              style={{
+                flex: 1,
+                color: Colors.textPrimary,
+                fontSize: FONTS.sizes.sm,
+                fontFamily: FONTS.fontFamily.regular,
+              }}
               placeholderTextColor="#8E8E93"
             />
-            <Feather name="calendar" size={18} color="#8E8E93" />
+            <Feather name="calendar" size={16} color="#8E8E93" />
           </View>
 
           {/* Resume Used */}
@@ -108,6 +117,7 @@ export const AddJobScreen: React.FC = () => {
           <View style={AddJobStyles.statusContainer}>
             {['Applied', 'Interview', 'Offer', 'Rejected'].map(item => (
               <TouchableOpacity
+                activeOpacity={0.8}
                 key={item}
                 onPress={() => setStatus(item)}
                 style={[
@@ -150,7 +160,9 @@ export const AddJobScreen: React.FC = () => {
               activeOpacity={0.8}
             >
               <Feather name="upload" size={20} color={Colors.background} />
-              <Text style={AddJobStyles.uploadButtonText}>Add Job Application</Text>
+              <Text style={AddJobStyles.uploadButtonText}>
+                Add Job Application
+              </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
