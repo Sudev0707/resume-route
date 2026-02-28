@@ -57,7 +57,7 @@ export const AddJobStyles = StyleSheet.create({
     backgroundColor: Colors.offWhite,
     borderRadius: 12,
     paddingHorizontal: 14,
-     paddingVertical: 12,
+    paddingVertical: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -167,7 +167,7 @@ export const AddJobStyles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 14,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.8,
     borderBottomColor: Colors.border,
   },
   modalCancel: {
@@ -187,5 +187,68 @@ export const AddJobStyles = StyleSheet.create({
   },
   datePicker: {
     height: 200,
+  },
+  // Resume Dropdown Modal styles
+  dropdownModalContent: {
+    backgroundColor: Colors.background,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    maxHeight: '70%',
+  },
+  resumeListContent: {
+    paddingHorizontal: 16,
+    paddingBottom: 20,
+    paddingTop: 10,
+  },
+  resumeItem: {
+    backgroundColor: Colors.offWhite,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  selectedResumeItem: {
+    backgroundColor: '#DDE6F3',
+    borderColor: Colors.primary,
+  },
+  resumeItemContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  resumeItemLeft: {
+    flex: 1,
+  },
+  resumeItemTitle: {
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.semibold,
+    color: Colors.textPrimary,
+  },
+  selectedResumeItemTitle: {
+    color: Colors.primary,
+  },
+  resumeItemSubtitle: {
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.regular,
+    color: '#8E8E93',
+    marginTop: 2,
+  },
+  scoreBadge: {
+    width: 35,
+    height: 35,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scoreBadgeText: {
+    color: Colors.background,
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.semibold,
+  },
+  checkIcon: {
+    position: 'absolute',
+    right: 10,
+    top: '50%',
   },
 });
