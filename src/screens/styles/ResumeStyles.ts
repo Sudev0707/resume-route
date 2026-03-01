@@ -214,4 +214,33 @@ export const ResumeStyles = StyleSheet.create({
     fontFamily: FONTS.fontFamily.medium,
     paddingTop: 2,
   },
+
+  // PDF Viewer Styles - LinkedIn Style
+  pdfContainer: {
+    width: '100%',
+    height: 500,
+    backgroundColor: Colors.offWhite,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pdfLoadingContainer: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  pdfView: {
+    flex: 1,
+    width: '100%',
+    height: 400,
+    backgroundColor: Colors.offWhite,
+  },
+  pdfIndicator: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#e5e7eb',
+  },
 });

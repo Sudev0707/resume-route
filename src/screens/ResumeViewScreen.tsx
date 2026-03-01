@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
   StatusBar,
-  Image,
+  ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
+import Pdf from 'react-native-pdf';
 import { Colors } from '../constants';
 import { Header } from '../components';
 import { resumes } from '../data/resumes';
@@ -17,10 +19,13 @@ import { ResumeStyles as styles } from './styles/ResumeStyles';
 
 type ResumeViewRouteProp = RouteProp<{ ResumeView: { resumeId: string } }, 'ResumeView'>;
 
+const { width: screenWidth } = Dimensions.get('window');
+
 export const ResumeViewScreen: React.FC = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<ResumeViewRouteProp>();
   const { resumeId } = route.params;
+  const [isPdfLoading, setIsPdfLoading] = useState(true);
   
   const resume = resumes.find(r => r.id === resumeId);
 
@@ -31,6 +36,18 @@ export const ResumeViewScreen: React.FC = () => {
       </SafeAreaView>
     );
   }
+
+  // Get the PDF source - for assets in React Native bundle
+  const getPdfSource = () => {
+    if (resume.pdfUri) {
+      return require('../assets/file/Sudev_Majhi__CV.pdf');
+    }
+    return null;
+  };
+
+
+
+  const pdfSource = getPdfSource();
 
   return (
     <>
@@ -53,37 +70,49 @@ export const ResumeViewScreen: React.FC = () => {
             style={[styles.contentContainer, {paddingHorizontal: 15,}]}
             showsVerticalScrollIndicator={false}
           >
-            {/* <View style={styles.card}>
-              <View style={styles.cardHeader}>
-                <View style={{ flex: 1 }}>
-                  <View style={styles.meta}>
-                    <View style={styles.iconBox}>
-                      <Feather name="file" size={24} color={Colors.primary} />
+            {/* PDF Viewer Section - LinkedIn Style */}
+            {pdfSource && (
+              <View style={[styles.card, { marginTop: 16, overflow: 'hidden' }]}>
+                <View style={styles.pdfContainer}>
+                  {isPdfLoading && (
+                    <View style={styles.pdfLoadingContainer}>
+                      <ActivityIndicator size="large" color={Colors.primary} />
+                      <Text style={[styles.subtitle, { marginTop: 8 }]}>
+                        Loading PDF...
+                      </Text>
                     </View>
-                    <View>
-                      <Text style={styles.title}>{resume.title}</Text>
-                      <Text style={styles.subtitle}>{resume.date}</Text>
-                    </View>
-                  </View>
+                  )}
+                  <Pdf
+                    source={pdfSource}
+                    style={styles.pdfView}
+                    onLoadComplete={(numberOfPages, filePath) => {
+                      console.log(`PDF loaded: ${numberOfPages} pages`);
+                      setIsPdfLoading(false);
+                    }}
+                    onPageChanged={(page, numberOfPages) => {
+                      console.log(`Current page: ${page}/${numberOfPages}`);
+                    }}
+                    onError={(error) => {
+                      console.log('PDF load error:', error);
+                      setIsPdfLoading(false);
+                    }}
+                    enablePaging={true}
+                    horizontal={false}
+                    enableAntialiasing={true}
+                    fitPolicy={0}
+                    spacing={0}
+                  />
                 </View>
-              </View>
-
-              <View style={styles.statsRow}>
-                <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-                  <Feather name="eye" size={15} color={Colors.textSecondary} />
-                  <Text style={[styles.statText, { marginLeft: 4 }]}>
-                    {resume.views} views
+                
+                {/* PDF Page Indicator */}
+                <View style={styles.pdfIndicator}>
+                  <Feather name="file-text" size={16} color={Colors.textSecondary} />
+                  <Text style={[styles.subtitle, { marginLeft: 6 }]}>
+                    PDF Document
                   </Text>
                 </View>
-                <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-                  <Feather name="download" size={15} color={Colors.textSecondary} />
-                  <Text style={[styles.statText, { marginLeft: 4 }]}>
-                    {resume.downloads} downloads
-                  </Text>
-                </View>
-                <Text style={styles.expiry}>{resume.expiry}</Text>
               </View>
-            </View> */}
+            )}
 
             {/* Resume Details Section */}
             <View style={[styles.card, { marginTop: 16, padding: 16}]}>
@@ -97,7 +126,7 @@ export const ResumeViewScreen: React.FC = () => {
               <View style={[styles.meta, { marginTop: 8 }]}>
                 <Feather name="calendar" size={18} color={Colors.textSecondary} />
                 <Text style={[styles.subtitle, { marginLeft: 8 }]}>
-                  Uploaded on {resume.date}
+                 {resume.date}
                 </Text>
               </View>
             </View>

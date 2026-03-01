@@ -8,6 +8,7 @@ export interface Resume {
   score: number;
   expiry: string;
   color: string;
+  pdfUri?: string;
 }
 
 export const resumes: Resume[] = [
@@ -21,6 +22,7 @@ export const resumes: Resume[] = [
     score: 92,
     expiry: 'No expiry',
     color: '#22c55e',
+    pdfUri: 'Sudev_Majhi__CV.pdf',
   },
   {
     id: '2',
@@ -32,6 +34,7 @@ export const resumes: Resume[] = [
     score: 85,
     expiry: '30 days',
     color: '#f97316',
+    pdfUri: 'Sudev_Majhi__CV.pdf',
   },
   {
     id: '3',
@@ -43,5 +46,6 @@ export const resumes: Resume[] = [
     score: 78,
     expiry: '7 days',
     color: '#f97316',
+    pdfUri: 'Sudev_Majhi__CV.pdf',
   },
 ];
