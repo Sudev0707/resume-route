@@ -56,8 +56,8 @@ export const ResumeStyles = StyleSheet.create({
   card: {
     backgroundColor: Colors.background,
     borderRadius: 18,
-    padding: 18,
-     marginBottom: 10,
+    // paddingVertical: 15,
+    marginBottom: 10,
 
     // iOS shadow
     shadowColor: '#0000005e',
@@ -67,6 +67,13 @@ export const ResumeStyles = StyleSheet.create({
 
     // Android shadow
     elevation: 2,
+    overflow: 'hidden',
+  },
+  touchableCard: {
+    paddingHorizontal: 15,
+    paddingVertical: 14,
+    // paddingBottom: 14,
+    // borderWidth: 0.8,
   },
 
   cardHeader: {
@@ -134,7 +141,7 @@ export const ResumeStyles = StyleSheet.create({
     flexDirection: 'row',
     // justifyContent: 'space-between',
     gap: 18,
-    marginTop: 16,
+    marginTop: 10,
   },
 
   statText: {
@@ -152,14 +159,22 @@ export const ResumeStyles = StyleSheet.create({
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 16,
+    // marginTop: 16,
+    // borderWidth: 0.7,
+    paddingHorizontal: 15,
+    paddingBottom: 14,
+    paddingTop: 4,
+  },
+  QRIcon: {
+    width: 16,
+    height: 16,
   },
 
   secondaryButton: {
     // flex: 1,
     flexDirection: 'row',
     backgroundColor: '#f3f4f6',
-    paddingVertical: 4,
+    paddingVertical: 5,
     paddingHorizontal: 15,
     borderRadius: 12,
     alignItems: 'center',
@@ -171,7 +186,7 @@ export const ResumeStyles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 12,
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
     marginHorizontal: 4,
     // alignSelf:'flex-end'
   },
@@ -179,6 +194,7 @@ export const ResumeStyles = StyleSheet.create({
   secondaryButtonText: {
     color: '#374151',
     fontSize: FONTS.sizes.xs,
-    fontFamily: FONTS.fontFamily.regular,
+    fontFamily: FONTS.fontFamily.medium,
+    paddingTop: 2,
   },
 });

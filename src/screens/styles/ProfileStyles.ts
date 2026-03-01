@@ -146,7 +146,7 @@ export const ProfileStyles = StyleSheet.create({
   // Menu Card
   menuCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 18,
+    borderRadius: 12,
     overflow: 'hidden',
     elevation: 2,
     marginTop: 16,
@@ -196,8 +196,9 @@ export const ProfileStyles = StyleSheet.create({
     paddingVertical: 18,
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginVertical: 10,
+    // marginVertical: 10,
     elevation: 2,
+    marginTop: 16,
   },
   left: {
     flexDirection: 'row',

@@ -70,7 +70,6 @@ export const ProfileScreen: React.FC = () => {
 
             {/* ===== ACCOUNT SECTION ===== */}
 
-               <DarkModeToggle/> 
             <Text style={styles.sectionTitle}>ACCOUNT</Text>
             <MenuCard>
               <MenuItem
@@ -86,10 +85,8 @@ export const ProfileScreen: React.FC = () => {
               />
             </MenuCard>
 
-          
-
             {/*  */}
-             <Text style={styles.sectionTitle}>PREFERENCES</Text>
+            {/* <Text style={styles.sectionTitle}>PREFERENCES</Text>
             <MenuCard>
               <MenuItem
                 icon="bell"
@@ -103,9 +100,11 @@ export const ProfileScreen: React.FC = () => {
                 subtitle="Manage your data"
                 isLast
               />
-            </MenuCard>
+            </MenuCard> */}
 
             {/*  */}
+
+            <DarkModeToggle />
             <MenuCard>
               <MenuItem icon="log-out" title="Log Out" danger isLast />
             </MenuCard>
@@ -162,8 +161,6 @@ const MenuItem = ({
   </TouchableOpacity>
 );
 
-
-
 const DarkModeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -173,7 +170,7 @@ const DarkModeToggle = () => {
     <View style={styles.toggleContainer}>
       <View style={styles.left}>
         <Feather
-          name={isDarkMode? 'moon' : 'sun'}
+          name={isDarkMode ? 'moon' : 'sun'}
           size={20}
           color={isDarkMode ? '#4DD0A9' : '#ffa536'}
           style={{ marginRight: 10 }}
