@@ -169,7 +169,7 @@ export const AddJobScreen: React.FC = () => {
           {showDatePicker && Platform.OS === 'ios' && (
             <Modal
               transparent
-              animationType="slide"
+              animationType="fade"
               visible={showDatePicker}
               onRequestClose={() => setShowDatePicker(false)}
             >
@@ -221,7 +221,7 @@ export const AddJobScreen: React.FC = () => {
           {/* Resume Dropdown Modal */}
           <Modal
             transparent
-            animationType="slide"
+            animationType="fade"
             visible={showResumeDropdown}
             onRequestClose={() => setShowResumeDropdown(false)}
           >

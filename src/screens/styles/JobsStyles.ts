@@ -1,4 +1,4 @@
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { Colors, FONTS } from '../../constants';
 
 export const JobsStyles = StyleSheet.create({
@@ -8,7 +8,7 @@ export const JobsStyles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     backgroundColor: Colors.offWhite,
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
   },
   header: {
     flexDirection: 'row',
@@ -42,18 +42,37 @@ export const JobsStyles = StyleSheet.create({
   },
 
   addButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: Colors.primary,
-    paddingHorizontal: 16,
+    paddingHorizontal: 14,
     paddingVertical: 10,
-    borderRadius: 10,
+    borderRadius: 12,
+    elevation: 2,
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
   },
-
+  addButtonText: {
+    color: Colors.textDark,
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.regular,
+    marginLeft: 6,
+  },
+  toggleHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+  },
   toggleContainer: {
     flexDirection: 'row',
-    backgroundColor: Colors.primarySoft,
-    borderRadius: 15,
-    padding: 6,
-    marginTop: 20,
+    // backgroundColor: Colors.primarySoft,
+    borderRadius: 10,
+    padding: 4,
+    // marginTop: 20,
     alignSelf: 'flex-start',
     borderWidth: 0.5,
     borderColor: Colors.border,
@@ -61,7 +80,7 @@ export const JobsStyles = StyleSheet.create({
   },
 
   toggleButton: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     paddingHorizontal: 10,
     paddingVertical: 6,
@@ -70,7 +89,7 @@ export const JobsStyles = StyleSheet.create({
   },
 
   activeToggle: {
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.primarySoft,
     elevation: 1,
   },
 
@@ -86,7 +105,7 @@ export const JobsStyles = StyleSheet.create({
   },
 
   activeFilterTab: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.textPrimary,
   },
 
   card: {
@@ -114,15 +133,15 @@ export const JobsStyles = StyleSheet.create({
   },
 
   meta: {
-    marginTop: 6,
-    color: Colors.textSecondary,
-    fontSize: FONTS.sizes.xs,
-    fontFamily: FONTS.fontFamily.regular,
+     marginTop: 6,
+    gap:14,
+    flexDirection:'row'
   },
-
-  statusText: {
+  metaText:{
+   color: Colors.textSecondary,
     fontSize: FONTS.sizes.xs,
     fontFamily: FONTS.fontFamily.regular,
+    gap:5
   },
 
   boardColumn: {
@@ -170,7 +189,7 @@ export const JobsStyles = StyleSheet.create({
     color: Colors.textSecondary,
     fontSize: FONTS.sizes.sm,
     fontFamily: FONTS.fontFamily.regular,
-    marginTop: 8,
+    marginTop: 6,
   },
 
   // Toggle Button Label
@@ -183,19 +202,23 @@ export const JobsStyles = StyleSheet.create({
 
   // Filter FlatList Content
   filterListContent: {
-    marginVertical: 10,
+    paddingVertical: 10,
+    backgroundColor: Colors.background,
+    paddingHorizontal: 15,
   },
 
   // Jobs FlatList Content
   jobsListContent: {
     paddingBottom: 100,
     paddingTop: 10,
+    paddingHorizontal: 15,
     // backgroundColor:Colors.primarySoft
   },
 
   // Board ScrollView Content
   boardScrollContent: {
     paddingVertical: 20,
+    paddingHorizontal: 15,
   },
 
   // Board Column Header
@@ -220,7 +243,7 @@ export const JobsStyles = StyleSheet.create({
   // Board Count Text
   boardCountText: {
     color: Colors.offWhite,
-    fontSize: FONTS.sizes.md,
+    fontSize: FONTS.sizes.sm,
     fontFamily: FONTS.fontFamily.medium,
   },
 
@@ -237,16 +260,60 @@ export const JobsStyles = StyleSheet.create({
     fontSize: FONTS.sizes.sm,
     fontFamily: FONTS.fontFamily.medium,
   },
+  statusText: {
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.regular,
+  },
 });
 
 export const getStatusBadgeStyle = (status: string): ViewStyle => ({
   paddingHorizontal: 10,
   paddingVertical: 4,
-  borderRadius: 10,
+  borderRadius: 15,
   backgroundColor:
     status === 'Offer'
       ? '#D1FAE5'
       : status === 'Interview'
       ? '#FEF3C7'
-      : '#E5E7EB',
+      : status === 'Rejected'
+      ? '#FFEAEA'
+      : status === 'Applied'
+      ? '#E6F7F5'
+      : '',
+});
+
+export const getStatusTextStyle = (status: string): TextStyle => ({
+  fontSize: FONTS.sizes.xs,
+  fontFamily: FONTS.fontFamily.medium,
+  // color: "black"
+  color:
+    status === 'Offer'
+      ? '#11bc63'
+      : status === 'Interview'
+      ? '#e7961d'
+      : status === 'Rejected'
+      ? '#F15555'
+      : status === 'Applied'
+      ? '#14c0ac'
+      : '',
+});
+
+export const getBoardCountBadge = (status: string): ViewStyle => ({
+  // backgroundColor: Colors.primary,
+  padding: 2,
+  borderRadius: 15,
+  width: 25,
+  height: 25,
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor:
+    status === 'Offer'
+      ? '#11bc63'
+      : status === 'Interview'
+      ? '#e7961d'
+      : status === 'Rejected'
+      ? '#F15555'
+      : status === 'Applied'
+      ? '#14c0ac'
+      : '',
 });

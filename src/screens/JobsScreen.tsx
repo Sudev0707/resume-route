@@ -9,9 +9,14 @@ import {
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import { Colors } from '../constants';
+import { Colors, FONTS } from '../constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { JobsStyles, getStatusBadgeStyle } from './styles/JobsStyles';
+import {
+  JobsStyles,
+  getBoardCountBadge,
+  getStatusBadgeStyle,
+  getStatusTextStyle,
+} from './styles/JobsStyles';
 
 type JobStatus = 'Applied' | 'Interview' | 'Offer' | 'Rejected';
 
@@ -225,21 +230,29 @@ export const JobsScreen: React.FC = () => {
         <View style={{ flex: 1 }}>
           <Text style={JobsStyles.title}>{job.title}</Text>
           <Text style={JobsStyles.company}>{job.company}</Text>
-          <Text style={JobsStyles.meta}>
-            <Feather name="map-pin" size={15} color={Colors.red} />{' '}
-            {job.location}{' '}
-            <Feather name="dollar-sign" size={14} color={Colors.green} />{' '}
-            {job.salary}
-          </Text>
+          <View style={JobsStyles.meta}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Feather name="map-pin" size={14} color={Colors.textSecondary} />
+              <Text style={[JobsStyles.metaText, { marginLeft: 5 }]}>{job.location}</Text>
+            </View>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}> 
+              <Feather name="dollar-sign" size={14} color={Colors.textSecondary} />
+              <Text style={[JobsStyles.metaText , { marginLeft: 5 }]}>{job.salary}</Text>
+            </View>
+          </View>
         </View>
         <View style={getStatusBadgeStyle(job.status)}>
-          <Text style={JobsStyles.statusText}>{job.status}</Text>
+          <Text style={getStatusTextStyle(job.status)}>{job.status}</Text>
         </View>
       </View>
 
-      <Text style={JobsStyles.appliedDate}>
-        Applied on {job.appliedOn}
-      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Feather name="calendar" size={14} color={Colors.textSecondary} />
+        <Text style={[JobsStyles.appliedDate, { marginLeft: 5 }]}>
+          Applied on {job.appliedOn}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 
@@ -267,9 +280,8 @@ export const JobsScreen: React.FC = () => {
             <Text style={JobsStyles.headerTitle}>Applications</Text>
           </View>
           {/* content */}
-          <View style={JobsStyles.contentContainer}>
-            {/* Header */}
 
+          <View style={JobsStyles.toggleHeader}>
             <View style={JobsStyles.toggleContainer}>
               <TouchableOpacity
                 style={[
@@ -279,9 +291,7 @@ export const JobsScreen: React.FC = () => {
                 onPress={() => setViewMode('list')}
               >
                 <Feather name="list" size={16} color={Colors.textSecondary} />
-                <Text style={JobsStyles.toggleLabel}>
-                  List
-                </Text>
+                <Text style={JobsStyles.toggleLabel}>List</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -292,11 +302,22 @@ export const JobsScreen: React.FC = () => {
                 onPress={() => setViewMode('board')}
               >
                 <Feather name="grid" size={15} color={Colors.textSecondary} />
-                <Text style={JobsStyles.toggleLabel}>
-                  Board
-                </Text>
+                <Text style={JobsStyles.toggleLabel}>Board</Text>
               </TouchableOpacity>
             </View>
+
+            <TouchableOpacity
+              style={JobsStyles.addButton}
+              activeOpacity={0.8}
+              onPress={() => ''}
+            >
+              <Feather name="plus" size={18} color={Colors.textDark} />
+              <Text style={JobsStyles.addButtonText}>Add</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={JobsStyles.contentContainer}>
+            {/* Header */}
 
             {/* LIST VIEW */}
             {viewMode === 'list' && (
@@ -352,9 +373,16 @@ export const JobsScreen: React.FC = () => {
                 ).map(column => (
                   <View key={column} style={JobsStyles.boardColumn}>
                     <View style={JobsStyles.boardHeader}>
-                      <Text style={JobsStyles.boardTitle}>{column}</Text>
+                      <Text
+                        style={[
+                          getStatusTextStyle(column),
+                          { fontSize: FONTS.sizes.md },
+                        ]}
+                      >
+                        {column}
+                      </Text>
 
-                      <View style={JobsStyles.boardCountBadge}>
+                      <View style={getBoardCountBadge(column)}>
                         <Text style={JobsStyles.boardCountText}>
                           {groupedJobs[column].length}
                         </Text>

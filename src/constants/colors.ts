@@ -9,7 +9,7 @@ export const Colors = {
   textDark: '#FFFFFF',
   textPrimary: '#1A1A1A',
   textSecondary: '#8E8E93',
-  border: '#C6C6C8',
+  border: '#e3e3e3',
   borderDark: '#38383A',
   success: '#34C759',
   error: '#FF3B30',

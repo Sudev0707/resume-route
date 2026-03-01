@@ -16,6 +16,7 @@ import {
 } from '../screens';
 import { RootStackParamList, RootTabParamList } from '../types';
 import Feather from 'react-native-vector-icons/Feather';
+import { Colors, FONTS } from '../constants';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -54,9 +55,12 @@ const TabNavigator: React.FC = () => {
           elevation: 5,
           height: 65,
         },
+      
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: FONTS.sizes.xs,
           marginBottom: 5,
+          fontFamily:FONTS.fontFamily.semibold,
+          // color:Colors.textPrimary
         },
       })}
     >
