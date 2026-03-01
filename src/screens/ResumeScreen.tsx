@@ -15,8 +15,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import { resumes } from '../data/resumes';
 
 const ProgressCircle = ({ score, color }: { score: number; color: string }) => {
-  const radius = 28;
-  const strokeWidth = 6;
+  const radius = 20;
+  const strokeWidth = 5;
   const circumference = 2 * Math.PI * radius;
   const progress = circumference - (score / 100) * circumference;
 
@@ -55,38 +55,76 @@ const ResumeCard = ({ item }: any) => {
     <TouchableOpacity style={styles.card} activeOpacity={0.8}>
       <View style={styles.cardHeader}>
         <View style={{ flex: 1 }}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.subtitle}>{item.date}</Text>
+          <View style={styles.meta}>
+            <View style={styles.iconBox}>
+              <Feather name="file" size={20} color={Colors.primary} />
+            </View>
+            <View>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.subtitle}>{item.date}</Text>
+            </View>
+          </View>
 
-          <View style={styles.tagRow}>
+          {/* <View style={styles.tagRow}>
             {item.tags.map((tag: string) => (
               <View key={tag} style={styles.tag}>
                 <Text style={styles.tagText}>{tag}</Text>
               </View>
             ))}
-          </View>
+          </View> */}
         </View>
 
-        <ProgressCircle score={item.score} color={item.color} />
+        {/* <ProgressCircle score={item.score} color={item.color} /> */}
       </View>
 
       <View style={styles.statsRow}>
-        <Text style={styles.statText}>{item.views} views</Text>
-        <Text style={styles.statText}>{item.downloads} downloads</Text>
+        <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+          <Feather name="eye" size={15} color={Colors.textSecondary} />
+          <Text style={[styles.statText, { marginLeft: 4 }]}>{item.views}</Text>
+        </View>
+        <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+          <Feather name="download" size={15} color={Colors.textSecondary} />
+          <Text style={[styles.statText, { marginLeft: 4 }]}>
+            {item.downloads}{' '}
+          </Text>
+        </View>
+
         <Text style={styles.expiry}>{item.expiry}</Text>
       </View>
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.secondaryButton}>
-          <Text style={styles.secondaryButtonText}>Copy Link</Text>
-        </TouchableOpacity>
+       <View style={{flexDirection:'row'}}>
+          <TouchableOpacity
+            style={[
+              styles.secondaryButton,
+              { backgroundColor: Colors.greenSoft },
+            ]}
+          >
+            <Feather name="link-2" size={15} color={Colors.green} />
+            <Text
+              style={[
+                styles.secondaryButtonText,
+                { marginLeft: 4, color: Colors.green },
+              ]}
+            >
+              Copy Link
+            </Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.secondaryButton}>
-          <Text style={styles.secondaryButtonText}>Share</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.secondaryButton}>
+            <Feather name="share-2" size={14} color={Colors.textSecondary} />
+            <Text style={[styles.secondaryButtonText, { marginLeft: 4 }]}>
+              Share
+            </Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.secondaryButton}>
+          {/* <TouchableOpacity style={styles.secondaryButton}>
           <Text style={styles.secondaryButtonText}>Analytics</Text>
+        </TouchableOpacity> */}
+        </View>
+
+        <TouchableOpacity style={styles.secondaryButtonDelete}>
+          <Feather name="trash-2" size={14} color={Colors.red} />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>

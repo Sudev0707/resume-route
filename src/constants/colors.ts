@@ -15,6 +15,7 @@ export const Colors = {
   error: '#FF3B30',
   warning: '#FF9500',
   red: '#FF3B30',
-  green: '#34C759',
+  green: '#15ad3b',
+  greenSoft: '#ddffe5',
   blue: '#007AFF',
 };

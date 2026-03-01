@@ -8,11 +8,12 @@ export const ResumeStyles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     backgroundColor: Colors.offWhite,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 15,
   },
   flatListContent: {
     paddingTop: 20,
     paddingBottom: 80,
+    paddingHorizontal: 15,
   },
 
   header: {
@@ -71,7 +72,18 @@ export const ResumeStyles = StyleSheet.create({
   cardHeader: {
     flexDirection: 'row',
   },
-
+  meta: {
+    flexDirection: 'row',
+    gap: 7,
+  },
+  iconBox: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    backgroundColor: '#deecfc',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
     fontSize: FONTS.sizes.md,
     fontFamily: FONTS.fontFamily.regular,
@@ -79,8 +91,8 @@ export const ResumeStyles = StyleSheet.create({
 
   subtitle: {
     color: '#6b7280',
-    marginTop: 4,
-    fontSize: FONTS.sizes.sm,
+    // marginTop: 4,
+    fontSize: FONTS.sizes.xs,
     fontFamily: FONTS.fontFamily.regular,
   },
 
@@ -108,6 +120,7 @@ export const ResumeStyles = StyleSheet.create({
   progressContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 0.7,
   },
 
   scoreText: {
@@ -119,7 +132,8 @@ export const ResumeStyles = StyleSheet.create({
 
   statsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
+    gap: 18,
     marginTop: 16,
   },
 
@@ -142,12 +156,24 @@ export const ResumeStyles = StyleSheet.create({
   },
 
   secondaryButton: {
-    flex: 1,
+    // flex: 1,
+    flexDirection: 'row',
     backgroundColor: '#f3f4f6',
-    paddingVertical: 7,
+    paddingVertical: 4,
+    paddingHorizontal: 15,
     borderRadius: 12,
     alignItems: 'center',
     marginHorizontal: 4,
+  },
+  secondaryButtonDelete: {
+    backgroundColor: '#ffeae9',
+    // paddingVertical: 4,
+    paddingHorizontal: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent:'center',
+    marginHorizontal: 4,
+    // alignSelf:'flex-end'
   },
 
   secondaryButtonText: {
