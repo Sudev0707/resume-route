@@ -137,7 +137,7 @@ const ResumeCard = ({ item }: any) => {
         </View>
 
         <TouchableOpacity style={styles.secondaryButtonDelete}>
-          <Feather name="trash-2" size={14} color={Colors.red} />
+          <Feather name="trash-2" size={16} color={Colors.red} />
         </TouchableOpacity>
       </View>
     </View>

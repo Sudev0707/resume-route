@@ -168,6 +168,7 @@ export const ResumeStyles = StyleSheet.create({
   QRIcon: {
     width: 16,
     height: 16,
+    tintColor: '#686868'
   },
 
   secondaryButton: {
