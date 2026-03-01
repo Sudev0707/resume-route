@@ -282,7 +282,7 @@ export const JobsScreen: React.FC = () => {
                 ]}
                 onPress={() => setViewMode('list')}
               >
-                <Feather name="menu" size={18} color={Colors.textSecondary} />
+                <Feather name="menu" size={18} color={viewMode === 'list' ? Colors.primary : Colors.textSecondary} />
                 <Text style={JobsStyles.toggleLabel}>List</Text>
               </TouchableOpacity>
 
@@ -293,7 +293,7 @@ export const JobsScreen: React.FC = () => {
                 ]}
                 onPress={() => setViewMode('board')}
               >
-                <Feather name="grid" size={17} color={Colors.textSecondary} />
+                <Feather name="grid" size={17} color={viewMode === 'board' ? Colors.primary :  Colors.textSecondary} />
                 <Text style={JobsStyles.toggleLabel}>Board</Text>
               </TouchableOpacity>
             </View>

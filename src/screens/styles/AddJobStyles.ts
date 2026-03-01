@@ -29,12 +29,13 @@ export const AddJobStyles = StyleSheet.create({
   backButton: {
     padding: 6,
     borderRadius: 8,
-    backgroundColor: Colors.offWhite,
+    backgroundColor: Colors.offWhiteSecondary,
   },
   headerTitle: {
-    fontSize: FONTS.sizes.lg,
+    fontSize: FONTS.sizes.md,
     fontFamily: FONTS.fontFamily.semibold,
-    marginLeft: 10,
+    color: Colors.text,
+    marginLeft: 15,
   },
   label: {
     fontSize: FONTS.sizes.sm,

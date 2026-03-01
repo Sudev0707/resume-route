@@ -46,7 +46,7 @@ export const JobsStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.primary,
     paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingVertical: 8,
     borderRadius: 12,
     elevation: 2,
     shadowColor: Colors.primary,
@@ -74,7 +74,7 @@ export const JobsStyles = StyleSheet.create({
     padding: 4,
     // marginTop: 20,
     alignSelf: 'flex-start',
-    borderWidth: 0.5,
+    // borderWidth: 0.5,
     borderColor: Colors.border,
     gap: 5,
   },
@@ -212,7 +212,7 @@ export const JobsStyles = StyleSheet.create({
   toggleLabel: {
     marginLeft: 8,
     color: Colors.textPrimary,
-    fontSize: FONTS.sizes.md,
+    fontSize: FONTS.sizes.sm,
     fontFamily: FONTS.fontFamily.regular,
   },
 

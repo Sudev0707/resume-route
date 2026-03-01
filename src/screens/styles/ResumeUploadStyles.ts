@@ -17,13 +17,14 @@ export const ResumeUploadStyles = StyleSheet.create({
   backButton:{
     padding: 6,
     borderRadius: 8,
-    backgroundColor: Colors.offWhite,
+    backgroundColor: Colors.offWhiteSecondary,
     // borderWidth: 0.5,
   },
   headerTitle: {
-    fontSize: FONTS.sizes.lg,
-    fontFamily: FONTS.fontFamily.semibold,
-    marginLeft: 10,
+    fontSize: FONTS.sizes.md,
+    fontFamily:FONTS.fontFamily.semibold,
+    color: Colors.text,
+    marginLeft: 15,
   },
   placeholder: {
     width: 40,

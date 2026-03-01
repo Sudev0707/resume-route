@@ -96,6 +96,6 @@ const styles = StyleSheet.create({
   backButton: {
     padding: 6,
     borderRadius: 8,
-    backgroundColor: Colors.offWhite,
+    backgroundColor: Colors.offWhiteSecondary,
   },
 });
