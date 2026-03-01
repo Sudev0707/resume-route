@@ -7,6 +7,7 @@ import {
   StatusBar,
   Image,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Circle } from 'react-native-svg';
 import { Colors } from '../constants';
@@ -145,6 +146,7 @@ const ResumeCard = ({ item }: any) => {
 };
 
 export const ResumeScreen: React.FC = () => {
+  const navigation = useNavigation<any>();
   return (
     <>
       <View style={{ flex: 1, backgroundColor: Colors.background }}>
@@ -168,6 +170,14 @@ export const ResumeScreen: React.FC = () => {
               showsVerticalScrollIndicator={false}
             />
           </View>
+
+          {/* Upload Button */}
+          <TouchableOpacity style={styles.uploadButton}activeOpacity={0.7} onPress={()=> navigation.navigate('ResumeUpload')} >
+            <Feather name="upload" size={18} color="white" />
+            <Text style={[styles.uploadText, { marginLeft: 8 }]}>
+              Upload
+            </Text>
+          </TouchableOpacity>
         </SafeAreaView>
       </View>
     </>

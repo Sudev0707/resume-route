@@ -42,10 +42,26 @@ export const ResumeStyles = StyleSheet.create({
   },
 
   uploadButton: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
     backgroundColor: '#2563eb',
     paddingHorizontal: 18,
-    paddingVertical: 10,
+    paddingVertical: 14,
     borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+    // iOS shadow
+    shadowColor: '#2563eb',
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+
+    // Android shadow
+    elevation: 4,
   },
 
   uploadText: {

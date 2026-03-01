@@ -120,7 +120,7 @@ export const ResumeUploadStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 16,
+    paddingVertical: 14,
     borderRadius: 12,
   },
   uploadButtonText: {
