@@ -54,10 +54,10 @@ const ProgressCircle = ({ score, color }: { score: number; color: string }) => {
   );
 };
 
-const ResumeCard = ({ item }: any) => {
+const ResumeCard = ({ item, navigation }: any) => {
   return (
     <View style={styles.card}>
-      <TouchableOpacity style={styles.touchableCard} activeOpacity={0.8} >
+      <TouchableOpacity style={styles.touchableCard} activeOpacity={0.8} onPress={() => navigation.navigate('ResumeView', { resumeId: item.id })}>
         <View style={styles.cardHeader}>
           <View style={{ flex: 1 }}>
             <View style={styles.meta}>
@@ -165,7 +165,7 @@ export const ResumeScreen: React.FC = () => {
             <FlatList
               data={resumes}
               keyExtractor={item => item.id}
-              renderItem={({ item }) => <ResumeCard item={item} />}
+              renderItem={({ item }) => <ResumeCard item={item} navigation={navigation} />}
               contentContainerStyle={styles.flatListContent}
               showsVerticalScrollIndicator={false}
             />

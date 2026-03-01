@@ -9,6 +9,7 @@ import {
   Onboard,
   LoginScreen,
   ResumeScreen,
+  ResumeViewScreen,
   ResumeUploadScreen,
   AddJobScreen,
   JobsScreen,
@@ -85,6 +86,7 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen name="Onboard" component={Onboard} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="ResumeUpload" component={ResumeUploadScreen} />
+        <Stack.Screen name="ResumeView" component={ResumeViewScreen} />
         <Stack.Screen name="AddJob" component={AddJobScreen} />
         <Stack.Screen name="Tabs" component={TabNavigator} />
       </Stack.Navigator>
