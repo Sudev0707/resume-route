@@ -59,7 +59,7 @@ const TabNavigator: React.FC = () => {
         tabBarLabelStyle: {
           fontSize: FONTS.sizes.xs,
           marginBottom: 5,
-          fontFamily:FONTS.fontFamily.semibold,
+          fontFamily:FONTS.fontFamily.medium,
           // color:Colors.textPrimary
         },
       })}

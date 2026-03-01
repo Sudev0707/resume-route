@@ -6,14 +6,14 @@ import {
   ScrollView,
   StatusBar,
   TextInput,
-  StyleSheet,
   Switch,
   Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, FONTS } from '../constants';
+import { Colors } from '../constants';
+import { ProfileStyles as styles } from './styles/ProfileStyles';
 export const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
 
@@ -52,7 +52,7 @@ export const ProfileScreen: React.FC = () => {
             /> */}
 
                 <View style={{ marginLeft: 14 }}>
-                  <Text style={styles.name}>Alex Morgan</Text>
+                  <Text style={styles.name}>Sudev</Text>
                   <Text style={styles.email}>alex@example.com</Text>
 
                   <View style={styles.roleBadge}>
@@ -62,16 +62,16 @@ export const ProfileScreen: React.FC = () => {
                   </View>
                 </View>
               </View>
-              <View style={styles.divider} />
+              {/* <View style={styles.divider} /> */}
 
-              <Text style={styles.skillsTitle}>Skills</Text>
+              {/* <Text style={styles.skillsTitle}>Skills</Text>
               <View style={styles.skillsContainer}>
                 {skills.map(skill => (
                   <View key={skill} style={styles.skillChip}>
                     <Text style={styles.skillText}>{skill}</Text>
                   </View>
                 ))}
-              </View>
+              </View> */}
             </View>
             {/*  */}
             <View style={styles.statsContainer}>
@@ -82,6 +82,8 @@ export const ProfileScreen: React.FC = () => {
             </View>
 
             {/* ===== ACCOUNT SECTION ===== */}
+
+               <DarkModeToggle/> 
             <Text style={styles.sectionTitle}>ACCOUNT</Text>
             <MenuCard>
               <MenuItem
@@ -97,16 +99,11 @@ export const ProfileScreen: React.FC = () => {
               />
             </MenuCard>
 
+          
+
             {/*  */}
              <Text style={styles.sectionTitle}>PREFERENCES</Text>
             <MenuCard>
-              <MenuItem
-                icon="moon"
-                title="Dark Mode"
-                subtitle="Switch to dark"
-                rightComponent={<Switch />}
-              />
-
               <MenuItem
                 icon="bell"
                 title="Notifications"
@@ -178,187 +175,32 @@ const MenuItem = ({
   </TouchableOpacity>
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  contentContainer: {
-    flex: 1,
-    backgroundColor: '#F7F7F9',
-    paddingHorizontal: 16,
-  },
 
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    // borderWidth: 0.5
-    paddingHorizontal: 16,
-    // backgroundColor: Colors.offWhite,
-  },
-  backButton: {
-    padding: 6,
-    borderRadius: 8,
-    backgroundColor: Colors.offWhite,
-    // borderWidth: 0.5,
-  },
-  headerTitle: {
-    fontSize: FONTS.sizes.lg,
-    fontFamily: FONTS.fontFamily.semibold,
-    marginLeft: 10,
-  },
 
-  //
+const DarkModeToggle = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  profileCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 18,
-    marginTop: 10,
-    elevation: 1,
-  },
+  const toggleSwitch = () => setIsDarkMode(previousState => !previousState);
 
-  profileHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+  return (
+    <View style={styles.toggleContainer}>
+      <View style={styles.left}>
+        <Feather
+          name={isDarkMode? 'moon' : 'sun'}
+          size={20}
+          color={isDarkMode ? '#4DD0A9' : '#ffa536'}
+          style={{ marginRight: 10 }}
+        />
+        <Text style={styles.text}>Dark Mode</Text>
+      </View>
+      <Switch
+        trackColor={{ false: '#767577', true: '#4DD0A9' }}
+        thumbColor={isDarkMode ? '#ffffff' : '#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isDarkMode}
+      />
+    </View>
+  );
+};
 
-  avatar: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-  },
-
-  name: {
-    fontSize: 20,
-    fontWeight: '700',
-  },
-
-  email: {
-    fontSize: 14,
-    color: '#6E6E73',
-    marginTop: 2,
-  },
-
-  roleBadge: {
-    backgroundColor: '#E6F0FF',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-    marginTop: 8,
-    alignSelf: 'flex-start',
-  },
-
-  roleText: {
-    color: '#2F6FED',
-    fontSize: 13,
-    fontWeight: '600',
-  },
-
-  divider: {
-    height: 1,
-    backgroundColor: '#E5E5EA',
-    marginVertical: 16,
-  },
-
-  skillsTitle: {
-    fontSize: 15,
-    fontWeight: '600',
-    marginBottom: 10,
-  },
-
-  skillsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-
-  skillChip: {
-    backgroundColor: '#F1F1F4',
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 20,
-    marginRight: 8,
-    marginBottom: 8,
-  },
-
-  skillText: {
-    fontSize: 13,
-    fontWeight: '500',
-  },
-
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 20,
-  },
-
-  statBox: {
-    backgroundColor: '#FFFFFF',
-    width: '23%',
-    borderRadius: 16,
-    paddingVertical: 20,
-    alignItems: 'center',
-    elevation: 2,
-  },
-
-  statNumber: {
-    fontSize: 20,
-    fontWeight: '700',
-  },
-
-  statLabel: {
-    fontSize: 12,
-    color: '#6E6E73',
-    marginTop: 6,
-  },
-
-  sectionTitle: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: '#6E6E73',
-    marginTop: 15,
-    textTransform: 'uppercase',
-  },
-
-  menuCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 18,
-    overflow: 'hidden',
-    elevation: 2,
-    marginTop: 16,
-  },
-
-  menuItem: {
-    paddingHorizontal: 18,
-    paddingVertical: 18,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#F1F1F4',
-  },
-
-  menuTitle: {
-    fontSize: 15,
-    fontWeight: '600',
-  },
-
-  menuSubtitle: {
-    fontSize: 13,
-    color: '#6E6E73',
-    marginTop: 2,
-  },
-  menuLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  iconContainer: {
-    width: 32,
-    height: 32,
-    borderRadius: 10,
-    backgroundColor: '#F4F4F8',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
