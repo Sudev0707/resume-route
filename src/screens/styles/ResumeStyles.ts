@@ -57,7 +57,7 @@ export const ResumeStyles = StyleSheet.create({
     backgroundColor: Colors.background,
     borderRadius: 18,
     padding: 18,
-    marginBottom: 18,
+     marginBottom: 10,
 
     // iOS shadow
     shadowColor: '#0000005e',
@@ -66,7 +66,7 @@ export const ResumeStyles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
 
     // Android shadow
-    elevation: 4,
+    elevation: 2,
   },
 
   cardHeader: {

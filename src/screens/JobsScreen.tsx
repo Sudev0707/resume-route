@@ -17,6 +17,7 @@ import {
   getStatusBadgeStyle,
   getStatusTextStyle,
 } from './styles/JobsStyles';
+import { Header } from '../components';
 
 type JobStatus = 'Applied' | 'Interview' | 'Offer' | 'Rejected';
 
@@ -269,16 +270,7 @@ export const JobsScreen: React.FC = () => {
           style={JobsStyles.container}
           edges={['top', 'right', 'bottom', 'left']}
         >
-          <View style={JobsStyles.header}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              activeOpacity={0.8}
-              style={JobsStyles.backButton}
-            >
-              <Feather name="chevron-left" size={24} />
-            </TouchableOpacity>
-            <Text style={JobsStyles.headerTitle}>Applications</Text>
-          </View>
+            <Header title="My Jobs" showBackButton />
           {/* content */}
 
           <View style={JobsStyles.toggleHeader}>
@@ -290,7 +282,7 @@ export const JobsScreen: React.FC = () => {
                 ]}
                 onPress={() => setViewMode('list')}
               >
-                <Feather name="list" size={16} color={Colors.textSecondary} />
+                <Feather name="menu" size={18} color={Colors.textSecondary} />
                 <Text style={JobsStyles.toggleLabel}>List</Text>
               </TouchableOpacity>
 
@@ -301,7 +293,7 @@ export const JobsScreen: React.FC = () => {
                 ]}
                 onPress={() => setViewMode('board')}
               >
-                <Feather name="grid" size={15} color={Colors.textSecondary} />
+                <Feather name="grid" size={17} color={Colors.textSecondary} />
                 <Text style={JobsStyles.toggleLabel}>Board</Text>
               </TouchableOpacity>
             </View>
@@ -395,27 +387,24 @@ export const JobsScreen: React.FC = () => {
                       renderItem={({ item: job }) => (
                         <TouchableOpacity
                           style={JobsStyles.boardCard}
-                          activeOpacity={0.6}
+                          activeOpacity={0.8}
                         >
                           <Text style={JobsStyles.title}>{job.title}</Text>
                           <Text style={JobsStyles.company}>{job.company}</Text>
-                          <Text style={JobsStyles.meta} numberOfLines={1}>
-                            <Feather
-                              name="map-pin"
-                              size={15}
-                              color={Colors.red}
-                            />{' '}
-                            {job.location}{' '}
-                            <Feather
-                              name="dollar-sign"
-                              size={14}
-                              color={Colors.green}
-                            />{' '}
-                            {job.salary}
-                          </Text>
+                          <View style={JobsStyles.meta}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                              <Feather name="map-pin" size={14} color={Colors.textSecondary} />
+                              <Text style={[JobsStyles.metaText, { marginLeft: 5 }]}>{job.location}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}> 
+                              <Feather name="dollar-sign" size={14} color={Colors.textSecondary} />
+                              <Text style={[JobsStyles.metaText , { marginLeft: 5 }]}>{job.salary}</Text>
+                            </View>
+                          </View>
                         </TouchableOpacity>
                       )}
                       showsVerticalScrollIndicator={false}
+                      contentContainerStyle={{paddingHorizontal: 10,paddingVertical:5 }}
                     />
                   </View>
                 ))}

@@ -5,18 +5,15 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
-  TextInput,
   Switch,
-  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../constants';
 import { ProfileStyles as styles } from './styles/ProfileStyles';
-export const ProfileScreen: React.FC = () => {
-  const navigation = useNavigation();
+import { Header } from '../components';
 
+export const ProfileScreen: React.FC = () => {
   const skills = ['React', 'TypeScript', 'Node.js', 'Python', 'Figma'];
   return (
     <>
@@ -28,17 +25,7 @@ export const ProfileScreen: React.FC = () => {
         />
 
         <SafeAreaView style={styles.container}>
-          {/* Header */}
-          <View style={styles.header}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              activeOpacity={0.8}
-              style={styles.backButton}
-            >
-              <Feather name="chevron-left" size={24} />
-            </TouchableOpacity>
-            <Text style={styles.headerTitle}>Profile</Text>
-          </View>
+          <Header title="Profile" showBackButton />
           <ScrollView
             style={styles.contentContainer}
             contentContainerStyle={{ paddingBottom: 80 }}
@@ -203,4 +190,3 @@ const DarkModeToggle = () => {
     </View>
   );
 };
-

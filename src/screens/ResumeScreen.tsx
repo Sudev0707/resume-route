@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Circle } from 'react-native-svg';
 import { Colors } from '../constants';
 import { ResumeStyles as styles } from './styles/ResumeStyles';
 import Feather from 'react-native-vector-icons/Feather';
 import { resumes } from '../data/resumes';
+import { Header } from '../components';
 
 const ProgressCircle = ({ score, color }: { score: number; color: string }) => {
   const radius = 20;
@@ -132,8 +132,6 @@ const ResumeCard = ({ item }: any) => {
 };
 
 export const ResumeScreen: React.FC = () => {
-  const navigation = useNavigation();
-
   return (
     <>
       <View style={{ flex: 1, backgroundColor: Colors.background }}>
@@ -147,16 +145,7 @@ export const ResumeScreen: React.FC = () => {
           style={styles.container}
           edges={['top', 'right', 'bottom', 'left']}
         >
-          <View style={styles.header}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              activeOpacity={0.8}
-              style={styles.backButton}
-            >
-              <Feather name="chevron-left" size={24} />
-            </TouchableOpacity>
-            <Text style={styles.headerTitle}>Resumes</Text>
-          </View>
+          <Header title="Resumes" showBackButton />
           <View style={styles.contentContainer}>
             <FlatList
               data={resumes}

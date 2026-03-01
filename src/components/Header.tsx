@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
-import { Colors } from '../constants';
+import { useNavigation } from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Feather';
+import { Colors, FONTS } from '../constants';
 
 interface HeaderProps {
   title: string;
@@ -8,6 +10,8 @@ interface HeaderProps {
   rightIcon?: React.ReactNode;
   onLeftPress?: () => void;
   onRightPress?: () => void;
+  showBackButton?: boolean;
+  onBackPress?: () => void;
   style?: ViewStyle;
 }
 
@@ -17,16 +21,36 @@ export const Header: React.FC<HeaderProps> = ({
   rightIcon,
   onLeftPress,
   onRightPress,
+  showBackButton = false,
+  onBackPress,
   style,
 }) => {
+  const navigation = useNavigation();
+
+  const handleBackPress = () => {
+    if (onBackPress) {
+      onBackPress();
+    } else {
+      navigation.goBack();
+    }
+  };
+
   return (
     <View style={[styles.container, style]}>
       <View style={styles.leftContainer}>
-        {leftIcon && (
+        {showBackButton ? (
+          <TouchableOpacity
+            onPress={handleBackPress}
+            style={styles.backButton}
+            activeOpacity={0.8}
+          >
+            <Feather name="chevron-left" size={24} />
+          </TouchableOpacity>
+        ) : leftIcon ? (
           <TouchableOpacity onPress={onLeftPress} style={styles.iconButton}>
             {leftIcon}
           </TouchableOpacity>
-        )}
+        ) : null}
       </View>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.rightContainer}>
@@ -60,13 +84,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   title: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: FONTS.sizes.md,
+    fontFamily:FONTS.fontFamily.semibold,
     color: Colors.text,
     flex: 1,
     textAlign: 'center',
   },
   iconButton: {
     padding: 4,
+  },
+  backButton: {
+    padding: 6,
+    borderRadius: 8,
+    backgroundColor: Colors.offWhite,
   },
 });

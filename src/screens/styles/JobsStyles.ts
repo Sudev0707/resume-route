@@ -114,10 +114,19 @@ export const JobsStyles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 16,
     borderRadius: 16,
-    marginBottom: 14,
+    marginBottom: 10,
     borderWidth: 0.4,
     borderColor: Colors.border,
-    elevation: 1,
+    // elevation: 1,
+
+    // iOS shadow
+    shadowColor: '#0000005e',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+
+    // Android shadow
+    elevation: 2,
   },
 
   title: {
@@ -129,19 +138,19 @@ export const JobsStyles = StyleSheet.create({
     fontSize: FONTS.sizes.sm,
     fontFamily: FONTS.fontFamily.regular,
     color: Colors.textSecondary,
-    marginTop: 4,
+    // marginTop: 4,
   },
 
   meta: {
-     marginTop: 6,
-    gap:14,
-    flexDirection:'row'
+    marginTop: 6,
+    gap: 14,
+    flexDirection: 'row',
   },
-  metaText:{
-   color: Colors.textSecondary,
+  metaText: {
+    color: Colors.textSecondary,
     fontSize: FONTS.sizes.xs,
     fontFamily: FONTS.fontFamily.regular,
-    gap:5
+    gap: 5,
   },
 
   boardColumn: {
@@ -152,7 +161,7 @@ export const JobsStyles = StyleSheet.create({
     borderWidth: 0.5,
 
     borderRadius: 14,
-    padding: 12,
+    // padding: 12,
     // maxHeight: 450,
     // borderWidth: 1,
     borderColor: '#a5cfff',
@@ -170,11 +179,18 @@ export const JobsStyles = StyleSheet.create({
     padding: 14,
     borderRadius: 14,
     marginBottom: 12,
-
-    shadowColor: '#a9a9a9fa',
-    borderWidth: 0.4,
+    // borderWidth: 0.4,
     borderColor: Colors.border,
-    elevation: 1,
+
+    // iOS shadow
+    shadowColor: '#0000005e',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+
+    // Android shadow
+    elevation: 2,
+    // elevation: 1,
   },
 
   // Job Card Row Container
@@ -226,7 +242,8 @@ export const JobsStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    // marginBottom: 15,
+    padding: 12,
   },
 
   // Board Count Badge
