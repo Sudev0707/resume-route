@@ -13,8 +13,10 @@ export const ResumeUploadStyles = StyleSheet.create({
     // borderWidth: 0.5,
     paddingHorizontal: 16,
     // backgroundColor: Colors.offWhite,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border,
   },
-  backButton:{
+  backButton: {
     padding: 6,
     borderRadius: 8,
     backgroundColor: Colors.offWhiteSecondary,
@@ -22,7 +24,7 @@ export const ResumeUploadStyles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: FONTS.sizes.md,
-    fontFamily:FONTS.fontFamily.semibold,
+    fontFamily: FONTS.fontFamily.semibold,
     color: Colors.text,
     marginLeft: 15,
   },

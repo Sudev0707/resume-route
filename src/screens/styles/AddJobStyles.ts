@@ -16,15 +16,8 @@ export const AddJobStyles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 16,
-
-    // ONLY bottom shadow
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 4 },
-
-    // Android (bottom only)
-    elevation: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border,
   },
   backButton: {
     padding: 6,
