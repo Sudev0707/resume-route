@@ -307,6 +307,40 @@ export const JobsStyles = StyleSheet.create({
     fontSize: FONTS.sizes.xs,
     fontFamily: FONTS.fontFamily.regular,
   },
+
+  // Interview Status Indicator Styles
+  interviewIndicator: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    backgroundColor: '#FEF3C7',
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  },
+  interviewIndicatorText: {
+    marginLeft: 4,
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.medium,
+    color: '#D97706',
+  },
+  scheduleInterviewButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    backgroundColor: '#EEF2FF',
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  },
+  scheduleInterviewText: {
+    marginLeft: 4,
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.medium,
+    color: '#4F46E5',
+  },
 });
 
 export const getStatusBadgeStyle = (status: string): ViewStyle => ({

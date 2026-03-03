@@ -287,12 +287,39 @@ const handleMoveStatus = (status: JobStatus) => {
           justifyContent: 'space-between',
         }}
       >
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Feather name="calendar" size={14} color={Colors.textSecondary} />
-          <Text style={[JobsStyles.appliedDate, { marginLeft: 5 }]}>
-            Applied on {job.appliedOn}
-          </Text>
+        <View style={{ flex: 1 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Feather name="calendar" size={14} color={Colors.textSecondary} />
+            <Text style={[JobsStyles.appliedDate, { marginLeft: 5 }]}>
+              Applied on {job.appliedOn}
+            </Text>
+          </View>
+          
+          {/* Interview Scheduled Indicator */}
+          {job.interviewDate && (
+            <View style={JobsStyles.interviewIndicator}>
+              <Feather name="calendar" size={12} color="#D97706" />
+              <Text style={JobsStyles.interviewIndicatorText}>
+                Interview: {job.interviewDate}
+              </Text>
+            </View>
+          )}
+          
+          {/* Schedule Interview Button for Interview status without date */}
+          {job.status === 'Interview' && !job.interviewDate && (
+            <TouchableOpacity 
+              style={JobsStyles.scheduleInterviewButton}
+              onPress={() => navigation.navigate('JobDetails', { job })}
+              activeOpacity={0.7}
+            >
+              <Feather name="calendar-plus" size={12} color="#4F46E5" />
+              <Text style={JobsStyles.scheduleInterviewText}>
+                Schedule Interview
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
+        
         {(job.status === 'Interview' || job.status === 'Applied') && (
           <TouchableOpacity
             style={JobsStyles.Movebutton}
@@ -492,6 +519,30 @@ const handleMoveStatus = (status: JobStatus) => {
                               </Text>
                             </View>
                           </View>
+                          
+                          {/* Interview Indicator for Board View */}
+                          {job.interviewDate && (
+                            <View style={[JobsStyles.interviewIndicator, { marginTop: 8 }]}>
+                              <Feather name="calendar" size={10} color="#D97706" />
+                              <Text style={[JobsStyles.interviewIndicatorText, { fontSize: 10 }]}>
+                                {job.interviewDate}
+                              </Text>
+                            </View>
+                          )}
+                          
+                          {/* Schedule Interview Button for Board View */}
+                          {job.status === 'Interview' && !job.interviewDate && (
+                            <TouchableOpacity 
+                              style={[JobsStyles.scheduleInterviewButton, { marginTop: 8 }]}
+                              onPress={() => navigation.navigate('JobDetails', { job })}
+                              activeOpacity={0.7}
+                            >
+                              <Feather name="calendar-plus" size={10} color="#4F46E5" />
+                              <Text style={[JobsStyles.scheduleInterviewText, { fontSize: 10 }]}>
+                                Schedule
+                              </Text>
+                            </TouchableOpacity>
+                          )}
                         </TouchableOpacity>
                       )}
                       showsVerticalScrollIndicator={false}

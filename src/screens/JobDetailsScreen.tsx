@@ -8,6 +8,7 @@ import {
   Linking,
   Modal,
   Platform,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
@@ -17,6 +18,7 @@ import { Colors, FONTS } from '../constants';
 import { JobDetailsStyles as styles } from './styles/JobDetailsStyles';
 import { Header } from '../components';
 import { JobsStyles } from './styles/JobsStyles';
+import orgIcon from '../assets/icons/icons8-company-60.png'
 
 type JobStatus = 'Applied' | 'Interview' | 'Offer' | 'Rejected';
 
@@ -194,6 +196,7 @@ export const JobDetailsScreen: React.FC = () => {
               <View style={styles.jobRow}>
                 <View style={styles.logoBox}>
                   {/* <MaterialCommunityIcons name="credit-card-chip" size={30} color="#5A67D8" /> */}
+                  <Image source={orgIcon}  style={styles.OrgIcon} resizeMode='contain' />
                 </View>
 
                 <View style={{ flex: 1, marginLeft: 10 }}>

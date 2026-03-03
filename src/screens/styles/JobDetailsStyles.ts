@@ -43,6 +43,11 @@ export const JobDetailsStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  OrgIcon:{
+    tintColor: Colors.primary,
+     width: 33,
+    height: 33,
+  },
   jobTitle: {
     fontSize: FONTS.sizes.lg,
     fontFamily: FONTS.fontFamily.medium,
