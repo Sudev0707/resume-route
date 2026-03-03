@@ -10,6 +10,7 @@ import {
   Modal,
   Platform,
   FlatList,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
@@ -83,9 +84,6 @@ export const AddJobScreen: React.FC = () => {
           <Text style={AddJobStyles.scoreBadgeText}>{item.score}</Text>
         </View>
       </View>
-      {/* {selectedResume.id === item.id && (
-        <Feather name="check" size={18} color={Colors.primary} style={AddJobStyles.checkIcon} />
-      )} */}
     </TouchableOpacity>
   );
 
@@ -108,200 +106,210 @@ export const AddJobScreen: React.FC = () => {
           </TouchableOpacity>
           <Text style={AddJobStyles.headerTitle}>Add Job</Text>
         </View>
-        <ScrollView
-          style={AddJobStyles.contentContainer}
-          showsVerticalScrollIndicator={false}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={AddJobStyles.keyboardView}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
         >
-          <Text style={AddJobStyles.label}>Company *</Text>
-          <TextInput
-            placeholder="Stripe, Vercel, etc."
-            style={AddJobStyles.input}
-            placeholderTextColor="#8E8E93"
-          />
-
-          <Text style={AddJobStyles.label}>Job Title *</Text>
-          <TextInput
-            placeholder="Senior Frontend Engineer"
-            style={AddJobStyles.input}
-            placeholderTextColor="#8E8E93"
-          />
-
-          <Text style={AddJobStyles.label}>Location</Text>
-          <TextInput
-            placeholder="San Francisco, CA"
-            style={AddJobStyles.input}
-            placeholderTextColor="#8E8E93"
-          />
-
-          <Text style={AddJobStyles.label}>Salary Range</Text>
-          <TextInput
-            placeholder="$120k - $160k"
-            style={AddJobStyles.input}
-            placeholderTextColor="#8E8E93"
-          />
-
-          <Text style={AddJobStyles.label}>Job Link</Text>
-          <TextInput
-            placeholder="https://company.com/careers"
-            style={AddJobStyles.input}
-            placeholderTextColor="#8E8E93"
-          />
-
-          <Text style={AddJobStyles.label}>Applied Date</Text>
-          <TouchableOpacity
-            style={AddJobStyles.dobInputWrapper}
-            onPress={() => setShowDatePicker(true)}
-            activeOpacity={0.8}
+          <ScrollView
+            style={AddJobStyles.scrollViewContent}
+            contentContainerStyle={AddJobStyles.scrollContentContainer}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="interactive"
           >
-            <Text
-              style={{
-                flex: 1,
-                color: appliedDate ? Colors.textPrimary : '#8E8E93',
-                fontSize: FONTS.sizes.sm,
-                fontFamily: FONTS.fontFamily.regular,
-              }}
-            >
-              {appliedDate ? formatDate(appliedDate) : '27-02-2026'}
-            </Text>
-            <Feather name="calendar" size={16} color="#8E8E93" />
-          </TouchableOpacity>
+            <Text style={AddJobStyles.label}>Company *</Text>
+            <TextInput
+              placeholder="Stripe, Vercel, etc."
+              style={AddJobStyles.input}
+              placeholderTextColor="#8E8E93"
+            />
 
-          {showDatePicker && Platform.OS === 'ios' && (
+            <Text style={AddJobStyles.label}>Job Title *</Text>
+            <TextInput
+              placeholder="Senior Frontend Engineer"
+              style={AddJobStyles.input}
+              placeholderTextColor="#8E8E93"
+            />
+
+            <Text style={AddJobStyles.label}>Location</Text>
+            <TextInput
+              placeholder="San Francisco, CA"
+              style={AddJobStyles.input}
+              placeholderTextColor="#8E8E93"
+            />
+
+            <Text style={AddJobStyles.label}>Salary Range</Text>
+            <TextInput
+              placeholder="$120k - $160k"
+              style={AddJobStyles.input}
+              placeholderTextColor="#8E8E93"
+            />
+
+            <Text style={AddJobStyles.label}>Job Link</Text>
+            <TextInput
+              placeholder="https://company.com/careers"
+              style={AddJobStyles.input}
+              placeholderTextColor="#8E8E93"
+            />
+
+            <Text style={AddJobStyles.label}>Applied Date</Text>
+            <TouchableOpacity
+              style={AddJobStyles.dobInputWrapper}
+              onPress={() => setShowDatePicker(true)}
+              activeOpacity={0.8}
+            >
+              <Text
+                style={{
+                  flex: 1,
+                  color: appliedDate ? Colors.textPrimary : '#8E8E93',
+                  fontSize: FONTS.sizes.sm,
+                  fontFamily: FONTS.fontFamily.regular,
+                }}
+              >
+                {appliedDate ? formatDate(appliedDate) : '27-02-2026'}
+              </Text>
+              <Feather name="calendar" size={16} color="#8E8E93" />
+            </TouchableOpacity>
+
+            {showDatePicker && Platform.OS === 'ios' && (
+              <Modal
+                transparent
+                animationType="fade"
+                visible={showDatePicker}
+                onRequestClose={() => setShowDatePicker(false)}
+              >
+                <View style={AddJobStyles.modalOverlay}>
+                  <View style={AddJobStyles.modalContent}>
+                    <View style={AddJobStyles.modalHeader}>
+                      <TouchableOpacity onPress={() => setShowDatePicker(false)}>
+                        <Text style={AddJobStyles.modalCancel}>Cancel</Text>
+                      </TouchableOpacity>
+                      <Text style={AddJobStyles.modalTitle}>Select Date</Text>
+                      <TouchableOpacity onPress={handleDonePress}>
+                        <Text style={AddJobStyles.modalDone}>Done</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <DateTimePicker
+                      value={appliedDate || new Date()}
+                      mode="date"
+                      display="spinner"
+                      onChange={handleDateChange}
+                      style={AddJobStyles.datePicker}
+                    />
+                  </View>
+                </View>
+              </Modal>
+            )}
+
+            {showDatePicker && Platform.OS === 'android' && (
+              <DateTimePicker
+                value={appliedDate || new Date()}
+                mode="date"
+                display="default"
+                onChange={handleDateChange}
+              />
+            )}
+
+            {/* Resume Used - Dropdown */}
+            <Text style={AddJobStyles.label}>Resume Used</Text>
+            <TouchableOpacity
+              style={AddJobStyles.inputWithIcon}
+              onPress={() => setShowResumeDropdown(true)}
+              activeOpacity={0.8}
+            >
+              <Text style={AddJobStyles.inputWithIconText}>
+                {selectedResume.title}
+              </Text>
+              <Feather name="chevron-down" size={18} color="#8E8E93" />
+            </TouchableOpacity>
+
+            {/* Resume Dropdown Modal */}
             <Modal
               transparent
               animationType="fade"
-              visible={showDatePicker}
-              onRequestClose={() => setShowDatePicker(false)}
+              visible={showResumeDropdown}
+              onRequestClose={() => setShowResumeDropdown(false)}
             >
               <View style={AddJobStyles.modalOverlay}>
-                <View style={AddJobStyles.modalContent}>
+                <View style={AddJobStyles.dropdownModalContent}>
                   <View style={AddJobStyles.modalHeader}>
-                    <TouchableOpacity onPress={() => setShowDatePicker(false)}>
+                    <TouchableOpacity
+                      onPress={() => setShowResumeDropdown(false)}
+                    >
                       <Text style={AddJobStyles.modalCancel}>Cancel</Text>
                     </TouchableOpacity>
-                    <Text style={AddJobStyles.modalTitle}>Select Date</Text>
-                    <TouchableOpacity onPress={handleDonePress}>
-                      <Text style={AddJobStyles.modalDone}>Done</Text>
-                    </TouchableOpacity>
+                    <Text style={AddJobStyles.modalTitle}>Select Resume</Text>
+                    <View style={{ width: 50 }} />
                   </View>
-                  <DateTimePicker
-                    value={appliedDate || new Date()}
-                    mode="date"
-                    display="spinner"
-                    onChange={handleDateChange}
-                    style={AddJobStyles.datePicker}
+                  <FlatList
+                    data={resumes}
+                    keyExtractor={item => item.id}
+                    renderItem={renderResumeItem}
+                    contentContainerStyle={AddJobStyles.resumeListContent}
+                    showsVerticalScrollIndicator={false}
                   />
                 </View>
               </View>
             </Modal>
-          )}
 
-          {showDatePicker && Platform.OS === 'android' && (
-            <DateTimePicker
-              value={appliedDate || new Date()}
-              mode="date"
-              display="default"
-              onChange={handleDateChange}
-            />
-          )}
-
-          {/* Resume Used - Dropdown */}
-          <Text style={AddJobStyles.label}>Resume Used</Text>
-          <TouchableOpacity
-            style={AddJobStyles.inputWithIcon}
-            onPress={() => setShowResumeDropdown(true)}
-            activeOpacity={0.8}
-          >
-            <Text style={AddJobStyles.inputWithIconText}>
-              {selectedResume.title}
-            </Text>
-            <Feather name="chevron-down" size={18} color="#8E8E93" />
-          </TouchableOpacity>
-
-          {/* Resume Dropdown Modal */}
-          <Modal
-            transparent
-            animationType="fade"
-            visible={showResumeDropdown}
-            onRequestClose={() => setShowResumeDropdown(false)}
-          >
-            <View style={AddJobStyles.modalOverlay}>
-              <View style={AddJobStyles.dropdownModalContent}>
-                <View style={AddJobStyles.modalHeader}>
-                  <TouchableOpacity
-                    onPress={() => setShowResumeDropdown(false)}
-                  >
-                    <Text style={AddJobStyles.modalCancel}>Cancel</Text>
-                  </TouchableOpacity>
-                  <Text style={AddJobStyles.modalTitle}>Select Resume</Text>
-                  <View style={{ width: 50 }} />
-                </View>
-                <FlatList
-                  data={resumes}
-                  keyExtractor={item => item.id}
-                  renderItem={renderResumeItem}
-                  contentContainerStyle={AddJobStyles.resumeListContent}
-                  showsVerticalScrollIndicator={false}
-                />
-              </View>
-            </View>
-          </Modal>
-
-          {/* Status */}
-          <Text style={AddJobStyles.label}>Status</Text>
-          <View style={AddJobStyles.statusContainer}>
-            {['Applied', 'Interview', 'Offer', 'Rejected'].map(item => (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                key={item}
-                onPress={() => setStatus(item)}
-                style={[
-                  AddJobStyles.statusButton,
-                  status === item && AddJobStyles.activeStatus,
-                ]}
-              >
-                <Text
+            {/* Status */}
+            <Text style={AddJobStyles.label}>Status</Text>
+            <View style={AddJobStyles.statusContainer}>
+              {['Applied', 'Interview', 'Offer', 'Rejected'].map(item => (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  key={item}
+                  onPress={() => setStatus(item)}
                   style={[
-                    AddJobStyles.statusText,
-                    status === item && AddJobStyles.activeStatusText,
+                    AddJobStyles.statusButton,
+                    status === item && AddJobStyles.activeStatus,
                   ]}
                 >
-                  {item}
+                  <Text
+                    style={[
+                      AddJobStyles.statusText,
+                      status === item && AddJobStyles.activeStatusText,
+                    ]}
+                  >
+                    {item}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            {/* Remote Toggle */}
+            <View style={AddJobStyles.remoteContainer}>
+              <Text style={AddJobStyles.remoteText}>Remote position</Text>
+              <Switch value={remote} onValueChange={setRemote} />
+            </View>
+
+            {/* Notes */}
+            <Text style={AddJobStyles.label}>Notes</Text>
+            <TextInput
+              placeholder="Any notes about this application..."
+              style={AddJobStyles.notesInput}
+              multiline
+              numberOfLines={5}
+              placeholderTextColor="#8E8E93"
+            />
+
+            <View style={AddJobStyles.buttonContainer}>
+              <TouchableOpacity
+                style={AddJobStyles.uploadButton}
+                onPress={handleAddJob}
+                activeOpacity={0.8}
+              >
+                <Feather name="upload" size={20} color={Colors.background} />
+                <Text style={AddJobStyles.uploadButtonText}>
+                  Add Job Application
                 </Text>
               </TouchableOpacity>
-            ))}
-          </View>
-
-          {/* Remote Toggle */}
-          <View style={AddJobStyles.remoteContainer}>
-            <Text style={AddJobStyles.remoteText}>Remote position</Text>
-            <Switch value={remote} onValueChange={setRemote} />
-          </View>
-
-          {/* Notes */}
-          <Text style={AddJobStyles.label}>Notes</Text>
-          <TextInput
-            placeholder="Any notes about this application..."
-            style={AddJobStyles.notesInput}
-            multiline
-            numberOfLines={5}
-            placeholderTextColor="#8E8E93"
-          />
-
-          <View style={AddJobStyles.buttonContainer}>
-            <TouchableOpacity
-              style={AddJobStyles.uploadButton}
-              onPress={handleAddJob}
-              activeOpacity={0.8}
-            >
-              <Feather name="upload" size={20} color={Colors.background} />
-              <Text style={AddJobStyles.uploadButtonText}>
-                Add Job Application
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );
 };
+

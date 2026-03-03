@@ -9,7 +9,17 @@ export const AddJobStyles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     backgroundColor: Colors.background,
+  },
+  keyboardView: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  scrollContentContainer: {
     paddingHorizontal: 16,
+    paddingBottom: 40,
   },
   header: {
     flexDirection: 'row',

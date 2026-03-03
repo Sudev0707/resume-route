@@ -110,7 +110,7 @@ export const JobsStyles = StyleSheet.create({
 
   card: {
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    // alignItems: 'flex-start',
     backgroundColor: '#fff',
     padding: 16,
     borderRadius: 16,
@@ -151,6 +151,24 @@ export const JobsStyles = StyleSheet.create({
     fontSize: FONTS.sizes.xs,
     fontFamily: FONTS.fontFamily.regular,
     gap: 5,
+  },
+
+  Movebutton: {
+    backgroundColor: '#E8F1FF',
+    paddingVertical: 5,
+    paddingHorizontal: 14,
+    borderRadius: 30,
+    alignSelf: 'flex-start',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  text: {
+    color: '#1E74FF',
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.regular,
   },
 
   boardColumn: {
@@ -203,9 +221,17 @@ export const JobsStyles = StyleSheet.create({
   // Applied Date Text
   appliedDate: {
     color: Colors.textSecondary,
-    fontSize: FONTS.sizes.sm,
+    fontSize: FONTS.sizes.xs,
     fontFamily: FONTS.fontFamily.regular,
     marginTop: 6,
+  },
+  separator: {
+    // height: 1,
+    // backgroundColor: '#E0E0E0',
+    marginVertical: 12,
+    borderBottomWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: '#E0E0E0',
   },
 
   // Toggle Button Label

@@ -17,7 +17,10 @@ import { Header } from '../components';
 import { resumes } from '../data/resumes';
 import { ResumeStyles as styles } from './styles/ResumeStyles';
 
-type ResumeViewRouteProp = RouteProp<{ ResumeView: { resumeId: string } }, 'ResumeView'>;
+type ResumeViewRouteProp = RouteProp<
+  { ResumeView: { resumeId: string } },
+  'ResumeView'
+>;
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -26,7 +29,7 @@ export const ResumeViewScreen: React.FC = () => {
   const route = useRoute<ResumeViewRouteProp>();
   const { resumeId } = route.params;
   const [isPdfLoading, setIsPdfLoading] = useState(true);
-  
+
   const resume = resumes.find(r => r.id === resumeId);
 
   if (!resume) {
@@ -45,13 +48,11 @@ export const ResumeViewScreen: React.FC = () => {
     return null;
   };
 
-
-
   const pdfSource = getPdfSource();
 
   return (
     <>
-      <View style={{ flex: 1, backgroundColor: Colors.background }}>
+      <View style={styles.mainContainer}>
         <StatusBar
           backgroundColor={Colors.background}
           barStyle="dark-content"
@@ -61,23 +62,24 @@ export const ResumeViewScreen: React.FC = () => {
           style={styles.container}
           edges={['top', 'right', 'bottom', 'left']}
         >
-          <Header 
-            title={resume.title} 
-            showBackButton 
-            onBackPress={() => navigation.goBack()} 
+          <Header
+            title={resume.title}
+            showBackButton
+            onBackPress={() => navigation.goBack()}
           />
-          <ScrollView 
-            style={[styles.contentContainer, {paddingHorizontal: 15,}]}
+          <ScrollView
+            style={[styles.contentContainer]}
             showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollViewContent}
           >
             {/* PDF Viewer Section - LinkedIn Style */}
             {pdfSource && (
-              <View style={[styles.card, { marginTop: 16, overflow: 'hidden' }]}>
+              <View style={[styles.card, styles.cardMarginTop]}>
                 <View style={styles.pdfContainer}>
                   {isPdfLoading && (
                     <View style={styles.pdfLoadingContainer}>
                       <ActivityIndicator size="large" color={Colors.primary} />
-                      <Text style={[styles.subtitle, { marginTop: 8 }]}>
+                      <Text style={[styles.subtitle, styles.pdfLoadingText]}>
                         Loading PDF...
                       </Text>
                     </View>
@@ -92,7 +94,7 @@ export const ResumeViewScreen: React.FC = () => {
                     onPageChanged={(page, numberOfPages) => {
                       console.log(`Current page: ${page}/${numberOfPages}`);
                     }}
-                    onError={(error) => {
+                    onError={error => {
                       console.log('PDF load error:', error);
                       setIsPdfLoading(false);
                     }}
@@ -103,10 +105,14 @@ export const ResumeViewScreen: React.FC = () => {
                     spacing={0}
                   />
                 </View>
-                
+
                 {/* PDF Page Indicator */}
                 <View style={styles.pdfIndicator}>
-                  <Feather name="file-text" size={16} color={Colors.textSecondary} />
+                  <Feather
+                    name="file-text"
+                    size={16}
+                    color={Colors.textSecondary}
+                  />
                   <Text style={[styles.subtitle, { marginLeft: 6 }]}>
                     PDF Document
                   </Text>
@@ -115,56 +121,76 @@ export const ResumeViewScreen: React.FC = () => {
             )}
 
             {/* Resume Details Section */}
-            <View style={[styles.card, { marginTop: 16, padding: 16}]}>
-              <Text style={[styles.title, { marginBottom: 12 }]}>Resume Details</Text>
-              <View style={styles.meta}>
-                <Feather name="file-text" size={18} color={Colors.textSecondary} />
-                <Text style={[styles.subtitle, { marginLeft: 8 }]}>
-                  PDF Document
-                </Text>
+            <View style={styles.card}>
+              <View style={styles.qrSectionContainer}>
+                <View style={styles.qrColumn}>
+                  <Text style={styles.qrTitle}>QR Code</Text>
+                  <Text style={styles.qrSubtitle}>
+                    Share your resume via QR
+                  </Text>
+                </View>
+
+                <View style={styles.meta}>
+                  <TouchableOpacity style={styles.showQRButton}>
+                    <Text
+                      style={[
+                        styles.secondaryButtonText,
+                        { color: Colors.primary },
+                      ]}
+                    >
+                      Show QR
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={[styles.meta, { marginTop: 8 }]}>
-                <Feather name="calendar" size={18} color={Colors.textSecondary} />
-                <Text style={[styles.subtitle, { marginLeft: 8 }]}>
-                 {resume.date}
-                </Text>
+
+              {/* generated or container*/}
+              <View style={styles.qrCodeContainer}>
+                {/* generated pdf link */}
+
+                <Text>https://careervault.app/r/tech-2024</Text>
+
+                <TouchableOpacity style={styles.copyLinkButton}>
+                  <Feather name="link-2" size={18} color={Colors.green} />
+                  <Text
+                    style={[
+                      styles.secondaryButtonText,
+                      { color: Colors.green, marginLeft: 7 },
+                    ]}
+                  >
+                    Copy Link
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
 
             {/* Action Buttons */}
-            <View style={{ padding: 16, gap: 12 }}>
-              <TouchableOpacity 
-                style={[styles.secondaryButton, { backgroundColor: Colors.primary, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 12 }]}
-              >
+            <View style={styles.actionButtonsContainer}>
+              <TouchableOpacity style={styles.editResumeButton}>
                 <Feather name="edit" size={18} color="white" />
-                <Text style={[styles.secondaryButtonText, { marginLeft: 8, color: 'white' }]}>
-                  Edit Resume
+                <Text style={[styles.secondaryButtonText, styles.buttonIcon, { color: 'white' }]}>
+                  Update Resume
                 </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity 
-                style={[styles.secondaryButton, { backgroundColor: Colors.greenSoft, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 12 }]}
-              >
-                <Feather name="link-2" size={18} color={Colors.green} />
-                <Text style={[styles.secondaryButtonText, { marginLeft: 8, color: Colors.green }]}>
-                  Copy Link
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity 
-                style={[styles.secondaryButton, { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 12 }]}
-              >
-                <Feather name="share-2" size={18} color={Colors.textSecondary} />
-                <Text style={[styles.secondaryButtonText, { marginLeft: 8 }]}>
+              <TouchableOpacity style={styles.shareResumeButton}>
+                <Feather
+                  name="share-2"
+                  size={18}
+                  color={Colors.textSecondary}
+                />
+                <Text style={[styles.secondaryButtonText, styles.buttonIcon]}>
                   Share Resume
                 </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity 
-                style={[styles.secondaryButton, { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 12 }]}
-              >
-                <Feather name="download" size={18} color={Colors.textSecondary} />
-                <Text style={[styles.secondaryButtonText, { marginLeft: 8 }]}>
+              <TouchableOpacity style={styles.downloadPdfButton}>
+                <Feather
+                  name="download"
+                  size={18}
+                  color={Colors.textSecondary}
+                />
+                <Text style={[styles.secondaryButtonText, styles.buttonIcon]}>
                   Download PDF
                 </Text>
               </TouchableOpacity>

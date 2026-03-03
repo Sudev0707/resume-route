@@ -53,7 +53,7 @@ export const ResumeStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    
+
     // iOS shadow
     shadowColor: '#2563eb',
     shadowOpacity: 0.3,
@@ -184,7 +184,7 @@ export const ResumeStyles = StyleSheet.create({
   QRIcon: {
     width: 16,
     height: 16,
-    tintColor: '#686868'
+    tintColor: '#686868',
   },
 
   secondaryButton: {
@@ -242,5 +242,98 @@ export const ResumeStyles = StyleSheet.create({
     paddingHorizontal: 16,
     borderTopWidth: 1,
     borderTopColor: '#e5e7eb',
+  },
+
+  // ResumeViewScreen Styles
+  mainContainer: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  scrollViewContent: {
+    paddingHorizontal: 15,
+    paddingBottom: 40,
+  },
+  cardMarginTop: {
+    marginTop: 16,
+    overflow: 'hidden',
+  },
+  pdfLoadingText: {
+    marginTop: 8,
+  },
+  qrSectionContainer: {
+    // marginTop: 16,
+    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  qrCodeContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 12,
+  },
+  actionButtonsContainer: {
+    padding: 16,
+    gap: 12,
+  },
+  showQRButton: {
+    backgroundColor: Colors.primarySoft,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+  },
+  editResumeButton: {
+    backgroundColor: Colors.primary,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderRadius: 12,
+  },
+  copyLinkButton: {
+    backgroundColor: Colors.greenSoft,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    marginTop: 12,
+  },
+  shareResumeButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 12,
+    backgroundColor: Colors.offWhiteSecondary,
+    borderRadius: 12,
+  },
+  downloadPdfButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 12,
+    backgroundColor: Colors.offWhiteSecondary,
+    borderRadius: 12,
+  },
+  buttonIcon: {
+    marginLeft: 8,
+  },
+  qrTitle: {
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.regular,
+  },
+  qrSubtitle: {
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.regular,
+  },
+  qrColumn: {
+    flexDirection: 'column',
+  },
+  pdfIndicatorText: {
+    marginLeft: 6,
   },
 });
