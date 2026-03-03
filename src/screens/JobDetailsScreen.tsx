@@ -10,6 +10,7 @@ import {
   Platform,
   Image,
   TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
@@ -191,11 +192,17 @@ export const JobDetailsScreen: React.FC = () => {
       >
         <Header title={job.company} showBackButton />
         <View style={JobsStyles.contentContainer}>
-          <ScrollView
-            style={styles.scrollView}
-            contentContainerStyle={styles.scrollContent}
-            showsVerticalScrollIndicator={false}
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+            style={styles.keyboardView}
           >
+            <ScrollView
+              style={styles.scrollView}
+              contentContainerStyle={styles.scrollContent}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
             <View style={styles.card}>
               <View style={styles.jobRow}>
                 <View style={styles.logoBox}>
@@ -598,6 +605,7 @@ export const JobDetailsScreen: React.FC = () => {
               )}
             </View>
           </ScrollView>
+          </KeyboardAvoidingView>
         </View>
       </SafeAreaView>
     </View>

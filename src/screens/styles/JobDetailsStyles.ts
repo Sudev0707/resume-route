@@ -7,6 +7,10 @@ export const JobDetailsStyles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
 
+  keyboardView: {
+    flex: 1,
+  },
+
   scrollView: {
     flex: 1,
   },
