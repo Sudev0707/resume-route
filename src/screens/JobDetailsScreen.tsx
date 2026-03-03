@@ -28,7 +28,7 @@ type JobDetailsRouteProp = RouteProp<
 
 const getStatusBadgeStyle = (status: JobStatus) => {
   const colors: Record<JobStatus, { bg: string; text: string }> = {
-    Applied: { bg: '#E0F2FE', text: '#007AFF' },
+    Applied: { bg: '#E6F7F5', text: '#14c0ac' },
     Interview: { bg: '#FFF3E0', text: '#FF9500' },
     Offer: { bg: '#D1FADF', text: '#10B981' },
     Rejected: { bg: '#FEE2E2', text: '#EF4444' },

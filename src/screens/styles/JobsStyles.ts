@@ -341,6 +341,47 @@ export const JobsStyles = StyleSheet.create({
     fontFamily: FONTS.fontFamily.medium,
     color: '#4F46E5',
   },
+
+  // Empty State Styles
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 60,
+    paddingHorizontal: 20,
+    // borderWidth:0.7,
+    marginTop:80
+  },
+  emptyText: {
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.medium,
+    color: Colors.textSecondary,
+    textAlign: 'center',
+    marginTop: 12,
+  },
+  emptySubText: {
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
+    color: Colors.textSecondary,
+    textAlign: 'center',
+    marginTop: 4,
+    opacity: 0.7,
+  },
+
+  // Board Column Empty State Styles
+  emptyBoardContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 40,
+    paddingHorizontal: 10,
+  },
+  emptyBoardText: {
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
+    color: Colors.textSecondary,
+    opacity: 0.6,
+  },
 });
 
 export const getStatusBadgeStyle = (status: string): ViewStyle => ({
@@ -351,7 +392,7 @@ export const getStatusBadgeStyle = (status: string): ViewStyle => ({
     status === 'Offer'
       ? '#D1FAE5'
       : status === 'Interview'
-      ? '#FEF3C7'
+      ? '#FFF3E0'
       : status === 'Rejected'
       ? '#FFEAEA'
       : status === 'Applied'
@@ -367,7 +408,7 @@ export const getStatusTextStyle = (status: string): TextStyle => ({
     status === 'Offer'
       ? '#11bc63'
       : status === 'Interview'
-      ? '#e7961d'
+      ? '#FF9500'
       : status === 'Rejected'
       ? '#F15555'
       : status === 'Applied'

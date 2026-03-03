@@ -147,6 +147,87 @@ export const JobsScreen: React.FC = () => {
     </TouchableOpacity>
   );
 
+  const renderJobList = (job: Job) => (
+    <TouchableOpacity
+      style={JobsStyles.boardCard}
+      activeOpacity={0.8}
+      onPress={() => navigation.navigate('JobDetails', { job })}
+    >
+      <Text style={JobsStyles.title}>{job.title}</Text>
+      <Text style={JobsStyles.company}>{job.company}</Text>
+      <View style={JobsStyles.meta}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Feather name="map-pin" size={14} color={Colors.textSecondary} />
+          <Text style={[JobsStyles.metaText, { marginLeft: 5 }]}>
+            {job.location}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Feather name="dollar-sign" size={14} color={Colors.textSecondary} />
+          <Text style={[JobsStyles.metaText, { marginLeft: 5 }]}>
+            {job.salary}
+          </Text>
+        </View>
+      </View>
+
+      {/* Interview Indicator for Board View */}
+      {job.interviewDate && (
+        <View style={[JobsStyles.interviewIndicator, { marginTop: 8 }]}>
+          <Feather name="calendar" size={10} color="#D97706" />
+          <Text style={[JobsStyles.interviewIndicatorText, { fontSize: 10 }]}>
+            {job.interviewDate}
+          </Text>
+        </View>
+      )}
+
+      {/* Schedule Interview Button for Board View */}
+      {job.status === 'Interview' && !job.interviewDate && (
+        <TouchableOpacity
+          style={[JobsStyles.scheduleInterviewButton, { marginTop: 8 }]}
+          onPress={() => navigation.navigate('JobDetails', { job })}
+          activeOpacity={0.7}
+        >
+          <Feather name="calendar-plus" size={10} color="#4F46E5" />
+          <Text style={[JobsStyles.scheduleInterviewText, { fontSize: 10 }]}>
+            Schedule
+          </Text>
+        </TouchableOpacity>
+      )}
+    </TouchableOpacity>
+  );
+
+  const renderEmptyList = () => (
+    <View style={JobsStyles.emptyContainer}>
+      <Feather name="briefcase" size={48} color={Colors.textSecondary} />
+      <Text style={JobsStyles.emptyText}>
+        {filter === 'All' ? 'No jobs yet' : `No ${filter} jobs`}
+      </Text>
+      <Text style={JobsStyles.emptySubText}>
+        {filter === 'All'
+          ? 'Start by adding your first job application'
+          : `You don't have any jobs with ${filter} status`}
+      </Text>
+    </View>
+  );
+
+  const renderEmptyBoardColumn = (status: string) => (
+    <View style={JobsStyles.emptyBoardContainer}>
+      <Text style={JobsStyles.emptyBoardText}>
+        No {status.toLowerCase()} jobs
+      </Text>
+    </View>
+  );
+
   return (
     <>
       <View style={{ flex: 1, backgroundColor: Colors.background }}>
@@ -251,6 +332,7 @@ export const JobsScreen: React.FC = () => {
                   keyExtractor={item => item.id}
                   renderItem={({ item }) => renderJobCard(item)}
                   contentContainerStyle={JobsStyles.jobsListContent}
+                  ListEmptyComponent={renderEmptyList}
                 />
               </>
             )}
@@ -286,111 +368,13 @@ export const JobsScreen: React.FC = () => {
                     <FlatList
                       data={groupedJobs[column]}
                       keyExtractor={job => job.id}
-                      renderItem={({ item: job }) => (
-                        <TouchableOpacity
-                          style={JobsStyles.boardCard}
-                          activeOpacity={0.8}
-                          onPress={() =>
-                            navigation.navigate('JobDetails', { job })
-                          }
-                        >
-                          <Text style={JobsStyles.title}>{job.title}</Text>
-                          <Text style={JobsStyles.company}>{job.company}</Text>
-                          <View style={JobsStyles.meta}>
-                            <View
-                              style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                              }}
-                            >
-                              <Feather
-                                name="map-pin"
-                                size={14}
-                                color={Colors.textSecondary}
-                              />
-                              <Text
-                                style={[JobsStyles.metaText, { marginLeft: 5 }]}
-                              >
-                                {job.location}
-                              </Text>
-                            </View>
-                            <View
-                              style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                              }}
-                            >
-                              <Feather
-                                name="dollar-sign"
-                                size={14}
-                                color={Colors.textSecondary}
-                              />
-                              <Text
-                                style={[JobsStyles.metaText, { marginLeft: 5 }]}
-                              >
-                                {job.salary}
-                              </Text>
-                            </View>
-                          </View>
-
-                          {/* Interview Indicator for Board View */}
-                          {job.interviewDate && (
-                            <View
-                              style={[
-                                JobsStyles.interviewIndicator,
-                                { marginTop: 8 },
-                              ]}
-                            >
-                              <Feather
-                                name="calendar"
-                                size={10}
-                                color="#D97706"
-                              />
-                              <Text
-                                style={[
-                                  JobsStyles.interviewIndicatorText,
-                                  { fontSize: 10 },
-                                ]}
-                              >
-                                {job.interviewDate}
-                              </Text>
-                            </View>
-                          )}
-
-                          {/* Schedule Interview Button for Board View */}
-                          {job.status === 'Interview' && !job.interviewDate && (
-                            <TouchableOpacity
-                              style={[
-                                JobsStyles.scheduleInterviewButton,
-                                { marginTop: 8 },
-                              ]}
-                              onPress={() =>
-                                navigation.navigate('JobDetails', { job })
-                              }
-                              activeOpacity={0.7}
-                            >
-                              <Feather
-                                name="calendar-plus"
-                                size={10}
-                                color="#4F46E5"
-                              />
-                              <Text
-                                style={[
-                                  JobsStyles.scheduleInterviewText,
-                                  { fontSize: 10 },
-                                ]}
-                              >
-                                Schedule
-                              </Text>
-                            </TouchableOpacity>
-                          )}
-                        </TouchableOpacity>
-                      )}
+                      renderItem={({ item }) => renderJobList(item)}
                       showsVerticalScrollIndicator={false}
                       contentContainerStyle={{
                         paddingHorizontal: 10,
                         paddingVertical: 5,
                       }}
+                      ListEmptyComponent={() => renderEmptyBoardColumn(column)}
                     />
                   </View>
                 ))}
