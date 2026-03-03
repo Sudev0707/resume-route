@@ -12,21 +12,32 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../constants';
+import { pickFile, PickedFile } from '../utils';
 import { ResumeUploadStyles as styles } from './styles/ResumeUploadStyles';
+
+
 
 export const ResumeUploadScreen: React.FC = () => {
   const navigation = useNavigation();
   const [resumeTitle, setResumeTitle] = useState('');
-  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<PickedFile | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSelectFile = () => {
-    // In a real app, this would open a file picker
-    // For now, we'll simulate file selection
-    setSelectedFile('resume_sample.pdf');
-    Alert.alert('File Selected', 'resume_sample.pdf has been selected');
+  const handleSelectFile = async () => {
+    try {
+      const result = await pickFile();
+      if (result) {
+        setSelectedFile(result);
+        console.log(result);
+        
+      }
+    } catch (error: any) {
+      console.error('File picker error:', error);
+      Alert.alert('Error', 'Failed to select file. Please try again.');
+    }
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (!resumeTitle.trim()) {
       Alert.alert('Error', 'Please enter a resume title');
       return;
@@ -36,13 +47,45 @@ export const ResumeUploadScreen: React.FC = () => {
       return;
     }
 
-    // Simulate upload success
-    Alert.alert('Success', 'Resume uploaded successfully!', [
-      {
-        text: 'OK',
-        onPress: () => navigation.goBack(),
-      },
-    ]);
+    setIsLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', {
+        uri: selectedFile.uri,
+        name: selectedFile.name,
+        type: selectedFile.type,
+      });
+      formData.append('title', resumeTitle.trim());
+
+      const response = await fetch('https://api.example.com/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const data = await response.json();
+      console.log('Upload success:', data);
+
+      Alert.alert('Success', 'Resume uploaded successfully!', [
+        {
+          text: 'OK',
+          onPress: () => {
+            setResumeTitle('');
+            setSelectedFile(null);
+            navigation.goBack();
+          },
+        },
+      ]);
+    } catch (error) {
+      console.error('Upload error:', error);
+      Alert.alert('Error', 'Failed to upload resume. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -84,7 +127,7 @@ export const ResumeUploadScreen: React.FC = () => {
                 <Feather name="upload-cloud" size={48} color={Colors.primary} />
               </View>
               <Text style={styles.dropZoneTitle}>
-                {selectedFile ? selectedFile : 'Tap to select file'}
+                {selectedFile ? selectedFile.name : 'Tap to select file'}
               </Text>
               <Text style={styles.dropZoneSubtitle}>
                 {selectedFile
