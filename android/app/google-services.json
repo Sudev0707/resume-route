@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "585296290527",
+    "project_id": "resume-route",
+    "storage_bucket": "resume-route.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585296290527:android:b4cf06f44072a5d637ff6a",
+        "android_client_info": {
+          "package_name": "com.resumeroute"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHeTXH2YOsxHVQ5HK_XAesHEIDNKn3Sf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

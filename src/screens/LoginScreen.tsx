@@ -11,6 +11,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Feather";
@@ -20,6 +21,10 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import { Colors } from "../constants";
+import {auth} from '../utils/firebase'
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile, signInWithEmailAndPassword } from 'firebase/auth';
+import { toast } from '../utils/toast';
+
 
 type LoginNavProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -82,6 +87,9 @@ const LoginScreen = () => {
   const [signupEmailTouched, setSignupEmailTouched] = useState(false);
   const [signupPasswordTouched, setSignupPasswordTouched] = useState(false);
 
+  // Loading state
+  const [isLoading, setIsLoading] = useState(false);
+
   const slideAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -125,20 +133,119 @@ const LoginScreen = () => {
   };
 
   // ====================
-  const handleLogin = () => {
-    // Placeholder for login logic
+ const handleLogin = async () => {
+  if (!loginEmail || !loginPassword) {
+    toast.error('Please enter both email and password.');
+    return;
+  }
+
+  try {
+    // 1️⃣ Sign in with Firebase
+    const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+    const user = userCredential.user;
+
+    // 2️⃣ Check if email is verified
+    if (!user.emailVerified) {
+      toast.error('Please verify your email before logging in. Check your inbox for the verification link.');
+      return;
+    }
+
+    // 3️⃣ Login successful, navigate to app
     navigation.navigate("Tabs");
-  };
+
+  } catch (error: any) {
+    // Handle common Firebase errors
+    if (error.code === 'auth/user-not-found') {
+      toast.error('User not found. Please register first.');
+    } else if (error.code === 'auth/wrong-password') {
+      toast.error('Incorrect password. Try again.');
+    } else if (error.code === 'auth/invalid-email') {
+      toast.error('Invalid email format.');
+    } else {
+      toast.error(error.message || 'Login failed. Please try again.');
+    }
+  }
+};
 
   const handleGoogleLogin = () => {
     // Placeholder for Google login logic
     console.log('Google login pressed');
   };
 
-  const handleSignup =()=>{
-    console.log(signupFullName, signupEmail, signupPassword);
+  const handleSignup = async () => {
+    const email = signupEmail.trim();
+    const password = signupPassword.trim();
+    const fullName = signupFullName.trim();
     
-  }
+    // Validate fields
+    const fullNameError = validateFullName(fullName);
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+    
+    if (fullNameError || emailError || passwordError) {
+      setSignupFullNameTouched(true);
+      setSignupEmailTouched(true);
+      setSignupPasswordTouched(true);
+      setSignupFullNameError(fullNameError);
+      setSignupEmailError(emailError);
+      setSignupPasswordError(passwordError);
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      // 1️⃣ Create user
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      console.log('userr', user);
+      
+
+      // 2️⃣ Update profile (displayName)
+      await updateProfile(user, { displayName: fullName });
+
+      // 3️⃣ Send email verification
+      await sendEmailVerification(user);
+
+      // Show success message
+      toast.success('Account Created! Please check your email to verify your account before signing in.');
+      // Clear form and switch to login
+      setSignupFullName('');
+      setSignupEmail('');
+      setSignupPassword('');
+      setShowLogin(true);
+    } catch (error: any) {
+      // Handle specific Firebase auth errors
+      let errorMessage = 'Failed to create account. Please try again.';
+      
+      if (error.code) {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            errorMessage = 'This email is already registered. Please use a different email or sign in.';
+            break;
+          case 'auth/invalid-email':
+            errorMessage = 'Please enter a valid email address.';
+            break;
+          case 'auth/weak-password':
+            errorMessage = 'Password is too weak. Please use a stronger password.';
+            break;
+          case 'auth/network-request-failed':
+            errorMessage = 'Network error. Please check your internet connection.';
+            break;
+          case 'auth/operation-not-allowed':
+            errorMessage = 'Account creation is currently disabled. Please try again later.';
+            break;
+          default:
+            errorMessage = error.message || 'Failed to create account. Please try again.';
+        }
+      }
+      
+      toast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -380,14 +487,19 @@ const LoginScreen = () => {
             ) : null}
 
             <TouchableOpacity 
-            onPress={handleSignup}
+              onPress={handleSignup}
               style={[
                 LoginStyles.createBtn, 
-                (!signupFullName || !signupEmail || !signupPassword || !!signupFullNameError || !!signupEmailError || !!signupPasswordError) && LoginStyles.signInBtnDisabled
+                (!signupFullName || !signupEmail || !signupPassword || !!signupFullNameError || !!signupEmailError || !!signupPasswordError || isLoading) && LoginStyles.signInBtnDisabled
               ]}
-              disabled={!signupFullName || !signupEmail || !signupPassword || !!signupFullNameError || !!signupEmailError || !!signupPasswordError}
+              disabled={!signupFullName || !signupEmail || !signupPassword || !!signupFullNameError || !!signupEmailError || !!signupPasswordError || isLoading}
             >
-              <Text style={LoginStyles.createBtnText}>Create Account</Text>
+               {isLoading ? (
+                  <ActivityIndicator size="small" color="#fff" /> // spinner
+                ) : (
+                  <Text style={LoginStyles.createBtnText}>Create Account</Text>
+                )}
+
             </TouchableOpacity>
 
             <View style={LoginStyles.footer}>

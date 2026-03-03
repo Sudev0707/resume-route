@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
-  Alert,
   TextInput,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../constants';
 import { pickFile, PickedFile } from '../utils';
 import { ResumeUploadStyles as styles } from './styles/ResumeUploadStyles';
+import { toast } from '../utils/toast';
 
 
 
@@ -33,17 +33,17 @@ export const ResumeUploadScreen: React.FC = () => {
       }
     } catch (error: any) {
       console.error('File picker error:', error);
-      Alert.alert('Error', 'Failed to select file. Please try again.');
+      toast.error('Failed to select file. Please try again.');
     }
   };
 
   const handleUpload = async () => {
     if (!resumeTitle.trim()) {
-      Alert.alert('Error', 'Please enter a resume title');
+      toast.error('Please enter a resume title');
       return;
     }
     if (!selectedFile) {
-      Alert.alert('Error', 'Please select a file to upload');
+      toast.error('Please select a file to upload');
       return;
     }
 
@@ -70,19 +70,13 @@ export const ResumeUploadScreen: React.FC = () => {
       const data = await response.json();
       console.log('Upload success:', data);
 
-      Alert.alert('Success', 'Resume uploaded successfully!', [
-        {
-          text: 'OK',
-          onPress: () => {
-            setResumeTitle('');
-            setSelectedFile(null);
-            navigation.goBack();
-          },
-        },
-      ]);
+      toast.success('Resume uploaded successfully!');
+      setResumeTitle('');
+      setSelectedFile(null);
+      navigation.goBack();
     } catch (error) {
       console.error('Upload error:', error);
-      Alert.alert('Error', 'Failed to upload resume. Please try again.');
+      toast.error('Failed to upload resume. Please try again.');
     } finally {
       setIsLoading(false);
     }
