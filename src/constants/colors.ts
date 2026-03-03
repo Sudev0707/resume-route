@@ -13,7 +13,7 @@ export const Colors = {
   border: '#e3e3e3',
   borderDark: '#38383A',
   success: '#34C759',
-  error: '#FF3B30',
+  error: '#e22217',
   warning: '#FF9500',
   red: '#FF3B30',
   green: '#15ad3b',

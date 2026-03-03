@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Text, StyleSheet, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { Colors } from '../constants';
+import { Colors, FONTS } from '../constants';
 
 const { width } = Dimensions.get('window');
 
@@ -102,6 +102,7 @@ export const Toast: React.FC<ToastProps> = ({
         {
           opacity,
           transform: [{ translateY }],
+          backgroundColor: getBackgroundColor(),
         },
       ]}
     >
@@ -134,11 +135,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 8,
+    
   },
   message: {
     color: Colors.textDark,
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: FONTS.sizes.sm,
+    fontFamily:FONTS.fontFamily.regular,
     marginLeft: 12,
     flex: 1,
   },

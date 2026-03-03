@@ -154,6 +154,9 @@ const LoginScreen = () => {
     navigation.navigate("Tabs");
 
   } catch (error: any) {
+
+    console.log(error.message);
+    
     // Handle common Firebase errors
     if (error.code === 'auth/user-not-found') {
       toast.error('User not found. Please register first.');
@@ -162,7 +165,7 @@ const LoginScreen = () => {
     } else if (error.code === 'auth/invalid-email') {
       toast.error('Invalid email format.');
     } else {
-      toast.error(error.message || 'Login failed. Please try again.');
+      toast.error(error.message === 'Firebase: Error (auth/invalid-credential)' ? 'Invalid-credential' :'invalid-credential, Try again' );
     }
   }
 };
