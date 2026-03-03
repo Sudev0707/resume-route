@@ -182,10 +182,14 @@ export const JobDetailsStyles = StyleSheet.create({
   },
   timelineLine: {
     width: 2,
-    height: 25,
+    // height: 25,
     backgroundColor: '#D1D5DB',
     marginLeft: 5,
     marginBottom: 10,
+    //  borderWidth:0.6,
+    //  position:'absolute',
+     
+
   },
   timelineTitle: {
     fontSize: FONTS.sizes.sm,
