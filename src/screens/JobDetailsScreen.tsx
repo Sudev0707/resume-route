@@ -19,29 +19,7 @@ import { JobDetailsStyles as styles } from './styles/JobDetailsStyles';
 import { Header } from '../components';
 import { JobsStyles } from './styles/JobsStyles';
 import orgIcon from '../assets/icons/icons8-company-60.png';
-
-type JobStatus = 'Applied' | 'Interview' | 'Offer' | 'Rejected';
-
-interface TimelineEntry {
-  title: string;
-  date: string;
-  note: string;
-  isRejection?: boolean;
-}
-
-interface Job {
-  id: string;
-  title: string;
-  company: string;
-  location: string;
-  salary: string;
-  status: JobStatus;
-  appliedOn: string;
-  jobLink?: string;
-  notes?: string;
-  timeline?: TimelineEntry[];
-  interviewDate?: string;
-}
+import { Job, JobStatus, TimelineEntry } from '../data/jobs';
 
 type JobDetailsRouteProp = RouteProp<
   { JobDetails: { job: Job } },
@@ -264,8 +242,8 @@ export const JobDetailsScreen: React.FC = () => {
                 </View>
 
                 <View style={styles.detailRow}>
-                  <Feather name="briefcase-outline" size={16} color="#777" />
-                  <Text style={styles.detailText}>{'job.type'}</Text>
+                  <Feather name="briefcase" size={16} color="#777" />
+                  <Text style={styles.detailText}>{job.experience}</Text>
                 </View>
               </View>
             </View>
@@ -346,7 +324,7 @@ export const JobDetailsScreen: React.FC = () => {
               </View>
             )}
             {/* mark not scheduled button */}
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.markNotScheduledButton}
               onPress={handleClearDate}
               activeOpacity={0.7}
@@ -355,7 +333,7 @@ export const JobDetailsScreen: React.FC = () => {
               <Text style={styles.markNotScheduledText}>
                 Mark Not Scheduled
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             {/* Date Picker Modal for iOS */}
             {showDatePicker && Platform.OS === 'ios' && (
