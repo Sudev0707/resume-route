@@ -292,9 +292,27 @@ export const JobDetailsStyles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#E5E5E5',
   },
-  clearButtonText: {
+clearButtonText: {
     fontSize: FONTS.sizes.md,
     color: '#EF4444',
+    marginLeft: 8,
+    fontFamily: FONTS.fontFamily.medium,
+  },
+
+  /* Mark Not Scheduled Button */
+  markNotScheduledButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F3E8FF',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    marginBottom: 20,
+  },
+  markNotScheduledText: {
+    fontSize: FONTS.sizes.md,
+    color: '#6B46C1',
     marginLeft: 8,
     fontFamily: FONTS.fontFamily.medium,
   },

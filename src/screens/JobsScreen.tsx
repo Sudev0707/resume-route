@@ -30,6 +30,8 @@ interface Job {
   status: JobStatus;
   appliedOn: string;
   interviewDate?: string;
+  interviewStatus?: string;
+  experience?: string;
 }
 
 const JOBS: Job[] = [
@@ -42,6 +44,8 @@ const JOBS: Job[] = [
     status: 'Offer',
     appliedOn: '2025-12-10',
     interviewDate: '2026-03-25',
+    interviewStatus: 'Scheduled',
+    experience: '5+ years',
   },
   {
     id: '2',
@@ -52,6 +56,8 @@ const JOBS: Job[] = [
     status: 'Offer',
     appliedOn: '2026-01-05',
     interviewDate: '2026-03-20',
+    interviewStatus: 'Scheduled',
+    experience: '3+ years',
   },
   {
     id: '3',
@@ -62,6 +68,8 @@ const JOBS: Job[] = [
     status: 'Interview',
     appliedOn: '2026-02-01',
     interviewDate: '2026-03-15',
+    interviewStatus: 'Scheduled',
+    experience: '2+ years',
   },
   {
     id: '4',
@@ -71,12 +79,9 @@ const JOBS: Job[] = [
     salary: '$130k - $160k',
     status: 'Applied',
     appliedOn: '2026-02-20',
+    interviewStatus: 'Not Scheduled',
+    experience: '1-2 years',
   },
-
-  // --------------------------
-  //        NEW JOBS
-  // --------------------------
-
   {
     id: '5',
     title: 'Mobile Engineer (React Native)',
@@ -85,6 +90,8 @@ const JOBS: Job[] = [
     salary: '$140k - $180k',
     status: 'Applied',
     appliedOn: '2026-02-22',
+    interviewStatus: 'Not Scheduled',
+    experience: '3+ years',
   },
   {
     id: '6',
@@ -95,6 +102,8 @@ const JOBS: Job[] = [
     status: 'Interview',
     appliedOn: '2026-01-28',
     interviewDate: '2026-03-18',
+    interviewStatus: 'Scheduled',
+    experience: '4+ years',
   },
   {
     id: '7',
@@ -104,6 +113,8 @@ const JOBS: Job[] = [
     salary: '$160k - $210k',
     status: 'Applied',
     appliedOn: '2026-02-12',
+    interviewStatus: 'Not Scheduled',
+    experience: '3+ years',
   },
   {
     id: '8',
@@ -113,6 +124,8 @@ const JOBS: Job[] = [
     salary: '$140k - $175k',
     status: 'Rejected',
     appliedOn: '2025-12-18',
+    interviewStatus: 'Not Scheduled',
+    experience: '2+ years',
   },
   {
     id: '9',
@@ -122,6 +135,8 @@ const JOBS: Job[] = [
     salary: '$120k - $150k',
     status: 'Applied',
     appliedOn: '2026-02-10',
+    interviewStatus: 'Not Scheduled',
+    experience: '1-3 years',
   },
   {
     id: '10',
@@ -132,6 +147,8 @@ const JOBS: Job[] = [
     status: 'Interview',
     appliedOn: '2026-01-14',
     interviewDate: '2026-03-22',
+    interviewStatus: 'Scheduled',
+    experience: '4+ years',
   },
   {
     id: '11',
@@ -141,6 +158,8 @@ const JOBS: Job[] = [
     salary: '$180k - $230k',
     status: 'Applied',
     appliedOn: '2026-02-05',
+    interviewStatus: 'Not Scheduled',
+    experience: '3+ years',
   },
   {
     id: '12',
@@ -151,6 +170,8 @@ const JOBS: Job[] = [
     status: 'Offer',
     appliedOn: '2026-01-03',
     interviewDate: '2026-03-10',
+    interviewStatus: 'Scheduled',
+    experience: '3+ years',
   },
   {
     id: '13',
@@ -161,6 +182,8 @@ const JOBS: Job[] = [
     status: 'Interview',
     appliedOn: '2026-02-15',
     interviewDate: '2026-03-28',
+    interviewStatus: 'Scheduled',
+    experience: '4+ years',
   },
   {
     id: '14',
@@ -170,6 +193,8 @@ const JOBS: Job[] = [
     salary: '$130k - $160k',
     status: 'Applied',
     appliedOn: '2026-02-25',
+    interviewStatus: 'Not Scheduled',
+    experience: '1-2 years',
   },
   {
     id: '15',
@@ -179,6 +204,8 @@ const JOBS: Job[] = [
     salary: '$200k - $300k',
     status: 'Applied',
     appliedOn: '2026-02-26',
+    interviewStatus: 'Not Scheduled',
+    experience: '3-5 years',
   },
   {
     id: '16',
@@ -188,6 +215,8 @@ const JOBS: Job[] = [
     salary: '$180k - $250k',
     status: 'Rejected',
     appliedOn: '2026-01-11',
+    interviewStatus: 'Not Scheduled',
+    experience: '4+ years',
   },
   {
     id: '17',
@@ -197,6 +226,8 @@ const JOBS: Job[] = [
     salary: '$150k - $190k',
     status: 'Applied',
     appliedOn: '2026-02-08',
+    interviewStatus: 'Not Scheduled',
+    experience: '3+ years',
   },
   {
     id: '18',
@@ -207,6 +238,8 @@ const JOBS: Job[] = [
     status: 'Interview',
     appliedOn: '2026-01-22',
     interviewDate: '2026-03-30',
+    interviewStatus: 'Scheduled',
+    experience: '4+ years',
   },
   {
     id: '19',
@@ -216,6 +249,8 @@ const JOBS: Job[] = [
     salary: '$110k - $140k',
     status: 'Applied',
     appliedOn: '2026-02-27',
+    interviewStatus: 'Not Scheduled',
+    experience: '0-1 years',
   },
 ];
 
@@ -234,18 +269,18 @@ export const JobsScreen: React.FC = ({}) => {
     Rejected: JOBS.filter(j => j.status === 'Rejected'),
   };
 
-const handleMoveStatus = (status: JobStatus) => {
-  console.log('status:', status);
-  if(status === 'Applied'){
-    // move to interview
-  }else if(status === 'Interview'){
-    // move to offer
-  }
-};
+  const handleMoveStatus = (status: JobStatus) => {
+    console.log('status:', status);
+    if (status === 'Applied') {
+      // move to interview
+    } else if (status === 'Interview') {
+      // move to offer
+    }
+  };
 
   const renderJobCard = (job: Job) => (
-    <TouchableOpacity 
-      style={JobsStyles.card} 
+    <TouchableOpacity
+      style={JobsStyles.card}
       activeOpacity={0.9}
       onPress={() => navigation.navigate('JobDetails', { job })}
     >
@@ -271,6 +306,16 @@ const handleMoveStatus = (status: JobStatus) => {
                 {job.salary}
               </Text>
             </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Feather
+                name="dollar-sign"
+                size={14}
+                color={Colors.textSecondary}
+              />
+              <Text style={[JobsStyles.metaText, { marginLeft: 5 }]}>
+                {job.experience}
+              </Text>
+            </View>
           </View>
         </View>
         <View style={getStatusBadgeStyle(job.status)}>
@@ -294,7 +339,7 @@ const handleMoveStatus = (status: JobStatus) => {
               Applied on {job.appliedOn}
             </Text>
           </View>
-          
+
           {/* Interview Scheduled Indicator */}
           {job.interviewDate && (
             <View style={JobsStyles.interviewIndicator}>
@@ -304,10 +349,10 @@ const handleMoveStatus = (status: JobStatus) => {
               </Text>
             </View>
           )}
-          
+
           {/* Schedule Interview Button for Interview status without date */}
           {job.status === 'Interview' && !job.interviewDate && (
-            <TouchableOpacity 
+            <TouchableOpacity
               style={JobsStyles.scheduleInterviewButton}
               onPress={() => navigation.navigate('JobDetails', { job })}
               activeOpacity={0.7}
@@ -319,7 +364,7 @@ const handleMoveStatus = (status: JobStatus) => {
             </TouchableOpacity>
           )}
         </View>
-        
+
         {(job.status === 'Interview' || job.status === 'Applied') && (
           <TouchableOpacity
             style={JobsStyles.Movebutton}
@@ -479,7 +524,9 @@ const handleMoveStatus = (status: JobStatus) => {
                         <TouchableOpacity
                           style={JobsStyles.boardCard}
                           activeOpacity={0.8}
-                          onPress={() => navigation.navigate('JobDetails', { job })}
+                          onPress={() =>
+                            navigation.navigate('JobDetails', { job })
+                          }
                         >
                           <Text style={JobsStyles.title}>{job.title}</Text>
                           <Text style={JobsStyles.company}>{job.company}</Text>
@@ -519,26 +566,54 @@ const handleMoveStatus = (status: JobStatus) => {
                               </Text>
                             </View>
                           </View>
-                          
+
                           {/* Interview Indicator for Board View */}
                           {job.interviewDate && (
-                            <View style={[JobsStyles.interviewIndicator, { marginTop: 8 }]}>
-                              <Feather name="calendar" size={10} color="#D97706" />
-                              <Text style={[JobsStyles.interviewIndicatorText, { fontSize: 10 }]}>
+                            <View
+                              style={[
+                                JobsStyles.interviewIndicator,
+                                { marginTop: 8 },
+                              ]}
+                            >
+                              <Feather
+                                name="calendar"
+                                size={10}
+                                color="#D97706"
+                              />
+                              <Text
+                                style={[
+                                  JobsStyles.interviewIndicatorText,
+                                  { fontSize: 10 },
+                                ]}
+                              >
                                 {job.interviewDate}
                               </Text>
                             </View>
                           )}
-                          
+
                           {/* Schedule Interview Button for Board View */}
                           {job.status === 'Interview' && !job.interviewDate && (
-                            <TouchableOpacity 
-                              style={[JobsStyles.scheduleInterviewButton, { marginTop: 8 }]}
-                              onPress={() => navigation.navigate('JobDetails', { job })}
+                            <TouchableOpacity
+                              style={[
+                                JobsStyles.scheduleInterviewButton,
+                                { marginTop: 8 },
+                              ]}
+                              onPress={() =>
+                                navigation.navigate('JobDetails', { job })
+                              }
                               activeOpacity={0.7}
                             >
-                              <Feather name="calendar-plus" size={10} color="#4F46E5" />
-                              <Text style={[JobsStyles.scheduleInterviewText, { fontSize: 10 }]}>
+                              <Feather
+                                name="calendar-plus"
+                                size={10}
+                                color="#4F46E5"
+                              />
+                              <Text
+                                style={[
+                                  JobsStyles.scheduleInterviewText,
+                                  { fontSize: 10 },
+                                ]}
+                              >
                                 Schedule
                               </Text>
                             </TouchableOpacity>

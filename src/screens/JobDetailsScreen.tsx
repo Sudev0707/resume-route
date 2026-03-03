@@ -18,7 +18,7 @@ import { Colors, FONTS } from '../constants';
 import { JobDetailsStyles as styles } from './styles/JobDetailsStyles';
 import { Header } from '../components';
 import { JobsStyles } from './styles/JobsStyles';
-import orgIcon from '../assets/icons/icons8-company-60.png'
+import orgIcon from '../assets/icons/icons8-company-60.png';
 
 type JobStatus = 'Applied' | 'Interview' | 'Offer' | 'Rejected';
 
@@ -118,7 +118,7 @@ export const JobDetailsScreen: React.FC = () => {
 
   // State for interview date
   const [interviewDate, setInterviewDate] = useState<Date | null>(
-    job.interviewDate ? new Date(job.interviewDate) : null
+    job.interviewDate ? new Date(job.interviewDate) : null,
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -136,8 +136,29 @@ export const JobDetailsScreen: React.FC = () => {
 
   // Format date for display
   const formatInterviewDate = (date: Date): string => {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
     const dayName = days[date.getDay()];
     const monthName = months[date.getMonth()];
     const day = date.getDate();
@@ -196,7 +217,11 @@ export const JobDetailsScreen: React.FC = () => {
               <View style={styles.jobRow}>
                 <View style={styles.logoBox}>
                   {/* <MaterialCommunityIcons name="credit-card-chip" size={30} color="#5A67D8" /> */}
-                  <Image source={orgIcon}  style={styles.OrgIcon} resizeMode='contain' />
+                  <Image
+                    source={orgIcon}
+                    style={styles.OrgIcon}
+                    resizeMode="contain"
+                  />
                 </View>
 
                 <View style={{ flex: 1, marginLeft: 10 }}>
@@ -246,41 +271,91 @@ export const JobDetailsScreen: React.FC = () => {
             </View>
 
             {/* ----------- Scheduled Event ----------- */}
-            <View style={styles.card}>
-              <View style={styles.eventRow}>
-                <Feather name="calendar" size={26} color="#6B46C1" />
-                <View style={{ marginLeft: 10, flex: 1 }}>
-                  <Text style={styles.eventTitle}>Interview Scheduled</Text>
-                  {interviewDate ? (
-                    <Text style={styles.eventDate}>
-                      {formatInterviewDate(interviewDate)}
-                    </Text>
-                  ) : (
-                    <Text style={styles.noEventText}>No date scheduled</Text>
+            {/* Show "Past Interview" for Rejected/Offer status, "Interview Scheduled" otherwise */}
+            {job.status === 'Rejected' || job.status === 'Offer' ? (
+              <View style={styles.card}>
+                <View style={styles.eventRow}>
+                  <Feather name="calendar" size={26} color="#6B46C1" />
+                  <View style={{ marginLeft: 10, flex: 1 }}>
+                    <Text style={styles.eventTitle}>Past Interview</Text>
+                    {interviewDate ? (
+                      <Text style={styles.eventDate}>
+                        {formatInterviewDate(interviewDate)}
+                      </Text>
+                    ) : (
+                      <Text style={styles.noEventText}>No date recorded</Text>
+                    )}
+                  </View>
+                  {interviewDate && (
+                    <TouchableOpacity
+                      onPress={handleClearDate}
+                      activeOpacity={0.7}
+                      style={styles.clearEventButton}
+                    >
+                      <Feather name="x" size={18} color="#EF4444" />
+                    </TouchableOpacity>
                   )}
-                </View>
-                {interviewDate && (
                   <TouchableOpacity
-                    onPress={handleClearDate}
+                    onPress={() => setShowDatePicker(true)}
                     activeOpacity={0.7}
-                    style={styles.clearEventButton}
+                    style={styles.addDateButton}
                   >
-                    <Feather name="x" size={18} color="#EF4444" />
+                    <Feather
+                      name={interviewDate ? 'edit-2' : 'plus'}
+                      size={18}
+                      color="#6B46C1"
+                    />
                   </TouchableOpacity>
-                )}
-                <TouchableOpacity
-                  onPress={() => setShowDatePicker(true)}
-                  activeOpacity={0.7}
-                  style={styles.addDateButton}
-                >
-                  <Feather
-                    name={interviewDate ? 'edit-2' : 'plus'}
-                    size={18}
-                    color="#6B46C1"
-                  />
-                </TouchableOpacity>
+                </View>
               </View>
-            </View>
+            ) : (
+              <View style={styles.card}>
+                <View style={styles.eventRow}>
+                  <Feather name="calendar" size={26} color="#6B46C1" />
+                  <View style={{ marginLeft: 10, flex: 1 }}>
+                    <Text style={styles.eventTitle}>Interview Scheduled</Text>
+                    {interviewDate ? (
+                      <Text style={styles.eventDate}>
+                        {formatInterviewDate(interviewDate)}
+                      </Text>
+                    ) : (
+                      <Text style={styles.noEventText}>No date scheduled</Text>
+                    )}
+                  </View>
+                  {interviewDate && (
+                    <TouchableOpacity
+                      onPress={handleClearDate}
+                      activeOpacity={0.7}
+                      style={styles.clearEventButton}
+                    >
+                      <Feather name="x" size={18} color="#EF4444" />
+                    </TouchableOpacity>
+                  )}
+                  <TouchableOpacity
+                    onPress={() => setShowDatePicker(true)}
+                    activeOpacity={0.7}
+                    style={styles.addDateButton}
+                  >
+                    <Feather
+                      name={interviewDate ? 'edit-2' : 'plus'}
+                      size={18}
+                      color="#6B46C1"
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+            {/* mark not scheduled button */}
+            <TouchableOpacity
+              style={styles.markNotScheduledButton}
+              onPress={handleClearDate}
+              activeOpacity={0.7}
+            >
+              <Feather name="x-circle" size={18} color="#6B46C1" />
+              <Text style={styles.markNotScheduledText}>
+                Mark Not Scheduled
+              </Text>
+            </TouchableOpacity>
 
             {/* Date Picker Modal for iOS */}
             {showDatePicker && Platform.OS === 'ios' && (
@@ -298,7 +373,9 @@ export const JobDetailsScreen: React.FC = () => {
                       >
                         <Text style={styles.modalCancel}>Cancel</Text>
                       </TouchableOpacity>
-                      <Text style={styles.modalTitle}>Select Interview Date</Text>
+                      <Text style={styles.modalTitle}>
+                        Select Interview Date
+                      </Text>
                       <TouchableOpacity onPress={handleDonePress}>
                         <Text style={styles.modalDone}>Done</Text>
                       </TouchableOpacity>
@@ -318,7 +395,9 @@ export const JobDetailsScreen: React.FC = () => {
                         activeOpacity={0.7}
                       >
                         <Feather name="trash-2" size={18} color="#EF4444" />
-                        <Text style={styles.clearButtonText}>Clear Interview Date</Text>
+                        <Text style={styles.clearButtonText}>
+                          Clear Interview Date
+                        </Text>
                       </TouchableOpacity>
                     )}
                   </View>
@@ -361,7 +440,7 @@ export const JobDetailsScreen: React.FC = () => {
                     } else if (index === currentStatusIndex) {
                       // Current active step
                       circleStyle = styles.activeStepCircle;
-                      showCheckmark = false;
+                      showCheckmark = true;
                     } else {
                       // Future steps
                       circleStyle = styles.inactiveStepCircle;
@@ -372,7 +451,11 @@ export const JobDetailsScreen: React.FC = () => {
                       <View key={index} style={[styles.stepContainer]}>
                         <View style={[styles.stepCircle, circleStyle]}>
                           {showCheckmark ? (
-                            <Feather name="check-circle" size={14} color="#fff" />
+                            <Feather
+                              name="check-circle"
+                              size={14}
+                              color="#fff"
+                            />
                           ) : null}
                         </View>
                         <Text style={styles.stepText}>{step}</Text>
