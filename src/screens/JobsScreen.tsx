@@ -43,7 +43,7 @@ const JOBS: Job[] = [
     salary: '$180k - $220k',
     status: 'Offer',
     appliedOn: '2025-12-10',
-    interviewDate: '2026-03-25',
+    interviewDate: '2026-03-25', // past interview date
     interviewStatus: 'Scheduled',
     experience: '5+ years',
   },
@@ -55,7 +55,7 @@ const JOBS: Job[] = [
     salary: '$160k - $200k',
     status: 'Offer',
     appliedOn: '2026-01-05',
-    interviewDate: '2026-03-20',
+    interviewDate: '2026-03-20', // past interview date
     interviewStatus: 'Scheduled',
     experience: '3+ years',
   },
@@ -124,6 +124,7 @@ const JOBS: Job[] = [
     salary: '$140k - $175k',
     status: 'Rejected',
     appliedOn: '2025-12-18',
+    interviewDate: '2026-01-05', // past interview date
     interviewStatus: 'Not Scheduled',
     experience: '2+ years',
   },
@@ -169,7 +170,7 @@ const JOBS: Job[] = [
     salary: '$150k - $190k',
     status: 'Offer',
     appliedOn: '2026-01-03',
-    interviewDate: '2026-03-10',
+    interviewDate: '2026-03-10', // past interview date
     interviewStatus: 'Scheduled',
     experience: '3+ years',
   },
@@ -215,6 +216,7 @@ const JOBS: Job[] = [
     salary: '$180k - $250k',
     status: 'Rejected',
     appliedOn: '2026-01-11',
+    interviewDate: '2026-02-20', // past interview date
     interviewStatus: 'Not Scheduled',
     experience: '4+ years',
   },

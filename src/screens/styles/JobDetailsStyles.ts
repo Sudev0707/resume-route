@@ -235,6 +235,10 @@ export const JobDetailsStyles = StyleSheet.create({
     fontSize: FONTS.sizes.sm,
     fontFamily: FONTS.fontFamily.regular,
     color: '#444',
+    backgroundColor:Colors.offWhiteSecondary,
+    paddingVertical:10,
+    paddingHorizontal:10,
+    borderRadius:10,
   },
 
   /* Event */

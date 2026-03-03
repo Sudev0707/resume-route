@@ -467,7 +467,7 @@ export const JobDetailsScreen: React.FC = () => {
 
               {/* Pipeline Connector Lines */}
               <View style={styles.pipelineLineContainer}>
-                {[0, 1, 2].map((index) => {
+                {[0, 1, 2].map(index => {
                   const statusOrder: JobStatus[] = [
                     'Applied',
                     'Interview',
@@ -556,7 +556,11 @@ export const JobDetailsScreen: React.FC = () => {
             {/* ----------- Notes ----------- */}
             <View style={styles.card}>
               <Text style={styles.sectionTitle}>Notes</Text>
-              <Text style={styles.notesText}>{job.notes}</Text>
+              <View>
+                <Text style={styles.notesText}>
+                  {job.notes}
+                </Text>
+              </View>
             </View>
           </ScrollView>
         </View>
