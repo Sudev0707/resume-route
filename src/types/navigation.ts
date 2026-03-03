@@ -18,6 +18,7 @@ export type Job = {
   appliedOn: string;
   jobLink?: string;
   notes?: string;
+  interviewDate?: string;
 };
 
 export type TabParamList = {

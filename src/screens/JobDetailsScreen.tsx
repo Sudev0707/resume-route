@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,10 +6,13 @@ import {
   TouchableOpacity,
   ScrollView,
   Linking,
+  Modal,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { Colors, FONTS } from '../constants';
 import { JobDetailsStyles as styles } from './styles/JobDetailsStyles';
 import { Header } from '../components';
@@ -35,6 +38,7 @@ interface Job {
   jobLink?: string;
   notes?: string;
   timeline?: TimelineEntry[];
+  interviewDate?: string;
 }
 
 type JobDetailsRouteProp = RouteProp<
@@ -110,6 +114,12 @@ export const JobDetailsScreen: React.FC = () => {
   const route = useRoute<JobDetailsRouteProp>();
   const { job } = route.params;
 
+  // State for interview date
+  const [interviewDate, setInterviewDate] = useState<Date | null>(
+    job.interviewDate ? new Date(job.interviewDate) : null
+  );
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
   console.log(job);
 
   const handleOpenJobLink = () => {
@@ -120,6 +130,45 @@ export const JobDetailsScreen: React.FC = () => {
 
   const handleBack = () => {
     navigation.goBack();
+  };
+
+  // Format date for display
+  const formatInterviewDate = (date: Date): string => {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const dayName = days[date.getDay()];
+    const monthName = months[date.getMonth()];
+    const day = date.getDate();
+    return `${dayName}, ${monthName} ${day}`;
+  };
+
+  // Format date for storage (YYYY-MM-DD)
+  const formatDateForStorage = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    if (Platform.OS === 'android') {
+      setShowDatePicker(false);
+    }
+    if (selectedDate) {
+      setInterviewDate(selectedDate);
+      // Here you would typically save the date to your backend/state
+      console.log('Interview date set to:', formatDateForStorage(selectedDate));
+    }
+  };
+
+  const handleDonePress = () => {
+    setShowDatePicker(false);
+  };
+
+  const handleClearDate = () => {
+    setInterviewDate(null);
+    setShowDatePicker(false);
+    console.log('Interview date cleared');
   };
 
   return (
@@ -197,12 +246,92 @@ export const JobDetailsScreen: React.FC = () => {
             <View style={styles.card}>
               <View style={styles.eventRow}>
                 <Feather name="calendar" size={26} color="#6B46C1" />
-                <View style={{ marginLeft: 10 }}>
+                <View style={{ marginLeft: 10, flex: 1 }}>
                   <Text style={styles.eventTitle}>Interview Scheduled</Text>
-                  <Text style={styles.eventDate}>Monday, March 25</Text>
+                  {interviewDate ? (
+                    <Text style={styles.eventDate}>
+                      {formatInterviewDate(interviewDate)}
+                    </Text>
+                  ) : (
+                    <Text style={styles.noEventText}>No date scheduled</Text>
+                  )}
                 </View>
+                {interviewDate && (
+                  <TouchableOpacity
+                    onPress={handleClearDate}
+                    activeOpacity={0.7}
+                    style={styles.clearEventButton}
+                  >
+                    <Feather name="x" size={18} color="#EF4444" />
+                  </TouchableOpacity>
+                )}
+                <TouchableOpacity
+                  onPress={() => setShowDatePicker(true)}
+                  activeOpacity={0.7}
+                  style={styles.addDateButton}
+                >
+                  <Feather
+                    name={interviewDate ? 'edit-2' : 'plus'}
+                    size={18}
+                    color="#6B46C1"
+                  />
+                </TouchableOpacity>
               </View>
             </View>
+
+            {/* Date Picker Modal for iOS */}
+            {showDatePicker && Platform.OS === 'ios' && (
+              <Modal
+                transparent
+                animationType="fade"
+                visible={showDatePicker}
+                onRequestClose={() => setShowDatePicker(false)}
+              >
+                <View style={styles.modalOverlay}>
+                  <View style={styles.modalContent}>
+                    <View style={styles.modalHeader}>
+                      <TouchableOpacity
+                        onPress={() => setShowDatePicker(false)}
+                      >
+                        <Text style={styles.modalCancel}>Cancel</Text>
+                      </TouchableOpacity>
+                      <Text style={styles.modalTitle}>Select Interview Date</Text>
+                      <TouchableOpacity onPress={handleDonePress}>
+                        <Text style={styles.modalDone}>Done</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <DateTimePicker
+                      value={interviewDate || new Date()}
+                      mode="date"
+                      display="spinner"
+                      onChange={handleDateChange}
+                      style={styles.datePicker}
+                      minimumDate={new Date()}
+                    />
+                    {interviewDate && (
+                      <TouchableOpacity
+                        style={styles.clearButton}
+                        onPress={handleClearDate}
+                        activeOpacity={0.7}
+                      >
+                        <Feather name="trash-2" size={18} color="#EF4444" />
+                        <Text style={styles.clearButtonText}>Clear Interview Date</Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                </View>
+              </Modal>
+            )}
+
+            {/* Date Picker for Android */}
+            {showDatePicker && Platform.OS === 'android' && (
+              <DateTimePicker
+                value={interviewDate || new Date()}
+                mode="date"
+                display="default"
+                onChange={handleDateChange}
+              />
+            )}
 
             {/* ----------- Application Pipeline ----------- */}
             <View style={styles.card}>
@@ -240,7 +369,7 @@ export const JobDetailsScreen: React.FC = () => {
                       <View key={index} style={[styles.stepContainer]}>
                         <View style={[styles.stepCircle, circleStyle]}>
                           {showCheckmark ? (
-                            <Feather name="check" size={14} color="#fff" />
+                            <Feather name="check-circle" size={14} color="#fff" />
                           ) : null}
                         </View>
                         <Text style={styles.stepText}>{step}</Text>

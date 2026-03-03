@@ -21,11 +21,14 @@ export const JobDetailsStyles = StyleSheet.create({
     padding: 16,
     borderRadius: 16,
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
-    elevation: 3,
+
+    // iOS shadow
+    shadowColor: '#0000005e',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 6,
+    // Android shadow
+    elevation: 2,
   },
 
   jobRow: {
@@ -202,7 +205,6 @@ export const JobDetailsStyles = StyleSheet.create({
   eventRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-
   },
   eventTitle: {
     fontSize: FONTS.sizes.sm,
@@ -212,5 +214,83 @@ export const JobDetailsStyles = StyleSheet.create({
     fontSize: FONTS.sizes.sm,
     fontFamily: FONTS.fontFamily.regular,
     color: '#777',
+  },
+  noEventText: {
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
+    color: '#999',
+    fontStyle: 'italic',
+  },
+  addDateButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#F3E8FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  clearEventButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#FEE2E2',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+
+  /* Modal */
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingBottom: 40,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E5E5',
+  },
+  modalCancel: {
+    fontSize: FONTS.sizes.md,
+    color: '#8E8E93',
+  },
+  modalTitle: {
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.semibold,
+    color: '#1A1A1A',
+  },
+  modalDone: {
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.semibold,
+    color: '#6B46C1',
+  },
+  datePicker: {
+    height: 200,
+  },
+  clearButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
+    marginHorizontal: 16,
+    marginTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: '#E5E5E5',
+  },
+  clearButtonText: {
+    fontSize: FONTS.sizes.md,
+    color: '#EF4444',
+    marginLeft: 8,
+    fontFamily: FONTS.fontFamily.medium,
   },
 });

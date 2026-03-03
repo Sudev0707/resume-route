@@ -29,6 +29,7 @@ interface Job {
   salary: string;
   status: JobStatus;
   appliedOn: string;
+  interviewDate?: string;
 }
 
 const JOBS: Job[] = [
@@ -40,6 +41,7 @@ const JOBS: Job[] = [
     salary: '$180k - $220k',
     status: 'Offer',
     appliedOn: '2025-12-10',
+    interviewDate: '2026-03-25',
   },
   {
     id: '2',
@@ -49,6 +51,7 @@ const JOBS: Job[] = [
     salary: '$160k - $200k',
     status: 'Offer',
     appliedOn: '2026-01-05',
+    interviewDate: '2026-03-20',
   },
   {
     id: '3',
@@ -58,6 +61,7 @@ const JOBS: Job[] = [
     salary: '$150k - $180k',
     status: 'Interview',
     appliedOn: '2026-02-01',
+    interviewDate: '2026-03-15',
   },
   {
     id: '4',
@@ -90,6 +94,7 @@ const JOBS: Job[] = [
     salary: '$180k - $230k',
     status: 'Interview',
     appliedOn: '2026-01-28',
+    interviewDate: '2026-03-18',
   },
   {
     id: '7',
@@ -126,6 +131,7 @@ const JOBS: Job[] = [
     salary: '$170k - $220k',
     status: 'Interview',
     appliedOn: '2026-01-14',
+    interviewDate: '2026-03-22',
   },
   {
     id: '11',
@@ -144,6 +150,7 @@ const JOBS: Job[] = [
     salary: '$150k - $190k',
     status: 'Offer',
     appliedOn: '2026-01-03',
+    interviewDate: '2026-03-10',
   },
   {
     id: '13',
@@ -153,6 +160,7 @@ const JOBS: Job[] = [
     salary: '$155k - $195k',
     status: 'Interview',
     appliedOn: '2026-02-15',
+    interviewDate: '2026-03-28',
   },
   {
     id: '14',
@@ -198,6 +206,7 @@ const JOBS: Job[] = [
     salary: '$145k - $185k',
     status: 'Interview',
     appliedOn: '2026-01-22',
+    interviewDate: '2026-03-30',
   },
   {
     id: '19',
