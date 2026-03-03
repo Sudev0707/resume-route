@@ -125,6 +125,33 @@ export const JobDetailsStyles = StyleSheet.create({
   inactiveStepCircle: {
     backgroundColor: '#D1D5DB', // Gray for future steps
   },
+
+  // Pipeline connector lines
+  pipelineLineContainer: {
+    position: 'absolute',
+    top: 65,
+    left: '15%',
+    right: '15%',
+    height: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    zIndex: -1,
+  },
+  pipelineLine: {
+    flex: 1,
+    height: 3,
+    marginHorizontal: -10,
+  },
+  pipelineLineCompleted: {
+    backgroundColor: '#34C759', // Green for completed connections
+  },
+  pipelineLineActive: {
+    backgroundColor: '#3B82F6', // Blue for active step connection
+  },
+  pipelineLineInactive: {
+    backgroundColor: '#D1D5DB', // Gray for inactive connections
+  },
+
   stepText: {
     marginTop: 6,
     fontSize: FONTS.sizes.xs,

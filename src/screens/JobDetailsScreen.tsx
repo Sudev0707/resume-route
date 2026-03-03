@@ -464,6 +464,39 @@ export const JobDetailsScreen: React.FC = () => {
                   },
                 )}
               </View>
+
+              {/* Pipeline Connector Lines */}
+              <View style={styles.pipelineLineContainer}>
+                {[0, 1, 2].map((index) => {
+                  const statusOrder: JobStatus[] = [
+                    'Applied',
+                    'Interview',
+                    'Offer',
+                    'Rejected',
+                  ];
+                  const currentStatusIndex = statusOrder.indexOf(job.status);
+
+                  // Determine line color based on connection
+                  let lineStyle;
+                  if (index < currentStatusIndex) {
+                    // Line after completed step - green
+                    lineStyle = styles.pipelineLineCompleted;
+                  } else if (index === currentStatusIndex) {
+                    // Line at active step - blue (connecting to next)
+                    lineStyle = styles.pipelineLineActive;
+                  } else {
+                    // Line for inactive steps - gray
+                    lineStyle = styles.pipelineLineInactive;
+                  }
+
+                  return (
+                    <View
+                      key={index}
+                      style={[styles.pipelineLine, lineStyle]}
+                    />
+                  );
+                })}
+              </View>
             </View>
 
             {/* ----------- Resume Used ----------- */}
