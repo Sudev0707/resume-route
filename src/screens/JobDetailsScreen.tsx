@@ -9,6 +9,7 @@ import {
   Modal,
   Platform,
   Image,
+  TextInput,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
@@ -99,6 +100,10 @@ export const JobDetailsScreen: React.FC = () => {
     job.interviewDate ? new Date(job.interviewDate) : null,
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
+
+  // State for notes
+  const [notes, setNotes] = useState(job.notes || '');
+  const [isEditingNotes, setIsEditingNotes] = useState(false);
 
   console.log(job);
 
@@ -484,7 +489,7 @@ export const JobDetailsScreen: React.FC = () => {
             </View>
 
             {/* ----------- Timeline ----------- */}
-            <View style={styles.card}>
+            {/* <View style={styles.card}>
               <Text style={styles.sectionTitle}>Timeline</Text>
 
               {getTimelineData(job.status, job.appliedOn).map(
@@ -529,16 +534,68 @@ export const JobDetailsScreen: React.FC = () => {
                   </React.Fragment>
                 ),
               )}
-            </View>
+            </View> */}
 
             {/* ----------- Notes ----------- */}
             <View style={styles.card}>
-              <Text style={styles.sectionTitle}>Notes</Text>
-              <View>
-                <Text style={styles.notesText}>
-                  {job.notes}
-                </Text>
+              <View style={styles.notesHeader}>
+                <Text style={styles.sectionTitle}>Notes</Text>
+                <TouchableOpacity
+                  onPress={() => setIsEditingNotes(!isEditingNotes)}
+                  activeOpacity={0.7}
+                  style={styles.editNotesButton}
+                >
+                  <Feather
+                    name={isEditingNotes ? 'x' : 'edit-2'}
+                    size={16}
+                    color="#6B46C1"
+                  />
+                </TouchableOpacity>
               </View>
+              {isEditingNotes ? (
+                <View>
+                  <TextInput
+                    style={styles.notesInput}
+                    value={notes}
+                    onChangeText={setNotes}
+                    placeholder="Add your notes here..."
+                    placeholderTextColor="#999"
+                    multiline
+                    autoFocus
+                  />
+                  <View style={styles.notesButtonRow}>
+                    <TouchableOpacity
+                      style={styles.cancelNotesButton}
+                      onPress={() => {
+                        setNotes(job.notes || '');
+                        setIsEditingNotes(false);
+                      }}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={styles.cancelNotesText}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.saveNotesButton}
+                      onPress={() => {
+                        console.log('Notes saved:', notes);
+                        setIsEditingNotes(false);
+                      }}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={styles.saveNotesText}>Save</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => setIsEditingNotes(true)}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.notesText}>
+                    {notes || 'Tap to add notes...'}
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           </ScrollView>
         </View>

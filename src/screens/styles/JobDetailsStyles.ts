@@ -231,14 +231,67 @@ export const JobDetailsStyles = StyleSheet.create({
   },
 
   /* Notes */
+  notesHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  editNotesButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#F3E8FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   notesText: {
     fontSize: FONTS.sizes.sm,
     fontFamily: FONTS.fontFamily.regular,
     color: '#444',
-    backgroundColor:Colors.offWhiteSecondary,
-    paddingVertical:10,
-    paddingHorizontal:10,
-    borderRadius:10,
+    backgroundColor: Colors.offWhiteSecondary,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  notesInput: {
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
+    color: '#444',
+    backgroundColor: Colors.offWhiteSecondary,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    minHeight: 100,
+    textAlignVertical: 'top',
+  },
+  notesButtonRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 12,
+    gap: 10,
+  },
+  cancelNotesButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    backgroundColor: '#FEE2E2',
+  },
+  cancelNotesText: {
+    fontSize: FONTS.sizes.sm,
+    color: '#EF4444',
+    fontFamily: FONTS.fontFamily.medium,
+  },
+  saveNotesButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    backgroundColor: '#6B46C1',
+  },
+  saveNotesText: {
+    fontSize: FONTS.sizes.sm,
+    color: '#fff',
+    fontFamily: FONTS.fontFamily.medium,
   },
 
   /* Event */
