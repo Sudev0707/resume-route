@@ -210,8 +210,8 @@ const JOBS: Job[] = [
   },
 ];
 
-export const JobsScreen: React.FC = () => {
-  const navigation = useNavigation();
+export const JobsScreen: React.FC = ({}) => {
+  const navigation = useNavigation<any>();
   const [viewMode, setViewMode] = useState<'list' | 'board'>('list');
   const [filter, setFilter] = useState<JobStatus | 'All'>('All');
 
@@ -352,7 +352,7 @@ const handleMoveStatus = (status: JobStatus) => {
             <TouchableOpacity
               style={JobsStyles.addButton}
               activeOpacity={0.8}
-              onPress={() => ''}
+              onPress={() => navigation.navigate('AddJob')}
             >
               <Feather name="plus" size={18} color={Colors.textDark} />
               <Text style={JobsStyles.addButtonText}>Add</Text>
