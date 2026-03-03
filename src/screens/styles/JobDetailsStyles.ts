@@ -201,7 +201,8 @@ export const JobDetailsStyles = StyleSheet.create({
   /* Event */
   eventRow: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+
   },
   eventTitle: {
     fontSize: FONTS.sizes.sm,

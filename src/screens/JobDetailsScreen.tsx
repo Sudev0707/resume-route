@@ -53,9 +53,12 @@ const getStatusBadgeStyle = (status: JobStatus) => {
 };
 
 // Generate timeline data based on job status
-const getTimelineData = (status: JobStatus, appliedOn: string): TimelineEntry[] => {
+const getTimelineData = (
+  status: JobStatus,
+  appliedOn: string,
+): TimelineEntry[] => {
   const timeline: TimelineEntry[] = [];
-  
+
   // Always add the Applied entry
   timeline.push({
     title: 'Applied',
@@ -148,12 +151,24 @@ export const JobDetailsScreen: React.FC = () => {
                   <Text style={styles.jobTitle}>{job.title}</Text>
                   <Text style={styles.company}>{job.company}</Text>
 
-                  <View style={[styles.statusBadge, { backgroundColor: getStatusBadgeStyle(job.status).bg }]}>
-                    <Text style={[styles.statusText, { color: getStatusBadgeStyle(job.status).text }]}>● {job.status}</Text>
+                  <View
+                    style={[
+                      styles.statusBadge,
+                      { backgroundColor: getStatusBadgeStyle(job.status).bg },
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.statusText,
+                        { color: getStatusBadgeStyle(job.status).text },
+                      ]}
+                    >
+                      ● {job.status}
+                    </Text>
                   </View>
                 </View>
               </View>
-               <View style={JobsStyles.separator} />
+              <View style={JobsStyles.separator} />
 
               <View style={styles.detailRowContainer}>
                 <View style={styles.detailRow}>
@@ -178,6 +193,17 @@ export const JobDetailsScreen: React.FC = () => {
               </View>
             </View>
 
+            {/* ----------- Scheduled Event ----------- */}
+            <View style={styles.card}>
+              <View style={styles.eventRow}>
+                <Feather name="calendar" size={26} color="#6B46C1" />
+                <View style={{ marginLeft: 10 }}>
+                  <Text style={styles.eventTitle}>Interview Scheduled</Text>
+                  <Text style={styles.eventDate}>Monday, March 25</Text>
+                </View>
+              </View>
+            </View>
+
             {/* ----------- Application Pipeline ----------- */}
             <View style={styles.card}>
               <Text style={styles.sectionTitle}>Application Pipeline</Text>
@@ -185,9 +211,14 @@ export const JobDetailsScreen: React.FC = () => {
               <View style={styles.pipelineRow}>
                 {['Applied', 'Interview', 'Offer', 'Rejected'].map(
                   (step, index) => {
-                    const statusOrder: JobStatus[] = ['Applied', 'Interview', 'Offer', 'Rejected'];
+                    const statusOrder: JobStatus[] = [
+                      'Applied',
+                      'Interview',
+                      'Offer',
+                      'Rejected',
+                    ];
                     const currentStatusIndex = statusOrder.indexOf(job.status);
-                    
+
                     let circleStyle;
                     let showCheckmark = false;
 
@@ -230,56 +261,54 @@ export const JobDetailsScreen: React.FC = () => {
             <View style={styles.card}>
               <Text style={styles.sectionTitle}>Timeline</Text>
 
-              {getTimelineData(job.status, job.appliedOn).map((entry, index) => (
-                <React.Fragment key={index}>
-                  <View style={[
-                    styles.timelineItem,
-                    entry.isRejection && styles.timelineItemRejected
-                  ]}>
-                    <View style={[
-                      styles.timelineDot,
-                      entry.isRejection && styles.timelineDotRejected
-                    ]} />
-                    <View style={{ marginLeft: 12 }}>
-                      <Text style={[
-                        styles.timelineTitle,
-                        entry.isRejection && styles.timelineTitleRejected
-                      ]}>
-                        {entry.title}
-                      </Text>
-                      <Text style={styles.timelineDate}>{entry.date}</Text>
-                      <Text style={[
-                        styles.timelineNote,
-                        entry.isRejection && styles.timelineNoteRejected
-                      ]}>
-                        {entry.note}
-                      </Text>
+              {getTimelineData(job.status, job.appliedOn).map(
+                (entry, index) => (
+                  <React.Fragment key={index}>
+                    <View
+                      style={[
+                        styles.timelineItem,
+                        entry.isRejection && styles.timelineItemRejected,
+                      ]}
+                    >
+                      <View
+                        style={[
+                          styles.timelineDot,
+                          entry.isRejection && styles.timelineDotRejected,
+                        ]}
+                      />
+                      <View style={{ marginLeft: 12 }}>
+                        <Text
+                          style={[
+                            styles.timelineTitle,
+                            entry.isRejection && styles.timelineTitleRejected,
+                          ]}
+                        >
+                          {entry.title}
+                        </Text>
+                        <Text style={styles.timelineDate}>{entry.date}</Text>
+                        <Text
+                          style={[
+                            styles.timelineNote,
+                            entry.isRejection && styles.timelineNoteRejected,
+                          ]}
+                        >
+                          {entry.note}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                  {index < getTimelineData(job.status, job.appliedOn).length - 1 && (
-                    <View style={styles.timelineLine} />
-                  )}
-                </React.Fragment>
-              ))}
+                    {index <
+                      getTimelineData(job.status, job.appliedOn).length - 1 && (
+                      <View style={styles.timelineLine} />
+                    )}
+                  </React.Fragment>
+                ),
+              )}
             </View>
 
             {/* ----------- Notes ----------- */}
             <View style={styles.card}>
               <Text style={styles.sectionTitle}>Notes</Text>
-              <Text style={styles.notesText}>
-                {job.notes}
-              </Text>
-            </View>
-
-            {/* ----------- Scheduled Event ----------- */}
-            <View style={styles.card}>
-              <View style={styles.eventRow}>
-                <Feather name="calendar-outline" size={26} color="#6B46C1" />
-                <View style={{ marginLeft: 10 }}>
-                  <Text style={styles.eventTitle}>Interview Scheduled</Text>
-                  <Text style={styles.eventDate}>Monday, March 25</Text>
-                </View>
-              </View>
+              <Text style={styles.notesText}>{job.notes}</Text>
             </View>
           </ScrollView>
         </View>
