@@ -135,6 +135,11 @@ const LoginScreen = () => {
     console.log('Google login pressed');
   };
 
+  const handleSignup =()=>{
+    console.log(signupFullName, signupEmail, signupPassword);
+    
+  }
+
   return (
     <>
       <StatusBar
@@ -375,6 +380,7 @@ const LoginScreen = () => {
             ) : null}
 
             <TouchableOpacity 
+            onPress={handleSignup}
               style={[
                 LoginStyles.createBtn, 
                 (!signupFullName || !signupEmail || !signupPassword || !!signupFullNameError || !!signupEmailError || !!signupPasswordError) && LoginStyles.signInBtnDisabled
