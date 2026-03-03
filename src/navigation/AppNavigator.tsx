@@ -14,6 +14,7 @@ import {
   AddJobScreen,
   JobsScreen,
   AnalyticsScreen,
+  JobDetailsScreen,
 } from '../screens';
 import { RootStackParamList, RootTabParamList } from '../types';
 import Feather from 'react-native-vector-icons/Feather';
@@ -88,6 +89,7 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen name="ResumeUpload" component={ResumeUploadScreen} />
         <Stack.Screen name="ResumeView" component={ResumeViewScreen} />
         <Stack.Screen name="AddJob" component={AddJobScreen} />
+        <Stack.Screen name="JobDetails" component={JobDetailsScreen} />
         <Stack.Screen name="Tabs" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

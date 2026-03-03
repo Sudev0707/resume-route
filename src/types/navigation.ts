@@ -4,7 +4,20 @@ export type RootStackParamList = {
   ResumeUpload: undefined;
   ResumeView: { resumeId: string };
   AddJob: undefined;
+  JobDetails: { job: Job };
   Tabs: undefined;
+};
+
+export type Job = {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  salary: string;
+  status: 'Applied' | 'Interview' | 'Offer' | 'Rejected';
+  appliedOn: string;
+  jobLink?: string;
+  notes?: string;
 };
 
 export type TabParamList = {

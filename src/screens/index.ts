@@ -9,3 +9,4 @@ export * from './JobsScreen';
 export * from './AnalyticsScreen';
 export * from './ProfileScreen';
 export * from './SettingsScreen';
+export * from './JobDetailsScreen';

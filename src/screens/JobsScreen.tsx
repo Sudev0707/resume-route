@@ -235,7 +235,11 @@ const handleMoveStatus = (status: JobStatus) => {
 };
 
   const renderJobCard = (job: Job) => (
-    <TouchableOpacity style={JobsStyles.card} activeOpacity={0.9}>
+    <TouchableOpacity 
+      style={JobsStyles.card} 
+      activeOpacity={0.9}
+      onPress={() => navigation.navigate('JobDetails', { job })}
+    >
       <View style={JobsStyles.jobCardRow}>
         <View style={{ flex: 1 }}>
           <Text style={JobsStyles.title}>{job.title}</Text>
@@ -439,6 +443,7 @@ const handleMoveStatus = (status: JobStatus) => {
                         <TouchableOpacity
                           style={JobsStyles.boardCard}
                           activeOpacity={0.8}
+                          onPress={() => navigation.navigate('JobDetails', { job })}
                         >
                           <Text style={JobsStyles.title}>{job.title}</Text>
                           <Text style={JobsStyles.company}>{job.company}</Text>
