@@ -9,6 +9,8 @@ import {
   Animated,
   Easing,
   Keyboard,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Feather";
@@ -157,8 +159,18 @@ const LoginScreen = () => {
       </View>
 
       <SafeAreaView style={LoginStyles.safe}>
-        {/* CONTAINER WITH FIXED HEIGHT + OVERFLOW HIDDEN (IMPORTANT) */}
-        <View style={{ height: 700, overflow: "hidden", position: 'relative', }}>
+        <KeyboardAvoidingView 
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1 }}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+        >
+          <ScrollView 
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            {/* CONTAINER WITH FIXED HEIGHT + OVERFLOW HIDDEN (IMPORTANT) */}
+            <View style={{ height: 700, overflow: "hidden", position: 'relative', }}>
           {/* LOGIN FORM */}
           <Animated.View  style={[LoginStyles.form, loginStyle, { position: 'absolute', top: 0, left: 0, right: 0, zIndex: showLogin ? 1 : 0 }]}>
             <Text style={LoginStyles.label}>Email</Text>
@@ -386,7 +398,9 @@ const LoginScreen = () => {
               </TouchableOpacity>
             </View>
           </Animated.View>
-        </View>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </>
   );
