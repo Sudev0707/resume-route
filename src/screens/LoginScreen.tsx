@@ -17,14 +17,68 @@ import { LoginStyles } from "./styles/LoginStyles";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
+import { Colors } from "../constants";
 
 type LoginNavProp = NativeStackNavigationProp<RootStackParamList>;
+
+// Validation functions
+const validateEmail = (email: string): string => {
+  if (!email.trim()) {
+    return "Email is required";
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return "Please enter a valid email address";
+  }
+  return "";
+};
+
+const validatePassword = (password: string): string => {
+  if (!password) {
+    return "Password is required";
+  }
+  if (password.length < 8) {
+    return "Password must be at least 8 characters";
+  }
+  return "";
+};
+
+const validateFullName = (name: string): string => {
+  if (!name.trim()) {
+    return "Full name is required";
+  }
+  if (name.trim().length < 2) {
+    return "Name must be at least 2 characters";
+  }
+  return "";
+};
 
 const LoginScreen = () => {
   const navigation = useNavigation<LoginNavProp>();
   const [showLogin, setShowLogin] = useState(true);
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showCreatePassword, setShowCreatePassword] = useState(false);
+
+  // Form state
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [signupFullName, setSignupFullName] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+
+  // Error state
+  const [loginEmailError, setLoginEmailError] = useState("");
+  const [loginPasswordError, setLoginPasswordError] = useState("");
+  const [signupFullNameError, setSignupFullNameError] = useState("");
+  const [signupEmailError, setSignupEmailError] = useState("");
+  const [signupPasswordError, setSignupPasswordError] = useState("");
+
+  // Touch state for validation on blur
+  const [loginEmailTouched, setLoginEmailTouched] = useState(false);
+  const [loginPasswordTouched, setLoginPasswordTouched] = useState(false);
+  const [signupFullNameTouched, setSignupFullNameTouched] = useState(false);
+  const [signupEmailTouched, setSignupEmailTouched] = useState(false);
+  const [signupPasswordTouched, setSignupPasswordTouched] = useState(false);
 
   const slideAnim = useRef(new Animated.Value(0)).current;
 
@@ -111,8 +165,28 @@ const LoginScreen = () => {
             <TextInput
               placeholder="alex@example.com"
               placeholderTextColor="#9BA4B5"
-              style={LoginStyles.input}
+              style={[
+                LoginStyles.input,
+                loginEmailTouched && loginEmailError ? LoginStyles.inputError : null,
+              ]}
+              value={loginEmail}
+              onChangeText={(text) => {
+                setLoginEmail(text);
+                if (loginEmailTouched) {
+                  setLoginEmailError(validateEmail(text));
+                }
+              }}
+              onBlur={() => {
+                setLoginEmailTouched(true);
+                setLoginEmailError(validateEmail(loginEmail));
+              }}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
             />
+            {loginEmailTouched && loginEmailError ? (
+              <Text style={LoginStyles.errorText}>{loginEmailError}</Text>
+            ) : null}
 
             <Text style={LoginStyles.label}>Password</Text>
             <View style={LoginStyles.passwordContainer}>
@@ -120,7 +194,21 @@ const LoginScreen = () => {
                 placeholder="••••••••"
                 placeholderTextColor="#9BA4B5"
                 secureTextEntry={!showLoginPassword}
-                style={LoginStyles.input}
+                style={[
+                  LoginStyles.input,
+                  loginPasswordTouched && loginPasswordError ? LoginStyles.inputError : null,
+                ]}
+                value={loginPassword}
+                onChangeText={(text) => {
+                  setLoginPassword(text);
+                  if (loginPasswordTouched) {
+                    setLoginPasswordError(validatePassword(text));
+                  }
+                }}
+                onBlur={() => {
+                  setLoginPasswordTouched(true);
+                  setLoginPasswordError(validatePassword(loginPassword));
+                }}
               />
               <TouchableOpacity
                 style={LoginStyles.eyeIcon}
@@ -131,10 +219,21 @@ const LoginScreen = () => {
                   size={20} 
                   color="#6A7483" 
                 />
+
               </TouchableOpacity>
             </View>
+            {loginPasswordTouched && loginPasswordError ? (
+              <Text style={LoginStyles.errorText}>{loginPasswordError}</Text>
+            ) : null}
 
-            <TouchableOpacity style={LoginStyles.signInBtn} onPress={handleLogin}>
+            <TouchableOpacity 
+              style={[
+                LoginStyles.signInBtn, 
+                (!loginEmail || !loginPassword || !!loginEmailError || !!loginPasswordError) && LoginStyles.signInBtnDisabled
+              ]} 
+              onPress={handleLogin}
+              disabled={!loginEmail || !loginPassword || !!loginEmailError || !!loginPasswordError}
+            >
               <Text style={LoginStyles.signInText}>Sign In</Text>
             </TouchableOpacity>
 
@@ -177,25 +276,99 @@ const LoginScreen = () => {
             <TextInput
               placeholder="Alex Morgan"
               placeholderTextColor="#9BA4B5"
-              style={LoginStyles.input}
+              style={[
+                LoginStyles.input,
+                signupFullNameTouched && signupFullNameError ? LoginStyles.inputError : null,
+              ]}
+              value={signupFullName}
+              onChangeText={(text) => {
+                setSignupFullName(text);
+                if (signupFullNameTouched) {
+                  setSignupFullNameError(validateFullName(text));
+                }
+              }}
+              onBlur={() => {
+                setSignupFullNameTouched(true);
+                setSignupFullNameError(validateFullName(signupFullName));
+              }}
+              autoCapitalize="words"
+              autoCorrect={false}
             />
+            {signupFullNameTouched && signupFullNameError ? (
+              <Text style={LoginStyles.errorText}>{signupFullNameError}</Text>
+            ) : null}
 
             <Text style={LoginStyles.label}>Email</Text>
             <TextInput
               placeholder="you@example.com"
               placeholderTextColor="#9BA4B5"
-              style={LoginStyles.input}
+              style={[
+                LoginStyles.input,
+                signupEmailTouched && signupEmailError ? LoginStyles.inputError : null,
+              ]}
+              value={signupEmail}
+              onChangeText={(text) => {
+                setSignupEmail(text);
+                if (signupEmailTouched) {
+                  setSignupEmailError(validateEmail(text));
+                }
+              }}
+              onBlur={() => {
+                setSignupEmailTouched(true);
+                setSignupEmailError(validateEmail(signupEmail));
+              }}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
             />
+            {signupEmailTouched && signupEmailError ? (
+              <Text style={LoginStyles.errorText}>{signupEmailError}</Text>
+            ) : null}
 
             <Text style={LoginStyles.label}>Password</Text>
-            <TextInput
-              placeholder="••••••••"
-              placeholderTextColor="#9BA4B5"
-              secureTextEntry
-              style={LoginStyles.input}
-            />
+            <View style={LoginStyles.passwordContainer}>
+              <TextInput
+                placeholder="••••••••"
+                placeholderTextColor="#9BA4B5"
+                secureTextEntry={!showCreatePassword}
+                style={[
+                  LoginStyles.input,
+                  signupPasswordTouched && signupPasswordError ? LoginStyles.inputError : null,
+                ]}
+                value={signupPassword}
+                onChangeText={(text) => {
+                  setSignupPassword(text);
+                  if (signupPasswordTouched) {
+                    setSignupPasswordError(validatePassword(text));
+                  }
+                }}
+                onBlur={() => {
+                  setSignupPasswordTouched(true);
+                  setSignupPasswordError(validatePassword(signupPassword));
+                }}
+              />
+              <TouchableOpacity
+                style={LoginStyles.eyeIcon}
+                onPress={() => setShowCreatePassword(!showCreatePassword)}
+              >
+                <Icon 
+                  name={showCreatePassword ? "eye-off" : "eye"} 
+                  size={20} 
+                  color="#6A7483" 
+                />
+              </TouchableOpacity>
+            </View>
+            {signupPasswordTouched && signupPasswordError ? (
+              <Text style={LoginStyles.errorText}>{signupPasswordError}</Text>
+            ) : null}
 
-            <TouchableOpacity style={LoginStyles.createBtn}>
+            <TouchableOpacity 
+              style={[
+                LoginStyles.createBtn, 
+                (!signupFullName || !signupEmail || !signupPassword || !!signupFullNameError || !!signupEmailError || !!signupPasswordError) && LoginStyles.signInBtnDisabled
+              ]}
+              disabled={!signupFullName || !signupEmail || !signupPassword || !!signupFullNameError || !!signupEmailError || !!signupPasswordError}
+            >
               <Text style={LoginStyles.createBtnText}>Create Account</Text>
             </TouchableOpacity>
 

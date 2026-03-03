@@ -189,4 +189,21 @@ export const LoginStyles = StyleSheet.create({
   eyeIconText: {
     fontSize: 20,
   },
+
+  inputError: {
+    borderColor: Colors.red,
+    borderWidth: 1.5,
+  },
+
+  errorText: {
+    color: Colors.red,
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.regular,
+    marginTop: 4,
+    marginBottom: 8,
+  },
+
+  signInBtnDisabled: {
+    backgroundColor: '#A0A0A0',
+  },
 });
