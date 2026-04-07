@@ -12,8 +12,13 @@ import Feather from 'react-native-vector-icons/Feather';
 import { Colors } from '../constants';
 import { ProfileStyles as styles } from './styles/ProfileStyles';
 import { Header } from '../components';
+import { RootTabParamList } from '../types/navigation';
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+
+import { useNavigation } from '@react-navigation/native';
 
 export const ProfileScreen: React.FC = () => {
+const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList>>();
   const skills = ['React', 'TypeScript', 'Node.js', 'Python', 'Figma'];
   return (
     <>
@@ -25,7 +30,12 @@ export const ProfileScreen: React.FC = () => {
         />
 
         <SafeAreaView style={styles.container}>
-          <Header title="Profile" showBackButton />
+          <Header 
+            title="Profile" 
+            showBackButton 
+            rightIcon={<Feather name="settings" size={20} color={Colors.textPrimary} />}
+            onRightPress={() => navigation.navigate('Settings')}
+          />
           <ScrollView
             style={styles.contentContainer}
             contentContainerStyle={{ paddingBottom: 80 }}
@@ -104,7 +114,7 @@ export const ProfileScreen: React.FC = () => {
 
             {/*  */}
 
-            <DarkModeToggle />
+          
             <MenuCard>
               <MenuItem icon="log-out" title="Log Out" danger isLast />
             </MenuCard>
@@ -161,29 +171,4 @@ const MenuItem = ({
   </TouchableOpacity>
 );
 
-const DarkModeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const toggleSwitch = () => setIsDarkMode(previousState => !previousState);
-
-  return (
-    <View style={styles.toggleContainer}>
-      <View style={styles.left}>
-        <Feather
-          name={isDarkMode ? 'moon' : 'sun'}
-          size={20}
-          color={isDarkMode ? '#4DD0A9' : '#ffa536'}
-          style={{ marginRight: 10 }}
-        />
-        <Text style={styles.text}>Dark Mode</Text>
-      </View>
-      <Switch
-        trackColor={{ false: '#767577', true: '#4DD0A9' }}
-        thumbColor={isDarkMode ? '#ffffff' : '#f4f3f4'}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isDarkMode}
-      />
-    </View>
-  );
-};

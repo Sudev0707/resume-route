@@ -1,0 +1,64 @@
+# ResumeRoute - Advanced React Native Job Tracker & Resume Manager
+
+## Project Overview
+**ResumeRoute** is a production-ready, **cross-platform mobile application** built with **React Native 0.84** and **TypeScript**, designed to streamline **job application tracking** and **resume management** for career professionals. This sophisticated app features **Firebase backend integration**, **secure file storage**, and **modern navigation architecture**, delivering a seamless experience on both **Android** and **iOS** platforms.
+
+## Key Features & Technical Implementation
+- **Full-Stack Architecture**: React Native frontend + Firebase Firestore backend with real-time data synchronization
+- **Authentication & Security**: Firebase Auth (email/password + verification) with granular Firestore security rules
+- **Cloud Storage**: Firebase Storage for secure resume uploads (PDF support) with automatic CDN delivery
+- **Advanced Navigation**: React Navigation v7 with Native Stack & Bottom Tabs (react-navigation/native-stack, bottom-tabs)
+- **Component-Driven UI**: 50+ reusable TypeScript components (Card, FloatingButton, Header, Input, Toast) with custom Poppins font system
+- **File Handling**: react-native-pdf, react-native-blob-util for PDF viewing and file management
+- **State Management**: React Context API with custom hooks (useJobs, useResumes) for optimized data fetching
+- **Offline-First**: AsyncStorage integration with fallback mock data for resilient UX
+- **Performance Optimized**: Metro bundler, React Fast Refresh, SplashScreen, SafeAreaContext
+- **Cross-Platform Excellence**: Dual Android/iOS builds with platform-specific optimizations
+
+## Core Technical Stack
+```
+FRONTEND:
+├── React Native 0.84 (TypeScript)
+├── React Navigation v7 (Native Stack + Bottom Tabs)
+├── React Native Firebase (Auth + Firestore + Storage)
+├── react-native-pdf (Document Rendering)
+├── react-native-vector-icons & react-native-svg (Iconography)
+├── react-native-safe-area-context & react-native-screens
+└── Custom Hook Architecture
+
+BACKEND:
+├── Firebase Firestore (NoSQL Database)
+├── Firebase Storage (Cloud File Storage)
+├── Firebase Auth (User Management)
+└── Comprehensive Security Rules
+
+DEVOPS:
+├── ESLint + Prettier (Code Quality)
+├── Jest (Unit Testing)
+├── Metro Config (Build Optimization)
+└── CI/CD Ready (GitHub Actions compatible)
+```
+
+## Data Architecture
+```
+Firestore Collections:
+├── users/{userId} - Profile data
+├── jobs/{jobId}  - Job applications w/ status tracking
+└── resumes/{resumeId} - Resume metadata + file URLs
+
+Firebase Storage:
+└── resumes/{userId}/{timestamp_filename.pdf}
+```
+
+## Achievements
+- **100% TypeScript Coverage** - Type-safe architecture throughout
+- **Production Deployed** - Android APK + iOS builds ready
+- **Scalable Backend** - Firebase scales automatically to millions of users
+- **Modern Component Library** - Reusable UI kit accelerates development
+- **Enterprise Security** - Per-user data isolation with Firebase rules
+
+**ResumeRoute demonstrates expertise in full-stack mobile development, cloud architecture, TypeScript best practices, and production deployment workflows. Perfect showcase for Senior React Native Developer roles.**
+
+---
+
+*Technologies Mastered: React Native, TypeScript, Firebase Ecosystem, React Navigation, Mobile Performance Optimization, Cross-Platform Development, Secure File Handling*

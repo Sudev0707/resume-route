@@ -96,10 +96,17 @@ export const JobDetailsScreen: React.FC = () => {
   const route = useRoute<JobDetailsRouteProp>();
   const { job } = route.params;
 
+  // Local job state for optimistic updates
+  const [localJob, setLocalJob] = useState(job);
+
   // State for interview date
   const [interviewDate, setInterviewDate] = useState<Date | null>(
     job.interviewDate ? new Date(job.interviewDate) : null,
   );
+
+  // State for status editing
+  const [isEditingStatus, setIsEditingStatus] = useState(false);
+  const [tempStatus, setTempStatus] = useState<JobStatus>(localJob.status);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   // State for notes
@@ -190,7 +197,17 @@ export const JobDetailsScreen: React.FC = () => {
         style={JobsStyles.container}
         edges={['top', 'right', 'bottom', 'left']}
       >
-        <Header title={job.company} showBackButton />
+        <Header
+          title={job.company}
+          showBackButton
+          rightIcon={<Feather name="edit" size={20} />}
+          onRightPress={() =>
+            navigation.navigate('AddJob' as never, {
+              job: localJob,
+              isEdit: true,
+            })
+          }
+        />
         <View style={JobsStyles.contentContainer}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -203,140 +220,278 @@ export const JobDetailsScreen: React.FC = () => {
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
             >
-            <View style={styles.card}>
-              <View style={styles.jobRow}>
-                <View style={styles.logoBox}>
-                  {/* <MaterialCommunityIcons name="credit-card-chip" size={30} color="#5A67D8" /> */}
-                  <Image
-                    source={orgIcon}
-                    style={styles.OrgIcon}
-                    resizeMode="contain"
-                  />
-                </View>
+              <View style={styles.card}>
+                <View style={styles.jobRow}>
+                  <View style={styles.logoBox}>
+                    {/* <MaterialCommunityIcons name="credit-card-chip" size={30} color="#5A67D8" /> */}
+                    <Image
+                      source={orgIcon}
+                      style={styles.OrgIcon}
+                      resizeMode="contain"
+                    />
+                  </View>
 
-                <View style={{ flex: 1, marginLeft: 10 }}>
-                  <Text style={styles.jobTitle}>{job.title}</Text>
-                  <Text style={styles.company}>{job.company}</Text>
+                  <View style={{ flex: 1, marginLeft: 10 }}>
+                    <Text style={styles.jobTitle}>{job.title}</Text>
+                    <Text style={styles.company}>{job.company}</Text>
 
-                  <View
-                    style={[
-                      styles.statusBadge,
-                      { backgroundColor: getStatusBadgeStyle(job.status).bg },
-                    ]}
-                  >
-                    <Text
+                    <View
                       style={[
-                        styles.statusText,
-                        { color: getStatusBadgeStyle(job.status).text },
+                        styles.statusBadge,
+                        { backgroundColor: getStatusBadgeStyle(job.status).bg },
                       ]}
                     >
-                      ● {job.status}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View style={JobsStyles.separator} />
-
-              <View style={styles.detailRowContainer}>
-                <View style={styles.detailRow}>
-                  <Feather name="map-pin" size={16} color="#777" />
-                  <Text style={styles.detailText}>{job.location}</Text>
-                </View>
-
-                <View style={styles.detailRow}>
-                  <Feather name="dollar-sign" size={16} color="#777" />
-                  <Text style={styles.detailText}>{job.salary}</Text>
-                </View>
-
-                <View style={styles.detailRow}>
-                  <Feather name="calendar" size={16} color="#777" />
-                  <Text style={styles.detailText}>{job.appliedOn}</Text>
-                </View>
-
-                <View style={styles.detailRow}>
-                  <Feather name="briefcase" size={16} color="#777" />
-                  <Text style={styles.detailText}>{job.experience}</Text>
-                </View>
-              </View>
-            </View>
-
-            {/* ----------- Scheduled Event ----------- */}
-            {/* Show "Past Interview" for Rejected/Offer status, "Interview Scheduled" otherwise */}
-            {job.status === 'Rejected' || job.status === 'Offer' ? (
-              <View style={styles.card}>
-                <View style={styles.eventRow}>
-                  <Feather name="calendar" size={26} color="#6B46C1" />
-                  <View style={{ marginLeft: 10, flex: 1 }}>
-                    <Text style={styles.eventTitle}>Past Interview</Text>
-                    {interviewDate ? (
-                      <Text style={styles.eventDate}>
-                        {formatInterviewDate(interviewDate)}
+                      <Text
+                        style={[
+                          styles.statusText,
+                          { color: getStatusBadgeStyle(job.status).text },
+                        ]}
+                      >
+                        ● {localJob.status}
                       </Text>
-                    ) : (
-                      <Text style={styles.noEventText}>No date recorded</Text>
-                    )}
+                    </View>
                   </View>
-                  {interviewDate && (
-                    <TouchableOpacity
-                      onPress={handleClearDate}
-                      activeOpacity={0.7}
-                      style={styles.clearEventButton}
-                    >
-                      <Feather name="x" size={18} color="#EF4444" />
-                    </TouchableOpacity>
-                  )}
+                </View>
+                <View style={JobsStyles.separator} />
+
+                <View style={styles.detailRowContainer}>
+                  <View style={styles.detailRow}>
+                    <Feather name="map-pin" size={16} color="#777" />
+                    <Text style={styles.detailText}>{job.location}</Text>
+                  </View>
+
+                  <View style={styles.detailRow}>
+                    <Feather name="dollar-sign" size={16} color="#777" />
+                    <Text style={styles.detailText}>{job.salary}</Text>
+                  </View>
+
+                  <View style={styles.detailRow}>
+                    <Feather name="calendar" size={16} color="#777" />
+                    <Text style={styles.detailText}>{job.appliedOn}</Text>
+                  </View>
+
+                  <View style={styles.detailRow}>
+                    <Feather name="briefcase" size={16} color="#777" />
+                    <Text style={styles.detailText}>{job.experience}</Text>
+                  </View>
+                </View>
+              </View>
+
+              {/* ----------- Change Application Status ----------- */}
+              <View style={styles.card}>
+                <View style={styles.notesHeader}>
+                  <Text style={styles.sectionTitle}>Application Status</Text>
                   <TouchableOpacity
-                    onPress={() => setShowDatePicker(true)}
+                    onPress={() => {
+                      setTempStatus(localJob.status);
+                      setIsEditingStatus(!isEditingStatus);
+                    }}
                     activeOpacity={0.7}
-                    style={styles.addDateButton}
+                    style={styles.editNotesButton}
                   >
                     <Feather
-                      name={interviewDate ? 'edit-2' : 'plus'}
-                      size={18}
+                      name={isEditingStatus ? 'x' : 'edit-2'}
+                      size={16}
                       color="#6B46C1"
                     />
                   </TouchableOpacity>
                 </View>
-              </View>
-            ) : (
-              <View style={styles.card}>
-                <View style={styles.eventRow}>
-                  <Feather name="calendar" size={26} color="#6B46C1" />
-                  <View style={{ marginLeft: 10, flex: 1 }}>
-                    <Text style={styles.eventTitle}>Interview Scheduled</Text>
-                    {interviewDate ? (
-                      <Text style={styles.eventDate}>
-                        {formatInterviewDate(interviewDate)}
-                      </Text>
-                    ) : (
-                      <Text style={styles.noEventText}>No date scheduled</Text>
-                    )}
+
+                {isEditingStatus ? (
+                  <View>
+                    <View style={styles.statusButtonsRow}>
+                      {(
+                        [
+                          'Applied',
+                          'Interview',
+                          'Offer',
+                          'Rejected',
+                        ] as JobStatus[]
+                      ).map(status => {
+                        const statusOrder: JobStatus[] = [
+                          'Applied',
+                          'Interview',
+                          'Offer',
+                          'Rejected',
+                        ];
+                        const currentIndex = statusOrder.indexOf(
+                          localJob.status,
+                        );
+                        const thisIndex = statusOrder.indexOf(status);
+                        const isPastOrCurrent = thisIndex <= currentIndex;
+
+                        return (
+                          <TouchableOpacity
+                            key={status}
+                            style={[
+                              styles.statusButton,
+                              tempStatus === status &&
+                                styles.statusButtonActive,
+                              {
+                                backgroundColor: getStatusBadgeStyle(status).bg,
+                                opacity: isPastOrCurrent ? 1 : 0.5,
+                              },
+                            ]}
+                            onPress={() => {
+                              if (isPastOrCurrent || status === 'Rejected') {
+                                setTempStatus(status);
+                              }
+                            }}
+                            activeOpacity={0.7}
+                            disabled={!isPastOrCurrent && status !== 'Rejected'}
+                          >
+                            <Text
+                              style={[
+                                styles.statusButtonText,
+                                {
+                                  color: getStatusBadgeStyle(status).text,
+                                  fontWeight:
+                                    tempStatus === status ? 'bold' : 'normal',
+                                },
+                              ]}
+                            >
+                              {status}
+                            </Text>
+                          </TouchableOpacity>
+                        );
+                      })}
+                    </View>
+                    <View style={styles.notesButtonRow}>
+                      <TouchableOpacity
+                        style={styles.cancelNotesButton}
+                        onPress={() => setIsEditingStatus(false)}
+                        activeOpacity={0.7}
+                      >
+                        <Text style={styles.cancelNotesText}>Cancel</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.saveNotesButton}
+                        onPress={() => {
+                          setLocalJob({ ...localJob, status: tempStatus });
+                          console.log(
+                            `Status changed to "${tempStatus}" for job "${localJob.id}"`,
+                          );
+                          setIsEditingStatus(false);
+                        }}
+                        activeOpacity={0.7}
+                      >
+                        <Text style={styles.saveNotesText}>Save Status</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                  {interviewDate && (
-                    <TouchableOpacity
-                      onPress={handleClearDate}
-                      activeOpacity={0.7}
-                      style={styles.clearEventButton}
-                    >
-                      <Feather name="x" size={18} color="#EF4444" />
-                    </TouchableOpacity>
-                  )}
+                ) : (
                   <TouchableOpacity
-                    onPress={() => setShowDatePicker(true)}
-                    activeOpacity={0.7}
-                    style={styles.addDateButton}
+                    onPress={() => {
+                      setTempStatus(localJob.status);
+                      setIsEditingStatus(true);
+                    }}
+                    activeOpacity={0.8}
+                    style={styles.statusDisplayContainer}
                   >
-                    <Feather
-                      name={interviewDate ? 'edit-2' : 'plus'}
-                      size={18}
-                      color="#6B46C1"
-                    />
+                    <View
+                      style={[
+                        styles.statusBadge,
+                        {
+                          backgroundColor: getStatusBadgeStyle(localJob.status)
+                            .bg,
+                        },
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          styles.statusText,
+                          { color: getStatusBadgeStyle(localJob.status).text },
+                        ]}
+                      >
+                        {localJob.status}
+                      </Text>
+                    </View>
                   </TouchableOpacity>
-                </View>
+                )}
               </View>
-            )}
-            {/* mark not scheduled button */}
-            {/* <TouchableOpacity
+
+              {/* ----------- Scheduled Event ----------- */}
+              {/* Show "Past Interview" for Rejected/Offer status, "Interview Scheduled" otherwise */}
+              {localJob.status === 'Rejected' || localJob.status === 'Offer' ? (
+                <View style={styles.card}>
+                  <View style={styles.eventRow}>
+                    <View style={{borderRadius:8, padding:8, backgroundColor:'#F3E8FF' }} >
+                      <Feather name="calendar" size={24} color="#6B46C1" />
+                    </View>
+
+                    <View style={{ marginLeft: 10, flex: 1 }}>
+                      <Text style={styles.eventTitle}>Past Interview</Text>
+                      {interviewDate ? (
+                        <Text style={styles.eventDate}>
+                          {formatInterviewDate(interviewDate)}
+                        </Text>
+                      ) : (
+                        <Text style={styles.noEventText}>No date recorded</Text>
+                      )}
+                    </View>
+                    {interviewDate && (
+                      <TouchableOpacity
+                        onPress={handleClearDate}
+                        activeOpacity={0.7}
+                        style={styles.clearEventButton}
+                      >
+                        <Feather name="x" size={18} color="#EF4444" />
+                      </TouchableOpacity>
+                    )}
+                    <TouchableOpacity
+                      onPress={() => setShowDatePicker(true)}
+                      activeOpacity={0.7}
+                      style={styles.addDateButton}
+                    >
+                      <Feather
+                        name={interviewDate ? 'edit-2' : 'plus'}
+                        size={16}
+                        color="#6B46C1"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ) : (
+                <View style={styles.card}>
+                  <View style={styles.eventRow}>
+                    <Feather name="calendar" size={26} color="#6B46C1" />
+                    <View style={{ marginLeft: 10, flex: 1 }}>
+                      <Text style={styles.eventTitle}>Interview Scheduled</Text>
+                      {interviewDate ? (
+                        <Text style={styles.eventDate}>
+                          {formatInterviewDate(interviewDate)}
+                        </Text>
+                      ) : (
+                        <Text style={styles.noEventText}>
+                          No date scheduled
+                        </Text>
+                      )}
+                    </View>
+                    {interviewDate && (
+                      <TouchableOpacity
+                        onPress={handleClearDate}
+                        activeOpacity={0.7}
+                        style={styles.clearEventButton}
+                      >
+                        <Feather name="x" size={18} color="#EF4444" />
+                      </TouchableOpacity>
+                    )}
+                    <TouchableOpacity
+                      onPress={() => setShowDatePicker(true)}
+                      activeOpacity={0.7}
+                      style={styles.addDateButton}
+                    >
+                      <Feather
+                        name={interviewDate ? 'edit-2' : 'plus'}
+                        size={18}
+                        color="#6B46C1"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+              {/* mark not scheduled button */}
+              {/* <TouchableOpacity
               style={styles.markNotScheduledButton}
               onPress={handleClearDate}
               activeOpacity={0.7}
@@ -347,156 +502,160 @@ export const JobDetailsScreen: React.FC = () => {
               </Text>
             </TouchableOpacity> */}
 
-            {/* Date Picker Modal for iOS */}
-            {showDatePicker && Platform.OS === 'ios' && (
-              <Modal
-                transparent
-                animationType="fade"
-                visible={showDatePicker}
-                onRequestClose={() => setShowDatePicker(false)}
-              >
-                <View style={styles.modalOverlay}>
-                  <View style={styles.modalContent}>
-                    <View style={styles.modalHeader}>
-                      <TouchableOpacity
-                        onPress={() => setShowDatePicker(false)}
-                      >
-                        <Text style={styles.modalCancel}>Cancel</Text>
-                      </TouchableOpacity>
-                      <Text style={styles.modalTitle}>
-                        Select Interview Date
-                      </Text>
-                      <TouchableOpacity onPress={handleDonePress}>
-                        <Text style={styles.modalDone}>Done</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <DateTimePicker
-                      value={interviewDate || new Date()}
-                      mode="date"
-                      display="spinner"
-                      onChange={handleDateChange}
-                      style={styles.datePicker}
-                      minimumDate={new Date()}
-                    />
-                    {interviewDate && (
-                      <TouchableOpacity
-                        style={styles.clearButton}
-                        onPress={handleClearDate}
-                        activeOpacity={0.7}
-                      >
-                        <Feather name="trash-2" size={18} color="#EF4444" />
-                        <Text style={styles.clearButtonText}>
-                          Clear Interview Date
+              {/* Date Picker Modal for iOS */}
+              {showDatePicker && Platform.OS === 'ios' && (
+                <Modal
+                  transparent
+                  animationType="fade"
+                  visible={showDatePicker}
+                  onRequestClose={() => setShowDatePicker(false)}
+                >
+                  <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                      <View style={styles.modalHeader}>
+                        <TouchableOpacity
+                          onPress={() => setShowDatePicker(false)}
+                        >
+                          <Text style={styles.modalCancel}>Cancel</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.modalTitle}>
+                          Select Interview Date
                         </Text>
-                      </TouchableOpacity>
-                    )}
+                        <TouchableOpacity onPress={handleDonePress}>
+                          <Text style={styles.modalDone}>Done</Text>
+                        </TouchableOpacity>
+                      </View>
+                      <DateTimePicker
+                        value={interviewDate || new Date()}
+                        mode="date"
+                        display="spinner"
+                        onChange={handleDateChange}
+                        style={styles.datePicker}
+                        minimumDate={new Date()}
+                      />
+                      {interviewDate && (
+                        <TouchableOpacity
+                          style={styles.clearButton}
+                          onPress={handleClearDate}
+                          activeOpacity={0.7}
+                        >
+                          <Feather name="trash-2" size={18} color="#EF4444" />
+                          <Text style={styles.clearButtonText}>
+                            Clear Interview Date
+                          </Text>
+                        </TouchableOpacity>
+                      )}
+                    </View>
                   </View>
+                </Modal>
+              )}
+
+              {/* Date Picker for Android */}
+              {showDatePicker && Platform.OS === 'android' && (
+                <DateTimePicker
+                  value={interviewDate || new Date()}
+                  mode="date"
+                  display="default"
+                  onChange={handleDateChange}
+                />
+              )}
+
+              {/* ----------- Application Pipeline ----------- */}
+              <View style={styles.card}>
+                <Text style={styles.sectionTitle}>Application Pipeline</Text>
+
+                <View style={styles.pipelineRow}>
+                  {['Applied', 'Interview', 'Offer', 'Rejected'].map(
+                    (step, index) => {
+                      const statusOrder: JobStatus[] = [
+                        'Applied',
+                        'Interview',
+                        'Offer',
+                        'Rejected',
+                      ];
+                      const currentStatusIndex = statusOrder.indexOf(
+                        localJob.status,
+                      );
+
+                      let circleStyle;
+                      let showCheckmark = false;
+
+                      if (index < currentStatusIndex) {
+                        // Completed steps
+                        circleStyle = styles.completedStepCircle;
+                        showCheckmark = true;
+                      } else if (index === currentStatusIndex) {
+                        // Current active step
+                        circleStyle = styles.activeStepCircle;
+                        showCheckmark = true;
+                      } else {
+                        // Future steps
+                        circleStyle = styles.inactiveStepCircle;
+                        showCheckmark = false;
+                      }
+
+                      return (
+                        <View key={index} style={[styles.stepContainer]}>
+                          <View style={[styles.stepCircle, circleStyle]}>
+                            {showCheckmark ? (
+                              <Feather
+                                name="check-circle"
+                                size={14}
+                                color="#fff"
+                              />
+                            ) : null}
+                          </View>
+                          <Text style={styles.stepText}>{step}</Text>
+                        </View>
+                      );
+                    },
+                  )}
                 </View>
-              </Modal>
-            )}
 
-            {/* Date Picker for Android */}
-            {showDatePicker && Platform.OS === 'android' && (
-              <DateTimePicker
-                value={interviewDate || new Date()}
-                mode="date"
-                display="default"
-                onChange={handleDateChange}
-              />
-            )}
-
-            {/* ----------- Application Pipeline ----------- */}
-            <View style={styles.card}>
-              <Text style={styles.sectionTitle}>Application Pipeline</Text>
-
-              <View style={styles.pipelineRow}>
-                {['Applied', 'Interview', 'Offer', 'Rejected'].map(
-                  (step, index) => {
+                {/* Pipeline Connector Lines */}
+                <View style={styles.pipelineLineContainer}>
+                  {[0, 1, 2].map(index => {
                     const statusOrder: JobStatus[] = [
                       'Applied',
                       'Interview',
                       'Offer',
                       'Rejected',
                     ];
-                    const currentStatusIndex = statusOrder.indexOf(job.status);
+                    const currentStatusIndex = statusOrder.indexOf(
+                      localJob.status,
+                    );
 
-                    let circleStyle;
-                    let showCheckmark = false;
-
+                    // Determine line color based on connection
+                    let lineStyle;
                     if (index < currentStatusIndex) {
-                      // Completed steps
-                      circleStyle = styles.completedStepCircle;
-                      showCheckmark = true;
+                      // Line after completed step - green
+                      lineStyle = styles.pipelineLineCompleted;
                     } else if (index === currentStatusIndex) {
-                      // Current active step
-                      circleStyle = styles.activeStepCircle;
-                      showCheckmark = true;
+                      // Line at active step - blue (connecting to next)
+                      lineStyle = styles.pipelineLineActive;
                     } else {
-                      // Future steps
-                      circleStyle = styles.inactiveStepCircle;
-                      showCheckmark = false;
+                      // Line for inactive steps - gray
+                      lineStyle = styles.pipelineLineInactive;
                     }
 
                     return (
-                      <View key={index} style={[styles.stepContainer]}>
-                        <View style={[styles.stepCircle, circleStyle]}>
-                          {showCheckmark ? (
-                            <Feather
-                              name="check-circle"
-                              size={14}
-                              color="#fff"
-                            />
-                          ) : null}
-                        </View>
-                        <Text style={styles.stepText}>{step}</Text>
-                      </View>
+                      <View
+                        key={index}
+                        style={[styles.pipelineLine, lineStyle]}
+                      />
                     );
-                  },
-                )}
+                  })}
+                </View>
               </View>
 
-              {/* Pipeline Connector Lines */}
-              <View style={styles.pipelineLineContainer}>
-                {[0, 1, 2].map(index => {
-                  const statusOrder: JobStatus[] = [
-                    'Applied',
-                    'Interview',
-                    'Offer',
-                    'Rejected',
-                  ];
-                  const currentStatusIndex = statusOrder.indexOf(job.status);
-
-                  // Determine line color based on connection
-                  let lineStyle;
-                  if (index < currentStatusIndex) {
-                    // Line after completed step - green
-                    lineStyle = styles.pipelineLineCompleted;
-                  } else if (index === currentStatusIndex) {
-                    // Line at active step - blue (connecting to next)
-                    lineStyle = styles.pipelineLineActive;
-                  } else {
-                    // Line for inactive steps - gray
-                    lineStyle = styles.pipelineLineInactive;
-                  }
-
-                  return (
-                    <View
-                      key={index}
-                      style={[styles.pipelineLine, lineStyle]}
-                    />
-                  );
-                })}
+              {/* ----------- Resume Used ----------- */}
+              <View style={styles.card}>
+                <Text style={styles.sectionTitle}>Resume Used</Text>
+                <Text style={styles.resumeName}>Tech Resume 2024</Text>
               </View>
-            </View>
 
-            {/* ----------- Resume Used ----------- */}
-            <View style={styles.card}>
-              <Text style={styles.sectionTitle}>Resume Used</Text>
-              <Text style={styles.resumeName}>Tech Resume 2024</Text>
-            </View>
-
-            {/* ----------- Timeline ----------- */}
-            {/* <View style={styles.card}>
+              {/* ----------- Timeline ----------- */}
+              {/* <View style={styles.card}>
               <Text style={styles.sectionTitle}>Timeline</Text>
 
               {getTimelineData(job.status, job.appliedOn).map(
@@ -543,68 +702,68 @@ export const JobDetailsScreen: React.FC = () => {
               )}
             </View> */}
 
-            {/* ----------- Notes ----------- */}
-            <View style={styles.card}>
-              <View style={styles.notesHeader}>
-                <Text style={styles.sectionTitle}>Notes</Text>
-                <TouchableOpacity
-                  onPress={() => setIsEditingNotes(!isEditingNotes)}
-                  activeOpacity={0.7}
-                  style={styles.editNotesButton}
-                >
-                  <Feather
-                    name={isEditingNotes ? 'x' : 'edit-2'}
-                    size={16}
-                    color="#6B46C1"
-                  />
-                </TouchableOpacity>
-              </View>
-              {isEditingNotes ? (
-                <View>
-                  <TextInput
-                    style={styles.notesInput}
-                    value={notes}
-                    onChangeText={setNotes}
-                    placeholder="Add your notes here..."
-                    placeholderTextColor="#999"
-                    multiline
-                    autoFocus
-                  />
-                  <View style={styles.notesButtonRow}>
-                    <TouchableOpacity
-                      style={styles.cancelNotesButton}
-                      onPress={() => {
-                        setNotes(job.notes || '');
-                        setIsEditingNotes(false);
-                      }}
-                      activeOpacity={0.7}
-                    >
-                      <Text style={styles.cancelNotesText}>Cancel</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.saveNotesButton}
-                      onPress={() => {
-                        console.log('Notes saved:', notes);
-                        setIsEditingNotes(false);
-                      }}
-                      activeOpacity={0.7}
-                    >
-                      <Text style={styles.saveNotesText}>Save</Text>
-                    </TouchableOpacity>
-                  </View>
+              {/* ----------- Notes ----------- */}
+              <View style={styles.card}>
+                <View style={styles.notesHeader}>
+                  <Text style={styles.sectionTitle}>Notes</Text>
+                  <TouchableOpacity
+                    onPress={() => setIsEditingNotes(!isEditingNotes)}
+                    activeOpacity={0.7}
+                    style={styles.editNotesButton}
+                  >
+                    <Feather
+                      name={isEditingNotes ? 'x' : 'edit-2'}
+                      size={16}
+                      color="#6B46C1"
+                    />
+                  </TouchableOpacity>
                 </View>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => setIsEditingNotes(true)}
-                  activeOpacity={0.8}
-                >
-                  <Text style={styles.notesText}>
-                    {notes || 'Tap to add notes...'}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </View>
-          </ScrollView>
+                {isEditingNotes ? (
+                  <View>
+                    <TextInput
+                      style={styles.notesInput}
+                      value={notes}
+                      onChangeText={setNotes}
+                      placeholder="Add your notes here..."
+                      placeholderTextColor="#999"
+                      multiline
+                      autoFocus
+                    />
+                    <View style={styles.notesButtonRow}>
+                      <TouchableOpacity
+                        style={styles.cancelNotesButton}
+                        onPress={() => {
+                          setNotes(job.notes || '');
+                          setIsEditingNotes(false);
+                        }}
+                        activeOpacity={0.7}
+                      >
+                        <Text style={styles.cancelNotesText}>Cancel</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.saveNotesButton}
+                        onPress={() => {
+                          console.log('Notes saved:', notes);
+                          setIsEditingNotes(false);
+                        }}
+                        activeOpacity={0.7}
+                      >
+                        <Text style={styles.saveNotesText}>Save</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => setIsEditingNotes(true)}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.notesText}>
+                      {notes || 'Tap to add notes...'}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </ScrollView>
           </KeyboardAvoidingView>
         </View>
       </SafeAreaView>

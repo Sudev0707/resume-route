@@ -3,7 +3,7 @@ export type RootStackParamList = {
   LoginScreen: undefined;
   ResumeUpload: undefined;
   ResumeView: { resumeId: string };
-  AddJob: undefined;
+  AddJob: { job?: Job; isEdit?: boolean };
   JobDetails: { job: Job };
   Tabs: undefined;
 };
@@ -19,7 +19,9 @@ export type Job = {
   jobLink?: string;
   notes?: string;
   interviewDate?: string;
+  experience?: string;
 };
+
 
 export type TabParamList = {
   HomeTab: undefined;

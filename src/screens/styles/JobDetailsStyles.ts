@@ -298,6 +298,36 @@ export const JobDetailsStyles = StyleSheet.create({
     fontFamily: FONTS.fontFamily.medium,
   },
 
+  /* Status Editing */
+  statusButtonsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  statusButton: {
+    flexBasis: '48%',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  statusButtonActive: {
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  statusButtonText: {
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.semibold,
+  },
+  statusDisplayContainer: {
+    alignItems: 'center',
+  },
+
   /* Event */
   eventRow: {
     flexDirection: 'row',
@@ -319,16 +349,16 @@ export const JobDetailsStyles = StyleSheet.create({
     fontStyle: 'italic',
   },
   addDateButton: {
-    width: 36,
-    height: 36,
+    width: 32,
+    height: 32,
     borderRadius: 18,
     backgroundColor: '#F3E8FF',
     justifyContent: 'center',
     alignItems: 'center',
   },
   clearEventButton: {
-    width: 36,
-    height: 36,
+    width: 32,
+    height: 32,
     borderRadius: 18,
     backgroundColor: '#FEE2E2',
     justifyContent: 'center',

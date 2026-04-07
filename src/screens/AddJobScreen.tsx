@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -14,14 +14,20 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import type { RootStackParamList } from '../types/navigation';
+import { JobStatus } from '../data/jobs';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Colors, FONTS } from '../constants';
 import { AddJobStyles } from './styles/AddJobStyles';
 import { resumes } from '../data/resumes';
 
+type AddJobRouteProp = RouteProp<RootStackParamList, 'AddJob'>;
+
 export const AddJobScreen: React.FC = () => {
   const navigation = useNavigation();
+  const route = useRoute<AddJobRouteProp>();
+  const { job, isEdit = false } = route.params || {};
 
   const [status, setStatus] = useState('Applied');
   const [remote, setRemote] = useState(false);
@@ -29,6 +35,36 @@ export const AddJobScreen: React.FC = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedResume, setSelectedResume] = useState(resumes[0]);
   const [showResumeDropdown, setShowResumeDropdown] = useState(false);
+
+  const [formData, setFormData] = useState({
+    company: '',
+    title: '',
+    location: '',
+    salary: '',
+    jobLink: '',
+    notes: '',
+    appliedOn: '',
+    experience: '',
+  });
+
+  useEffect(() => {
+    if (job) {
+      const parsedDate = job.appliedOn ? new Date(job.appliedOn) : undefined;
+      setAppliedDate(parsedDate);
+      setFormData({
+        company: job.company || '',
+        title: job.title || '',
+        location: job.location || '',
+        salary: job.salary || '',
+        jobLink: job.jobLink || '',
+        notes: job.notes || '',
+        appliedOn: job.appliedOn || '',
+        experience: job.experience || '',
+      });
+      setStatus(job.status);
+      setRemote((job.location || '').toLowerCase().includes('remote'));
+    }
+  }, [job]);
 
   const formatDate = (date: Date): string => {
     const day = String(date.getDate()).padStart(2, '0');
@@ -50,8 +86,15 @@ export const AddJobScreen: React.FC = () => {
     setShowDatePicker(false);
   };
 
-  const handleAddJob = () => {
-    console.log('Add job pressed');
+  const handleSaveJob = () => {
+    console.log(isEdit ? `Updated job ${job?.id}` : 'Added new job:', {
+      ...formData,
+      status,
+      remote,
+      appliedDate: appliedDate ? formatDate(appliedDate) : '',
+      resumeId: selectedResume.id,
+    });
+    navigation.goBack();
   };
 
   const handleResumeSelect = (resume: any) => {
@@ -104,7 +147,7 @@ export const AddJobScreen: React.FC = () => {
           >
             <Feather name="chevron-left" size={24} />
           </TouchableOpacity>
-          <Text style={AddJobStyles.headerTitle}>Add Job</Text>
+          <Text style={AddJobStyles.headerTitle}>{isEdit ? 'Edit Job' : 'Add Job'}</Text>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -119,22 +162,28 @@ export const AddJobScreen: React.FC = () => {
             keyboardDismissMode="interactive"
           >
             <Text style={AddJobStyles.label}>Company *</Text>
-            <TextInput
+<TextInput
               placeholder="Stripe, Vercel, etc."
+              value={formData.company}
+              onChangeText={(text) => setFormData({...formData, company: text})}
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
 
             <Text style={AddJobStyles.label}>Job Title *</Text>
-            <TextInput
+<TextInput
               placeholder="Senior Frontend Engineer"
+              value={formData.title}
+              onChangeText={(text) => setFormData({...formData, title: text})}
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
 
             <Text style={AddJobStyles.label}>Location</Text>
-            <TextInput
+<TextInput
               placeholder="San Francisco, CA"
+              value={formData.location}
+              onChangeText={(text) => setFormData({...formData, location: text})}
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
@@ -142,6 +191,17 @@ export const AddJobScreen: React.FC = () => {
             <Text style={AddJobStyles.label}>Salary Range</Text>
             <TextInput
               placeholder="$120k - $160k"
+              value={formData.salary}
+              onChangeText={(text) => setFormData({...formData, salary: text})}
+              style={AddJobStyles.input}
+              placeholderTextColor="#8E8E93"
+            />
+
+            <Text style={AddJobStyles.label}>Experience</Text>
+            <TextInput
+              placeholder="3+ years"
+              value={formData.experience}
+              onChangeText={(text) => setFormData({...formData, experience: text})}
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
@@ -149,6 +209,8 @@ export const AddJobScreen: React.FC = () => {
             <Text style={AddJobStyles.label}>Job Link</Text>
             <TextInput
               placeholder="https://company.com/careers"
+              value={formData.jobLink}
+              onChangeText={(text) => setFormData({...formData, jobLink: text})}
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
@@ -288,6 +350,8 @@ export const AddJobScreen: React.FC = () => {
             <Text style={AddJobStyles.label}>Notes</Text>
             <TextInput
               placeholder="Any notes about this application..."
+              value={formData.notes}
+              onChangeText={(text) => setFormData({...formData, notes: text})}
               style={AddJobStyles.notesInput}
               multiline
               numberOfLines={5}
@@ -297,12 +361,12 @@ export const AddJobScreen: React.FC = () => {
             <View style={AddJobStyles.buttonContainer}>
               <TouchableOpacity
                 style={AddJobStyles.uploadButton}
-                onPress={handleAddJob}
+                onPress={handleSaveJob}
                 activeOpacity={0.8}
               >
                 <Feather name="upload" size={20} color={Colors.background} />
                 <Text style={AddJobStyles.uploadButtonText}>
-                  Add Job Application
+                  {isEdit ? 'Update Job Application' : 'Add Job Application'}
                 </Text>
               </TouchableOpacity>
             </View>

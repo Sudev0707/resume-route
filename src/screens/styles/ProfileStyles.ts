@@ -146,10 +146,11 @@ export const ProfileStyles = StyleSheet.create({
   // Menu Card
   menuCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    borderRadius: 15,
     overflow: 'hidden',
     elevation: 2,
     marginTop: 16,
+     shadowColor:'#787878'
   },
 
   menuItem: {
@@ -187,26 +188,5 @@ export const ProfileStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  toggleContainer: {
-    flexDirection: 'row',
-    // backgroundColor: '#1E1E1E',
-    backgroundColor: Colors.background,
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 18,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    // marginVertical: 10,
-    elevation: 2,
-    marginTop: 16,
-  },
-  left: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  text: {
-    color: Colors.textPrimary,
-    fontSize: FONTS.sizes.md,
-    fontFamily: FONTS.fontFamily.regular,
-  },
+
 });

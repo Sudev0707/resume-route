@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 import { Colors, FONTS } from '../constants';
@@ -85,13 +91,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: FONTS.sizes.md,
-    fontFamily:FONTS.fontFamily.semibold,
+    fontFamily: FONTS.fontFamily.semibold,
     color: Colors.text,
     flex: 1,
     textAlign: 'center',
   },
   iconButton: {
-    padding: 4,
+    padding: 9,
+    borderRadius: 8,
+    backgroundColor: Colors.offWhiteSecondary,
   },
   backButton: {
     padding: 6,

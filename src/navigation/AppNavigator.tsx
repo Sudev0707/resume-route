@@ -71,6 +71,11 @@ const TabNavigator: React.FC = () => {
       <Tab.Screen name="Jobs" component={JobsScreen} />
       {/* <Tab.Screen name="Analytics" component={AnalyticsScreen} /> */}
       <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen 
+        name="Settings" 
+        component={SettingsScreen} 
+        options={{ tabBarLabel: 'Settings' }} 
+      />
     </Tab.Navigator>
   );
 };
@@ -79,7 +84,7 @@ export const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Onboard"
+        initialRouteName="Tabs"
         screenOptions={{
           headerShown: false,
         }}

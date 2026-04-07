@@ -66,15 +66,16 @@ export const JobsStyles = StyleSheet.create({
     paddingVertical: 10,
     justifyContent: 'space-between',
     paddingHorizontal: 15,
+    // borderWidth: 0.5,
   },
   toggleContainer: {
     flexDirection: 'row',
-    // backgroundColor: Colors.primarySoft,
-    borderRadius: 10,
+    backgroundColor: Colors.offWhite,
+    borderRadius: 15,
     padding: 4,
     // marginTop: 20,
     alignSelf: 'flex-start',
-    // borderWidth: 0.5,
+    borderWidth: 0.5,
     borderColor: Colors.border,
     gap: 5,
   },
@@ -89,14 +90,14 @@ export const JobsStyles = StyleSheet.create({
   },
 
   activeToggle: {
-    backgroundColor: Colors.primarySoft,
+    backgroundColor: Colors.background,
     elevation: 1,
   },
 
   filterTab: {
     paddingHorizontal: 16,
     paddingVertical: 6,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.offWhite,
     borderRadius: 10,
     marginRight: 10,
     borderWidth: 0.5,
@@ -130,14 +131,14 @@ export const JobsStyles = StyleSheet.create({
   },
 
   title: {
-    fontSize: FONTS.sizes.md,
-    fontFamily: FONTS.fontFamily.regular,
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.medium,
   },
 
   company: {
     fontSize: FONTS.sizes.sm,
     fontFamily: FONTS.fontFamily.regular,
-    color: Colors.textSecondary,
+    color: Colors.textPrimary,
     // marginTop: 4,
   },
 
@@ -218,6 +219,20 @@ export const JobsStyles = StyleSheet.create({
     width: '100%',
   },
 
+  logoBox: {
+    width: 45,
+    height: 45,
+    borderRadius: 12,
+    backgroundColor: '#EEF2FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  OrgIcon: {
+    tintColor: Colors.secondary,
+    width: 26,
+    height: 26,
+  },
+
   // Applied Date Text
   appliedDate: {
     color: Colors.textSecondary,
@@ -237,9 +252,16 @@ export const JobsStyles = StyleSheet.create({
   // Toggle Button Label
   toggleLabel: {
     marginLeft: 8,
-    color: Colors.textPrimary,
+    color: Colors.textSecondary,
     fontSize: FONTS.sizes.sm,
-    fontFamily: FONTS.fontFamily.regular,
+    fontFamily: FONTS.fontFamily.medium,
+  },
+
+  toggleLabelActive: {
+    marginLeft: 8,
+    color: Colors.primary,
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.medium,
   },
 
   // Filter FlatList Content
@@ -350,7 +372,7 @@ export const JobsStyles = StyleSheet.create({
     paddingVertical: 60,
     paddingHorizontal: 20,
     // borderWidth:0.7,
-    marginTop:80
+    marginTop: 80,
   },
   emptyText: {
     fontSize: FONTS.sizes.md,

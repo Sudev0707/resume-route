@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
+  Image,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
@@ -19,6 +20,7 @@ import {
 } from './styles/JobsStyles';
 import { Header } from '../components';
 import { Job, JobStatus, JOBS } from '../data/jobs';
+import orgIcon from '../assets/icons/icons8-company-60.png';
 
 export const JobsScreen: React.FC = () => {
   const navigation = useNavigation<any>();
@@ -52,8 +54,23 @@ export const JobsScreen: React.FC = () => {
     >
       <View style={JobsStyles.jobCardRow}>
         <View style={{ flex: 1 }}>
-          <Text style={JobsStyles.title}>{job.title}</Text>
-          <Text style={JobsStyles.company}>{job.company}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={JobsStyles.logoBox}>
+              {/* <MaterialCommunityIcons name="credit-card-chip" size={30} color="#5A67D8" /> */}
+              <Image
+                source={orgIcon}
+                style={JobsStyles.OrgIcon}
+                resizeMode="contain"
+              />
+            </View>
+            <View style={{ marginLeft: 7, width: '75%' }}>
+              <Text style={JobsStyles.title} numberOfLines={2}>
+                {job.title}
+              </Text>
+              <Text style={JobsStyles.company}>{job.company}</Text>
+            </View>
+          </View>
+
           <View style={JobsStyles.meta}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Feather name="map-pin" size={14} color={Colors.textSecondary} />
@@ -131,7 +148,7 @@ export const JobsScreen: React.FC = () => {
           )}
         </View>
 
-        {(job.status === 'Interview' || job.status === 'Applied') && (
+        {/* {(job.status === 'Interview' || job.status === 'Applied') && (
           <TouchableOpacity
             style={JobsStyles.Movebutton}
             activeOpacity={0.7}
@@ -142,7 +159,7 @@ export const JobsScreen: React.FC = () => {
               <Feather name="chevron-right" size={16} color="#1E74FF" />
             </View>
           </TouchableOpacity>
-        )}
+        )} */}
       </View>
     </TouchableOpacity>
   );
@@ -153,8 +170,22 @@ export const JobsScreen: React.FC = () => {
       activeOpacity={0.8}
       onPress={() => navigation.navigate('JobDetails', { job })}
     >
-      <Text style={JobsStyles.title}>{job.title}</Text>
-      <Text style={JobsStyles.company}>{job.company}</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <View style={JobsStyles.logoBox}>
+          {/* <MaterialCommunityIcons name="credit-card-chip" size={30} color="#5A67D8" /> */}
+          <Image
+            source={orgIcon}
+            style={JobsStyles.OrgIcon}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={{ marginLeft: 7, width: '75%' }}>
+          <Text style={JobsStyles.title} numberOfLines={2}>
+            {job.title}
+          </Text>
+          <Text style={JobsStyles.company}>{job.company}</Text>
+        </View>
+      </View>
       <View style={JobsStyles.meta}>
         <View
           style={{
@@ -260,7 +291,15 @@ export const JobsScreen: React.FC = () => {
                     viewMode === 'list' ? Colors.primary : Colors.textSecondary
                   }
                 />
-                <Text style={JobsStyles.toggleLabel}>List</Text>
+                <Text
+                  style={
+                    viewMode === 'list'
+                      ? JobsStyles.toggleLabelActive
+                      : JobsStyles.toggleLabel
+                  }
+                >
+                  List
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -277,7 +316,15 @@ export const JobsScreen: React.FC = () => {
                     viewMode === 'board' ? Colors.primary : Colors.textSecondary
                   }
                 />
-                <Text style={JobsStyles.toggleLabel}>Board</Text>
+                <Text
+                  style={
+                    viewMode === 'board'
+                      ? JobsStyles.toggleLabelActive
+                      : JobsStyles.toggleLabel
+                  }
+                >
+                  Board
+                </Text>
               </TouchableOpacity>
             </View>
 
