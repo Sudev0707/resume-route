@@ -4,18 +4,67 @@ import { Colors, FONTS } from '../../constants';
 export const HomeStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#4C9FFF',
+    backgroundColor: Colors.primary,
   },
   contentContainer: {
-    flex: 1,
     backgroundColor: Colors.offWhite,
     paddingHorizontal: 15,
   },
   header: {
     padding: 20,
-    backgroundColor: '#4C9FFF',
+    backgroundColor: Colors.primary,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+  },
+  welcomeSection: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    backgroundColor: 'transparent',
+  },
+  
+  headerText: {
+    fontSize: 32,
+    fontWeight: '800',
+    color: '#12013b',
+    lineHeight: 40,
+    marginBottom: 16,
+  },
+  
+  userNameHighlight: {
+    color: '#6c63ff',
+    position: 'relative',
+  },
+  
+  subtitleWrapper: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  
+  quoteMark: {
+    marginRight: 8,
+    marginTop: -4,
+  },
+  
+  quoteSymbol: {
+    fontSize: 28,
+    color: '#6c63ff',
+    opacity: 0.5,
+    fontFamily: 'Georgia',
+  },
+  
+  headerTextSecond: {
+    flex: 1,
+    fontSize: 15,
+    color: '#a0a0b5',
+    lineHeight: 22,
+    letterSpacing: 0.3,
+  },
+  appName: {
+    color: Colors.offWhite,
+    fontSize: FONTS.sizes.xl,
+    fontFamily: FONTS.fontFamily.medium,
+    // marginTop: 4,
   },
   greeting: { color: '#fff', fontSize: 14 },
   userName: {
@@ -25,12 +74,18 @@ export const HomeStyles = StyleSheet.create({
     marginTop: 4,
   },
   userRole: { color: Colors.offWhite, marginTop: 2 },
-
+  sectionRow: {
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
+    marginTop: 22,
+    marginBottom: 10,
+  },
   sectionTitle: {
     fontSize: FONTS.sizes.md,
     fontFamily: FONTS.fontFamily.medium,
-    marginTop: 22,
-    marginBottom: 10,
+    // marginTop: 22,
+    // marginBottom: 10,
   },
 
   overviewGrid: {
@@ -38,11 +93,21 @@ export const HomeStyles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     // paddingHorizontal: 15,
+    // borderWidth: 0.8,
+    // padding: 15,
+    gap: 10,
+    borderRadius: 15,
+    // backgroundColor: '#e8fdee',
+    shadowColor: '#848484',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    // elevation: 1,
   },
   overviewView: {
-    width: '47%',
+    width: '48%',
     padding: 20,
-    marginBottom: 15,
+    // marginBottom: 15,
     alignItems: 'flex-start',
     backgroundColor: Colors.background,
     shadowColor: '#848484',
@@ -50,13 +115,26 @@ export const HomeStyles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-    borderRadius: 10,
+    borderRadius: 15,
   },
-  overviewValue: { fontSize: FONTS.sizes.lg, fontFamily:FONTS.fontFamily.medium, marginTop: 10 },
-  overviewLabel: { fontSize: FONTS.sizes.sm, color: Colors.textSecondary , fontFamily: FONTS.fontFamily.regular },
+  overviewValue: {
+    fontSize: FONTS.sizes.xxxl,
+    fontFamily: FONTS.fontFamily.medium,
+    marginTop: 10,
+    color: Colors.primary,
+  },
+  overviewLabel: {
+    fontSize: FONTS.sizes.sm,
+    color: Colors.textSecondary,
+    fontFamily: FONTS.fontFamily.regular,
+  },
 
   trendView: { marginTop: 10 },
-  ViewTitle: { fontSize: FONTS.sizes.md, fontFamily:FONTS.fontFamily.regular, marginBottom: 10 },
+  ViewTitle: {
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.regular,
+    marginBottom: 10,
+  },
   trendValue: { fontSize: 32, fontWeight: '700' },
   trendPercent: { color: 'green', marginBottom: 10 },
   fakeGraph: {
@@ -65,7 +143,27 @@ export const HomeStyles = StyleSheet.create({
     borderRadius: 10,
     opacity: 0.8,
   },
-
+  recentActivityBlank: {
+    gap: 10,
+    borderRadius: 15,
+    backgroundColor: Colors.offWhiteSecondary,
+    alignItems: 'center',
+    padding: 20,
+    paddingVertical: 60,
+  },
+  ActivityBlankIcon: {
+    width: 70,
+    height: 70,
+    padding: 9,
+    borderRadius: 50,
+    backgroundColor: Colors.offWhite,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ActivityBlankText: {
+    color: Colors.textSecondary,
+    fontFamily: FONTS.fontFamily.regular,
+  },
   goalView: { marginTop: 14 },
   goalTitle: { fontSize: 15, fontWeight: '700' },
   goalPercent: { position: 'absolute', right: 0, top: 0, fontWeight: '700' },
@@ -112,5 +210,71 @@ export const HomeStyles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  Card: {
+    borderRadius: 15,
+    padding: 15,
+    backgroundColor: Colors.background,
+    shadowColor: '#5f5f5f',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 2,
+    marginVertical: 20,
+  },
+  cardIconContainer: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: '#EBF3FE',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  cardTitle: {
+    fontSize: FONTS.sizes.xl,
+    fontFamily: FONTS.fontFamily.semibold,
+    color: Colors.textPrimary,
+    marginBottom: 8,
+  },
+  cardDescription: {
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
+    color: Colors.textSecondary,
+    lineHeight: 20,
+    marginBottom: 20,
+  },
+
+  uploadButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    borderWidth: 1.5,
+    borderColor: Colors.purple,
+    borderRadius: 50,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  uploadButtonText: {
+    color: Colors.purple,
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.medium,
+  },
+  button: {
+    backgroundColor: Colors.primary,
+    borderRadius: 50,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  buttonText: {
+    fontSize: FONTS.sizes.md,
+    fontFamily: FONTS.fontFamily.medium,
+    color: '#FFFFFF',
   },
 });

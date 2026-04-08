@@ -1,5 +1,6 @@
 export const Colors = {
-  primary: '#2563eb',
+  // primary: '#2563eb',
+  primary: '#605afb',
   primarySoft: '#f4f9ff',
   secondary: '#5856D6',
   background: '#FFFFFF',
@@ -17,6 +18,8 @@ export const Colors = {
   warning: '#FF9500',
   red: '#FF3B30',
   green: '#15ad3b',
-  greenSoft: '#ddffe5',
+  greenSoft: '#e6feec',
   blue: '#007AFF',
+  purple: '#6213e1',
+  purpleSoft: '#f5eeff',
 };

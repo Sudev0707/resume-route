@@ -116,14 +116,17 @@ export const AddJobScreen: React.FC = () => {
           <Text
             style={[
               AddJobStyles.resumeItemTitle,
-              selectedResume.id === item.id && AddJobStyles.selectedResumeItemTitle,
+              selectedResume.id === item.id &&
+                AddJobStyles.selectedResumeItemTitle,
             ]}
           >
             {item.title}
           </Text>
           <Text style={AddJobStyles.resumeItemSubtitle}>{item.date}</Text>
         </View>
-        <View style={[AddJobStyles.scoreBadge, { backgroundColor: item.color }]}>
+        <View
+          style={[AddJobStyles.scoreBadge, { backgroundColor: item.color }]}
+        >
           <Text style={AddJobStyles.scoreBadgeText}>{item.score}</Text>
         </View>
       </View>
@@ -145,9 +148,11 @@ export const AddJobScreen: React.FC = () => {
             activeOpacity={0.8}
             style={AddJobStyles.backButton}
           >
-            <Feather name="chevron-left" size={24} />
+            <Feather name="chevron-left" size={24} color={Colors.purple} />
           </TouchableOpacity>
-          <Text style={AddJobStyles.headerTitle}>{isEdit ? 'Edit Job' : 'Add Job'}</Text>
+          <Text style={AddJobStyles.headerTitle}>
+            {isEdit ? 'Edit Job' : 'Add Job'}
+          </Text>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -162,28 +167,30 @@ export const AddJobScreen: React.FC = () => {
             keyboardDismissMode="interactive"
           >
             <Text style={AddJobStyles.label}>Company *</Text>
-<TextInput
+            <TextInput
               placeholder="Stripe, Vercel, etc."
               value={formData.company}
-              onChangeText={(text) => setFormData({...formData, company: text})}
+              onChangeText={text => setFormData({ ...formData, company: text })}
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
 
             <Text style={AddJobStyles.label}>Job Title *</Text>
-<TextInput
+            <TextInput
               placeholder="Senior Frontend Engineer"
               value={formData.title}
-              onChangeText={(text) => setFormData({...formData, title: text})}
+              onChangeText={text => setFormData({ ...formData, title: text })}
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
 
             <Text style={AddJobStyles.label}>Location</Text>
-<TextInput
+            <TextInput
               placeholder="San Francisco, CA"
               value={formData.location}
-              onChangeText={(text) => setFormData({...formData, location: text})}
+              onChangeText={text =>
+                setFormData({ ...formData, location: text })
+              }
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
@@ -192,7 +199,7 @@ export const AddJobScreen: React.FC = () => {
             <TextInput
               placeholder="$120k - $160k"
               value={formData.salary}
-              onChangeText={(text) => setFormData({...formData, salary: text})}
+              onChangeText={text => setFormData({ ...formData, salary: text })}
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
@@ -201,7 +208,9 @@ export const AddJobScreen: React.FC = () => {
             <TextInput
               placeholder="3+ years"
               value={formData.experience}
-              onChangeText={(text) => setFormData({...formData, experience: text})}
+              onChangeText={text =>
+                setFormData({ ...formData, experience: text })
+              }
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
@@ -210,7 +219,7 @@ export const AddJobScreen: React.FC = () => {
             <TextInput
               placeholder="https://company.com/careers"
               value={formData.jobLink}
-              onChangeText={(text) => setFormData({...formData, jobLink: text})}
+              onChangeText={text => setFormData({ ...formData, jobLink: text })}
               style={AddJobStyles.input}
               placeholderTextColor="#8E8E93"
             />
@@ -244,7 +253,9 @@ export const AddJobScreen: React.FC = () => {
                 <View style={AddJobStyles.modalOverlay}>
                   <View style={AddJobStyles.modalContent}>
                     <View style={AddJobStyles.modalHeader}>
-                      <TouchableOpacity onPress={() => setShowDatePicker(false)}>
+                      <TouchableOpacity
+                        onPress={() => setShowDatePicker(false)}
+                      >
                         <Text style={AddJobStyles.modalCancel}>Cancel</Text>
                       </TouchableOpacity>
                       <Text style={AddJobStyles.modalTitle}>Select Date</Text>
@@ -351,7 +362,7 @@ export const AddJobScreen: React.FC = () => {
             <TextInput
               placeholder="Any notes about this application..."
               value={formData.notes}
-              onChangeText={(text) => setFormData({...formData, notes: text})}
+              onChangeText={text => setFormData({ ...formData, notes: text })}
               style={AddJobStyles.notesInput}
               multiline
               numberOfLines={5}
@@ -376,4 +387,3 @@ export const AddJobScreen: React.FC = () => {
     </View>
   );
 };
-

@@ -49,7 +49,7 @@ const TabNavigator: React.FC = () => {
 
           return <Feather name={iconName} size={19} color={color} />;
         },
-        tabBarActiveTintColor: '#007AFF',
+        tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
           backgroundColor: '#fff',
@@ -61,7 +61,7 @@ const TabNavigator: React.FC = () => {
         tabBarLabelStyle: {
           fontSize: FONTS.sizes.xs,
           marginBottom: 5,
-          fontFamily:FONTS.fontFamily.medium,
+          fontFamily:FONTS.fontFamily.semibold,
           // color:Colors.textPrimary
         },
       })}
@@ -71,11 +71,11 @@ const TabNavigator: React.FC = () => {
       <Tab.Screen name="Jobs" component={JobsScreen} />
       {/* <Tab.Screen name="Analytics" component={AnalyticsScreen} /> */}
       <Tab.Screen name="Profile" component={ProfileScreen} />
-      <Tab.Screen 
+      {/* <Tab.Screen 
         name="Settings" 
         component={SettingsScreen} 
         options={{ tabBarLabel: 'Settings' }} 
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
@@ -95,6 +95,7 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen name="ResumeView" component={ResumeViewScreen} />
         <Stack.Screen name="AddJob" component={AddJobScreen} />
         <Stack.Screen name="JobDetails" component={JobDetailsScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="Tabs" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

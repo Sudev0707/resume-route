@@ -200,7 +200,7 @@ export const JobDetailsScreen: React.FC = () => {
         <Header
           title={job.company}
           showBackButton
-          rightIcon={<Feather name="edit" size={20} />}
+          rightIcon={<Feather name="edit" size={20} color={Colors.primary} />}
           onRightPress={() =>
             navigation.navigate('AddJob' as never, {
               job: localJob,

@@ -32,7 +32,7 @@ export const AddJobStyles = StyleSheet.create({
   backButton: {
     padding: 6,
     borderRadius: 8,
-    backgroundColor: Colors.offWhiteSecondary,
+    backgroundColor: Colors.purpleSoft,
   },
   headerTitle: {
     fontSize: FONTS.sizes.md,
@@ -42,9 +42,10 @@ export const AddJobStyles = StyleSheet.create({
   },
   label: {
     fontSize: FONTS.sizes.sm,
-    fontFamily: FONTS.fontFamily.regular,
+    fontFamily: FONTS.fontFamily.medium,
     marginTop: 18,
     marginBottom: 6,
+    color:'#35077e'
   },
   input: {
     backgroundColor: Colors.offWhite,

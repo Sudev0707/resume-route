@@ -15,8 +15,6 @@ import { pickFile, PickedFile } from '../utils';
 import { ResumeUploadStyles as styles } from './styles/ResumeUploadStyles';
 import { toast } from '../utils/toast';
 
-
-
 export const ResumeUploadScreen: React.FC = () => {
   const navigation = useNavigation();
   const [resumeTitle, setResumeTitle] = useState('');
@@ -29,7 +27,6 @@ export const ResumeUploadScreen: React.FC = () => {
       if (result) {
         setSelectedFile(result);
         console.log(result);
-        
       }
     } catch (error: any) {
       console.error('File picker error:', error);
@@ -101,7 +98,7 @@ export const ResumeUploadScreen: React.FC = () => {
               activeOpacity={0.8}
               style={styles.backButton}
             >
-              <Feather name="chevron-left" size={24} />
+              <Feather name="chevron-left" size={24} color={Colors.primary} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>Upload Resume</Text>
           </View>
@@ -111,35 +108,41 @@ export const ResumeUploadScreen: React.FC = () => {
             contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
           >
-            {/* File Drop Zone */}
-            <TouchableOpacity
-              style={styles.dropZone}
-              onPress={handleSelectFile}
-              activeOpacity={0.7}
-            >
-              <View style={styles.iconContainer}>
-                <Feather name="upload-cloud" size={48} color={Colors.primary} />
-              </View>
-              <Text style={styles.dropZoneTitle}>
-                {selectedFile ? selectedFile.name : 'Tap to select file'}
-              </Text>
-              <Text style={styles.dropZoneSubtitle}>
-                {selectedFile
-                  ? 'Tap to change file'
-                  : 'PDF, DOC, or DOCX up to 10MB'}
-              </Text>
-            </TouchableOpacity>
+            <View style={styles.dropContainer}>
+              {/* File Drop Zone */}
+              <TouchableOpacity
+                style={styles.dropZone}
+                onPress={handleSelectFile}
+                activeOpacity={0.7}
+              >
+                <View style={styles.iconContainer}>
+                  <Feather
+                    name="upload-cloud"
+                    size={48}
+                    color={Colors.purpleSoft}
+                  />
+                </View>
+                <Text style={styles.dropZoneTitle}>
+                  {selectedFile ? selectedFile.name : 'Tap to select file'}
+                </Text>
+                <Text style={styles.dropZoneSubtitle}>
+                  {selectedFile
+                    ? 'Tap to change file'
+                    : 'PDF, DOC, or DOCX up to 10MB'}
+                </Text>
+              </TouchableOpacity>
 
-            {/* Resume Title Input */}
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Resume Title</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="e.g., Software Engineer Resume 2024"
-                placeholderTextColor={Colors.textSecondary}
-                value={resumeTitle}
-                onChangeText={setResumeTitle}
-              />
+              {/* Resume Title Input */}
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Resume Title</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="e.g., Software Engineer Resume 2024"
+                  placeholderTextColor={Colors.textSecondary}
+                  value={resumeTitle}
+                  onChangeText={setResumeTitle}
+                />
+              </View>
             </View>
 
             {/* Tips Section */}

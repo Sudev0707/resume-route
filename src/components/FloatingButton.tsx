@@ -181,25 +181,33 @@ export const FloatingButton: React.FC<FloatingButtonProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    paddingBottom: 30,
-    paddingRight: 20,
+    // ...StyleSheet.absoluteFillObject,
+    // justifyContent: 'flex-end',
+    // alignItems: 'flex-end',
+    // paddingBottom: 30,
+    // paddingRight: 20,
+    // zIndex: 999,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
     zIndex: 999,
+    // borderWidth:0.8
   },
   fab: {
-    backgroundColor: '#1E88E5',
+    backgroundColor:Colors.primary,
     width: 60,
     height: 60,
+    
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf:'flex-end',
     shadowColor: '#bbbbbb',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 8,
+
   },
   optionContainer: {
     marginBottom: 5,

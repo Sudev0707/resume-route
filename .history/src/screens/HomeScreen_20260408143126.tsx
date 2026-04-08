@@ -43,7 +43,21 @@ export const HomeScreen: React.FC = () => {
             keyboardShouldPersistTaps="handled"
           >
             {/* ========= OVERVIEW SECTION ========= */}
-         
+          <View style={HomeStyles.welcomeSection}>
+  <Text style={HomeStyles.headerText}>
+    Welcome to Your Sanctuary,{' '}
+    <Text style={HomeStyles.userNameHighlight}>Sudev</Text>
+  </Text>
+  
+  <View style={HomeStyles.subtitleWrapper}>
+    <View style={HomeStyles.quoteMark}>
+      <Text style={HomeStyles.quoteSymbol}>"</Text>
+    </View>
+    <Text style={HomeStyles.headerTextSecond}>
+      Your career journey starts here. Add your first job or upload a resume to see your momentum grow.
+    </Text>
+  </View>
+</View>
            
             {/* <View style={HomeStyles.overviewGrid}>
               <OverviewView icon="people" title="Interview Rate" value="63%" />

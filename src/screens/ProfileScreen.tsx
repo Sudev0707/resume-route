@@ -33,7 +33,7 @@ const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList>>();
           <Header 
             title="Profile" 
             showBackButton 
-            rightIcon={<Feather name="settings" size={20} color={Colors.textPrimary} />}
+            rightIcon={<Feather name="settings" size={20} color={Colors.primary} />}
             onRightPress={() => navigation.navigate('Settings')}
           />
           <ScrollView

@@ -175,7 +175,7 @@ export const ResumeScreen: React.FC = () => {
           <TouchableOpacity style={styles.uploadButton}activeOpacity={0.7} onPress={()=> navigation.navigate('ResumeUpload')} >
             <Feather name="upload" size={18} color="white" />
             <Text style={[styles.uploadText, { marginLeft: 8 }]}>
-              Upload
+              Upload Resume
             </Text>
           </TouchableOpacity>
         </SafeAreaView>

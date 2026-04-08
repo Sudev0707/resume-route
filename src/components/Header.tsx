@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
             style={styles.backButton}
             activeOpacity={0.8}
           >
-            <Feather name="chevron-left" size={24} />
+            <Feather name="chevron-left" size={24} color={Colors.primary} />
           </TouchableOpacity>
         ) : leftIcon ? (
           <TouchableOpacity onPress={onLeftPress} style={styles.iconButton}>
@@ -99,11 +99,11 @@ const styles = StyleSheet.create({
   iconButton: {
     padding: 9,
     borderRadius: 8,
-    backgroundColor: Colors.offWhiteSecondary,
+    backgroundColor: Colors.purpleSoft,
   },
   backButton: {
     padding: 6,
     borderRadius: 8,
-    backgroundColor: Colors.offWhiteSecondary,
+    backgroundColor: Colors.purpleSoft,
   },
 });

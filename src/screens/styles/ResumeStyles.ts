@@ -46,7 +46,7 @@ export const ResumeStyles = StyleSheet.create({
     bottom: 20,
     left: 20,
     right: 20,
-    backgroundColor: '#2563eb',
+    backgroundColor: Colors.primary,
     paddingHorizontal: 18,
     paddingVertical: 14,
     borderRadius: 12,
@@ -66,7 +66,8 @@ export const ResumeStyles = StyleSheet.create({
 
   uploadText: {
     color: 'white',
-    fontWeight: '600',
+    fontSize:FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.medium,
   },
 
   card: {

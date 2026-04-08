@@ -6,6 +6,7 @@ export type RootStackParamList = {
   AddJob: { job?: Job; isEdit?: boolean };
   JobDetails: { job: Job };
   Tabs: undefined;
+  Settings: undefined;
 };
 
 export type Job = {
