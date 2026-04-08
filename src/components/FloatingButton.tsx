@@ -154,7 +154,7 @@ export const FloatingButton: React.FC<FloatingButtonProps> = ({
               size={FONTS.sizes.md}
               color={Colors.primary}
             />
-            <Text style={styles.optionText}>Add Job</Text>
+            <Text style={styles.optionText}>Add New Job</Text>
           </TouchableOpacity>
         </Animated.View>
 
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   optionText: {
     marginLeft: 10,
     fontSize: FONTS.sizes.sm,
-    fontFamily: FONTS.fontFamily.regular,
-    color: '#333',
+    fontFamily: FONTS.fontFamily.medium,
+    color: Colors.primary,
   },
 });

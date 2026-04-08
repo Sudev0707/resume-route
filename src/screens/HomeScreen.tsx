@@ -13,15 +13,17 @@ import { FloatingButton } from '../components/FloatingButton';
 import { HomeStyles } from './styles/HomeStyles';
 import PerformanceCard from '../components/PerformanceCard';
 import { OverviewGrid, OverviewView } from '../components/OverviewView';
+import NextInterview from '../components/NextInterview';
 
 export const HomeScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [hasInterview, setHasInterview] = useState(true);
   return (
     <>
       <View style={{ flex: 1, backgroundColor: Colors.primary }}>
         <StatusBar
           backgroundColor={Colors.primary}
-          barStyle="light-content"
+          barStyle="dark-content"
           translucent
         />
         <SafeAreaView
@@ -30,7 +32,7 @@ export const HomeScreen: React.FC = () => {
         >
           {/* ========= TOP HEADER ========= */}
           <View style={HomeStyles.header}>
-              <Text style={HomeStyles.appName}>Resumeroute</Text>
+            <Text style={HomeStyles.appName}>Resumeroute</Text>
             {/* <Text style={HomeStyles.greeting}>Good morning 👋</Text> */}
             {/* <Text style={HomeStyles.userName}>Alex Morgan</Text> */}
             {/* <Text style={HomeStyles.userRole}>Senior Frontend Engineer</Text> */}
@@ -42,9 +44,20 @@ export const HomeScreen: React.FC = () => {
             bounces={true}
             keyboardShouldPersistTaps="handled"
           >
-            {/* ========= OVERVIEW SECTION ========= */}
-         
-           
+            <NextInterview
+              hasUpcomingInterview={hasInterview}
+              companyName="Spotify"
+              position="Senior Product Designer"
+              date="Tomorrow"
+              time="10:00 AM"
+              onStartPrep={() => {
+                // Navigate to prep session
+              }}
+              onScheduleInterview={() => {
+                // Navigate to schedule interview screen
+              }}
+            />
+
             {/* <View style={HomeStyles.overviewGrid}>
               <OverviewView icon="people" title="Interview Rate" value="63%" />
               <OverviewView icon="briefcase" title="Applications" value="8" />
@@ -53,13 +66,13 @@ export const HomeScreen: React.FC = () => {
             </View> */}
 
             <PerformanceCard
-              activeImpactPercentage={63}
+              activeImpactPercentage={60}
               applicationsSent={8}
               interviewRate={8}
               isLoading={isLoading}
             />
 
-             {/* <View style={HomeStyles.sectionRow}>
+            {/* <View style={HomeStyles.sectionRow}>
               <Feather name="trending-up" size={20} color={Colors.primary} />
               <Text style={HomeStyles.sectionTitle}>Performance Overview</Text>
             </View> */}
@@ -71,12 +84,12 @@ export const HomeScreen: React.FC = () => {
                 value="24"
                 color="#4ecdc4"
               />
-              <OverviewView
+              {/* <OverviewView
                 icon="message-circle"
                 title="Responses"
                 value="12"
                 color="#6c63ff"
-              />
+              /> */}
               <OverviewView
                 icon="users"
                 title="Interviews"

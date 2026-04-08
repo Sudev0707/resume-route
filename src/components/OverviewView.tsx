@@ -56,8 +56,10 @@ const OverviewView = ({
       </View>
 
       {/* Value and Title */}
-      <Text style={[styles.value, { color: getValueColor() }]}>{value}</Text>
-      <Text style={styles.title}>{title}</Text>
+      <View style={{}}>
+        <Text style={[styles.value, { color: getValueColor() }]}>{value}</Text>
+        <Text style={styles.title}>{title}</Text>
+      </View>
 
       {/* Optional Trend Indicator */}
       {trend !== undefined && (
@@ -88,16 +90,16 @@ const OverviewGrid = ({ children }: { children: React.ReactNode }) => (
 
 const styles = StyleSheet.create({
   gridContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
+    // flexWrap: 'wrap',
     justifyContent: 'space-between',
     // marginHorizontal: 20,
     marginVertical: 16,
-    gap: 15,
+    gap: 10,
     // padding: 16,
     borderRadius: 20,
     // backgroundColor: Colors.purpleSoft,
-     // Shadow for iOS
+    // Shadow for iOS
     // shadowColor: '#10073a5c',
     // shadowOffset: { width: 0, height: 8 },
     // shadowOpacity: 0.3,
@@ -106,10 +108,11 @@ const styles = StyleSheet.create({
   },
   overviewCard: {
     // width: (width - 82) / 2,
-    width: '48%',
+    // width: '48%',
+    flexDirection: 'row',
     backgroundColor: Colors.background,
     borderRadius: 20,
-    padding: 16,
+    padding: 14,
     alignItems: 'center',
     // backdropFilter: 'blur(10px)',
     // Shadow for iOS
@@ -120,6 +123,7 @@ const styles = StyleSheet.create({
     // Shadow for Android
     elevation: 2,
     // borderWidth:0.8
+    gap:9
   },
   iconContainer: {
     width: 48,
@@ -127,20 +131,22 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 12,
+    // marginBottom: 12,
   },
   value: {
-    fontSize: FONTS.sizes.xxl,
+    fontSize: FONTS.sizes.xl,
     fontFamily: FONTS.fontFamily.semibold,
-    marginBottom: 4,
+    // marginBottom: 4,
     letterSpacing: 0.5,
+      // borderWidth:0.8
   },
   title: {
-    fontSize: FONTS.sizes.sm,
-    fontFamily: FONTS.fontFamily.semibold,
+    fontSize: FONTS.sizes.xs,
+    fontFamily: FONTS.fontFamily.medium,
     color: '#8a8a9e',
     textAlign: 'center',
     letterSpacing: 0.3,
+      // borderWidth:0.8
   },
   trendContainer: {
     flexDirection: 'row',

@@ -4,17 +4,20 @@ import { Colors, FONTS } from '../../constants';
 export const HomeStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.purpleSoft,
   },
   contentContainer: {
     backgroundColor: Colors.offWhite,
     paddingHorizontal: 15,
   },
   header: {
-    padding: 20,
-    backgroundColor: Colors.primary,
+    paddingHorizontal: 20,
+    paddingVertical:10,
+    backgroundColor: Colors.purpleSoft,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    borderBottomWidth:0.8,
+    borderColor:Colors.border
   },
   welcomeSection: {
     paddingHorizontal: 20,
@@ -61,9 +64,9 @@ export const HomeStyles = StyleSheet.create({
     letterSpacing: 0.3,
   },
   appName: {
-    color: Colors.offWhite,
-    fontSize: FONTS.sizes.xl,
-    fontFamily: FONTS.fontFamily.medium,
+    color: '#1a1a2e',
+    fontSize: FONTS.sizes.xxl,
+    fontFamily: FONTS.fontFamily.semibold,
     // marginTop: 4,
   },
   greeting: { color: '#fff', fontSize: 14 },

@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import { Colors, FONTS } from '../constants';
 
 const { width } = Dimensions.get('window');
 
@@ -45,7 +46,9 @@ const PerformanceCard: React.FC<PerformanceCardProps> = ({
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Performance Overview</Text>
-          <Text style={styles.subtitle}>Tracking your metrics for success.</Text>
+          <Text style={styles.subtitle}>
+            Tracking your metrics for success.
+          </Text>
         </View>
 
         {/* Circular Progress Section */}
@@ -63,8 +66,10 @@ const PerformanceCard: React.FC<PerformanceCardProps> = ({
                   styles.progressRing,
                   {
                     borderTopColor: progress > 0.25 ? '#6c63ff' : 'transparent',
-                    borderRightColor: progress > 0.5 ? '#6c63ff' : 'transparent',
-                    borderBottomColor: progress > 0.75 ? '#6c63ff' : 'transparent',
+                    borderRightColor:
+                      progress > 0.5 ? '#6c63ff' : 'transparent',
+                    borderBottomColor:
+                      progress > 0.75 ? '#6c63ff' : 'transparent',
                     borderLeftColor: progress > 0 ? '#6c63ff' : 'transparent',
                     transform: [{ rotate: '-45deg' }],
                   },
@@ -134,74 +139,78 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginVertical: 16,
     // Shadow for iOS
-    shadowColor: '#000',
+    shadowColor: '#898989',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,
     shadowRadius: 12,
     // Shadow for Android
-    elevation: 10,
+    elevation: 6,
   },
   gradientBackground: {
     paddingVertical: 24,
     paddingHorizontal: 20,
     borderRadius: 28,
     backgroundColor: '#1a1a2e',
+    // backgroundColor: '#f1e9ff',
   },
   header: {
     marginBottom: 24,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
+    fontSize: 20,
+    fontFamily: FONTS.fontFamily.medium,
     color: '#ffffff',
     letterSpacing: 0.5,
     marginBottom: 4,
   },
   subtitle: {
-    fontSize: 14,
-    color: '#8a8a9e',
+    fontSize: FONTS.sizes.sm,
+    fontFamily: FONTS.fontFamily.regular,
+    color: '#848494',
     letterSpacing: 0.3,
   },
   progressSection: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 16,
+    marginVertical: 14,
   },
   circularProgressContainer: {
-    width: 180,
-    height: 180,
+    width: 150,
+    height: 150,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
   },
   circleBackground: {
     position: 'absolute',
-    width: 160,
-    height: 160,
+    width: 150,
+    height: 150,
     borderRadius: 80,
     backgroundColor: 'rgba(108, 99, 255, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   circleInner: {
-    width: 140,
-    height: 140,
+    width: 122,
+    height: 122,
     borderRadius: 70,
     backgroundColor: '#1a1a2e',
+    // backgroundColor: '#f5f0ff',
+    // paddingVertical:9
   },
   progressRingWrapper: {
     position: 'absolute',
-    width: 180,
-    height: 180,
+    width: 160,
+    height: 160,
     borderRadius: 90,
     justifyContent: 'center',
     alignItems: 'center',
   },
   progressRing: {
-    width: 160,
-    height: 160,
+    width: 150,
+    height: 150,
     borderRadius: 80,
-    borderWidth: 8,
+    borderWidth: 12,
     borderColor: '#6c63ff',
     position: 'absolute',
   },
@@ -211,14 +220,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   percentageValue: {
-    fontSize: 42,
-    fontWeight: '800',
-    color: '#ffffff',
+    fontSize: 40,
+    fontFamily: FONTS.fontFamily.medium,
+    color: Colors.purpleSoft,
     letterSpacing: 1,
+    padding:0,
+    // borderWidth:0.8,
+    height:50
   },
   percentageLabel: {
-    fontSize: 12,
-    color: '#8a8a9e',
+    fontSize: 9,
+    fontFamily: FONTS.fontFamily.medium,
+    color: '#848494',
     marginTop: 4,
     textTransform: 'uppercase',
     letterSpacing: 1,
@@ -226,6 +239,7 @@ const styles = StyleSheet.create({
   metricsContainer: {
     flexDirection: 'row',
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    // backgroundColor: 'rgb(232, 222, 253)',
     borderRadius: 20,
     marginTop: 24,
     marginBottom: 8,
@@ -247,19 +261,21 @@ const styles = StyleSheet.create({
   },
   metricValue: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#ffffff',
+    fontFamily: FONTS.fontFamily.medium,
+    color: Colors.purpleSoft,
     textAlign: 'center',
     marginBottom: 4,
   },
   metricLabel: {
     fontSize: 12,
-    color: '#8a8a9e',
+    fontFamily: FONTS.fontFamily.medium,
+    color: '#848494',
     textAlign: 'center',
   },
   divider: {
-    width: 1,
+    width: 2,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    // backgroundColor: 'rgba(6, 1, 23, 0.07)',
     marginVertical: 8,
   },
   emptyStateContainer: {
